@@ -9,10 +9,10 @@ namespace Business.ViewModels
     public class HomeVM
     {
         public Welcome Welcome { get; set; }
-        public List<Card> Cards { get; set; }
-
-        public List<Doctor> Doctors { get; set; }
-        public List<Departament> Departaments { get; set; }
+        public IEnumerable<Card> Cards { get; set; }
+        public Dictionary<string, string> Setting { get; set; }
+        public IEnumerable<Doctor> Doctors { get; set; }
+        public IEnumerable<Departament> Departaments { get; set; }
 
 
     }

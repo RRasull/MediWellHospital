@@ -1,4 +1,5 @@
 ﻿using Business.ViewModels;
+using Core;
 using Data.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,20 +12,25 @@ namespace MediWellHospital.Controllers
 {
     public class HomeController : Controller
     {
-        private AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(AppDbContext context)
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
+
         }
         public async Task<IActionResult> Index()
         {
             HomeVM homeVM = new HomeVM
             {
-                Welcome = _context.Welcome.Where(w => w.IsDeleted == false).FirstOrDefault(),
-                Cards =await _context.Cards.Where(c => c.IsDeleted == false).OrderByDescending(d => d.Id).Take(4).ToListAsync(),
-                Departaments = await _context.Departaments.Where(d => d.IsDeleted == false).OrderByDescending(d=>d.Id).Take(8).ToListAsync(),
-                Doctors = await _context.Doctors.Where(d => d.IsDeleted == false).ToListAsync()
+                Welcome = await _unitOfWork.welcomeRepository.GetAsync(W=>W.IsDeleted==false),
+                Cards = await _unitOfWork.cardRepository.Take(4,c=>c.IsDeleted==false),
+                Departaments = await _unitOfWork.departmentRepository.Take(8,d=>d.IsDeleted==false),
+                Doctors = await _unitOfWork.doctorRepository.GetAllAsync(d=>d.IsDeleted==false),
+                Setting = _unitOfWork.settingRepository.GetSetting()
+
+
+
             };
             return View(homeVM);
         }

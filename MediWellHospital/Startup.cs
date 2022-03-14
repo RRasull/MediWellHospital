@@ -1,12 +1,21 @@
+using Business.Implementations;
+using Business.Interfaces;
+using Business.Profiles;
+using Business.Validators.DoctorValidators;
 using Core;
+using Core.Models;
 using Data;
 using Data.DAL;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace MediWellHospital
 {
@@ -22,13 +31,47 @@ namespace MediWellHospital
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup));
+            services.AddMvc().AddFluentValidation(fv => {
+                fv.DisableDataAnnotationsValidation = true;
+            });
+            services.AddMapperService();
             services.AddControllersWithViews();
 
             services.AddDbContext<AppDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultDatabase")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDoctorService, DoctorService>();
+
+            services.AddIdentity<User, IdentityRole>()
+                    .AddEntityFrameworkStores<AppDbContext>()
+                    .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(identityOptions =>
+            {
+                identityOptions.Password.RequiredLength = 8;
+                identityOptions.Password.RequireNonAlphanumeric = true;
+                identityOptions.Password.RequireUppercase = true;
+                identityOptions.Password.RequireLowercase = true;
+                identityOptions.Password.RequireDigit = true;
+
+                identityOptions.User.RequireUniqueEmail = true;
+
+                //identityOptions.Lockout.MaxFailedAccessAttempts = 3;
+                //identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                //identityOptions.Lockout.AllowedForNewUsers = true;
+
+
+
+            })
+                ;
+
+            services.AddAuthentication()
+                    .AddGoogle(options => {
+                        options.ClientId = "489592843078-n74lkl4c0pmkeh06qouo4842pbuitno2.apps.googleusercontent.com";
+                        options.ClientSecret = "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";
+                    });
+                    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +96,10 @@ namespace MediWellHospital
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                   name: "default",
+                   pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -10,6 +10,8 @@ namespace Data.Configurations
         {
             builder.Property(w => w.Title).IsRequired().HasMaxLength(255);
             builder.Property(w => w.Content).IsRequired().HasMaxLength(255);
+            builder.Property(w => w.Content).IsRequired();
+
             builder.Property(w => w.IsDeleted).IsRequired().HasDefaultValue(false);
 
         }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Business.ViewModels.DoctorVM;
+using Business.ViewModels.WelcomeVM;
 using Core.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,14 @@ namespace Business.Profiles
     {
         public Mapper()
         {
-            CreateMap<Doctor, DoctorCreateUpdateVM>().ReverseMap();
+            CreateMap<Doctor, DoctorCreateVM>().ReverseMap();
+            CreateMap<Doctor, DoctorUpdateVM>().ReverseMap();
+            CreateMap<Doctor, DoctorGetVM>().ReverseMap();
+
+
+
+
+
         }
     }
 }

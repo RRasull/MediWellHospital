@@ -17,6 +17,11 @@ namespace Core.Models
         public string Description { get; set; }
         public string Education { get; set; }
         public string WorkingHours { get; set; }
+        public double Fees { get; set; }
+        public string Splztion { get; set; }
+
+        public Gender Gender { get; set; }
+
 
 
 
@@ -34,6 +39,8 @@ namespace Core.Models
             Appointments = new Collection<Appointment>();
         }
         public ICollection<Appointment> Appointments { get; set; }
+
+
 
     }
 }

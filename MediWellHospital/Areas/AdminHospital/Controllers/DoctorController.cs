@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using Business.ViewModels.DoctorVM;
 using Core;
+using Core.Models;
 using Data.DAL;
+using Business.Utilities.Helper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using Core.Interfaces;
+using Business.Interfaces;
 
 namespace MediWellHospital.Areas.AdminHospital.Controllers
 {
@@ -16,19 +20,26 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
     public class DoctorController : Controller
     {
-        private IUnitOfWork _unitOfWork;
-        private IWebHostEnvironment _env;
-        private IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
+        private readonly IMapper _mapper;
+        private readonly IDoctorService _doctorService;
 
-        public DoctorController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IMapper mapper)
+        private readonly Dictionary<string, string> _setting;
+
+        public DoctorController(IUnitOfWork unitOfWork,  IWebHostEnvironment env, IMapper mapper, IDoctorService doctorService)
         {
             _unitOfWork = unitOfWork;
             _env = env;
             _mapper = mapper;
+            _setting = _unitOfWork.settingRepository.GetSetting();
+            _doctorService = doctorService;
         }
         public async Task<IActionResult> Index()
         {
-            return View(await _unitOfWork.doctorRepository.GetAllAsync(d => d.IsDeleted == false));
+             
+            return View(await _doctorService.GetAllAsync());
+
         }
 
         public IActionResult Create()
@@ -39,11 +50,114 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Create(DoctorCreateUpdateVM createVM)
+        public async Task<IActionResult> Create(DoctorCreateVM createVM)
         {
-            if (!ModelState.IsValid) return View();
+            if (!createVM.Photo.CheckContent(_setting["fileType"]))
+            {
+                ModelState.AddModelError("Photo", _setting["errorContentType"]);
+                return View();
+            }
 
-            return View();
+            if (!createVM.Photo.CheckLength(int.Parse(_setting["maxLengthOfFile"])))
+            {
+                ModelState.AddModelError("Photo", _setting["errorFileLength"]);
+                return View();
+            }
+
+
+            //string fileName = await createVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
+            //Doctor doctor = _mapper.Map<Doctor>(createVM);
+
+            //doctor.Image = fileName;
+
+
+            //await _unitOfWork.doctorRepository.CreateAsync(doctor);
+            //await _unitOfWork.SaveAsync();
+
+            await _doctorService.CreateAsync(createVM);
+ 
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Update(int id)
+        {
+            DoctorUpdateVM doctorUpdateVM = _doctorService.Update(id);
+            return View(doctorUpdateVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int id, DoctorUpdateVM doctorUpdateVM)
+        {
+            if (!ModelState.IsValid) return View(doctorUpdateVM);
+            if (id != doctorUpdateVM.Id) return BadRequest();
+            var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+            if (dbDoctor is null) return NotFound();
+
+            if (!doctorUpdateVM.Photo.CheckContent(_setting["fileType"]))
+            {
+                ModelState.AddModelError("Photo", _setting["errorContentType"]);
+                return View();
+            }
+
+            if (!doctorUpdateVM.Photo.CheckLength(int.Parse(_setting["maxLengthOfFile"])))
+            {
+                ModelState.AddModelError("Photo", _setting["errorFileLength"]);
+                return View();
+            }
+
+            //var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Doctors", doctorVM.Photo.FileName);
+
+
+            //if (System.IO.File.Exists(oldPath))
+            //{
+            //    System.IO.File.Delete(oldPath);
+            //}
+
+            //string fileName = await doctorVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
+
+
+            //dbDoctor.Name = doctorVM.Name;
+            //dbDoctor.Surname = doctorVM.Surname;
+            //dbDoctor.WorkingHours = doctorVM.WorkingHours;
+            //dbDoctor.Description = doctorVM.Description;
+            //dbDoctor.Address = doctorVM.Address;
+            //dbDoctor.Education = doctorVM.Education;
+            //dbDoctor.EmailAddress = doctorVM.EmailAddress;
+            //dbDoctor.Fees = doctorVM.Fees;
+            //dbDoctor.Gender = doctorVM.Gender;
+            //dbDoctor.Splztion = doctorVM.Splztion;
+            //dbDoctor.Phone = doctorVM.Phone;
+            //dbDoctor.Departament = doctorVM.Departament;
+
+
+
+            //dbDoctor.Image = fileName;
+
+            //await _unitOfWork.SaveAsync();
+
+            await _doctorService.UpdateAsync(id, doctorUpdateVM);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            //var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+
+            //if (dbDoctor is null) return NotFound();
+
+
+            //dbDoctor.Photo.RemoveFileAsync(_env.WebRootPath, "assets/images/Doctors", dbDoctor.Image);
+
+            //dbDoctor.IsDeleted = true;
+
+            //await _unitOfWork.SaveAsync();
+            await _doctorService.RemoveAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
+
 }

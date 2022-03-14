@@ -1,4 +1,5 @@
 ﻿@using Business.ViewModels
+@model HomeVM
 @{
     ViewData["Title"] = "Index";
 }
@@ -80,9 +81,9 @@
         <div class="container" data-aos="zoom-in">
 
             <div class="text-center">
-                <h3>Dərhal qeydiyyatdan keçib təyinat götürmək istəyirsiniz?</h3>
+                <h3>In an emergency? Need help now?</h3>
                 <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <a class="cta-btn scrollto" href="#appointment">Görüş təyin et</a>
+                <a class="cta-btn scrollto" href="#appointment">Make an Make an Appointment</a>
             </div>
 
         </div>
@@ -339,89 +340,68 @@
         </div>
     </section>
     <!--Doctors Section End-->
-    <!--Pricing Section Start-->
-    <section id="Pricing">
-        <div class="container my-5">
-            <div class="section-title">
-                <h2>Pricing</h2>
-
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia esse dolor expedita aut animi pariatur, non in. Quae, cum ipsum.</p>
-            </div>
-
+    <!-- ======= CommentSlider Section Start======= -->
+    <section id="our-testimonial" class="padding">
+        <div class="container-fluid">
             <div class="row">
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="box" data-aos="fade-up" data-aos-delay="100">
-                        <h3>Free</h3>
-                        <h4><sup>$</sup>0<span> / month</span></h4>
-                        <ul>
-                            <li>Aida dere</li>
-                            <li>Nec feugiat nisl</li>
-                            <li>Nulla at volutpat dola</li>
-                            <li class="na">Pharetra massa</li>
-                            <li class="na">Massa ultricies mi</li>
-                        </ul>
-                        <div class="btn-wrap">
-                            <a href="#" class="btn-buy">Buy Now</a>
+                <div class="col-md-12 col-sm-12 text-center">
+                    <div class="heading-title bottom30 wow fadeInUp" data-wow-delay="300ms">
+                        <h2 class="darkcolor">Klinikamız Haqda Şərhlər</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div id="testimonial-slider" class="owl-carousel">
+                        <div class="item">
+                            <div class="testimonial-wrapp">
+                                <span class="quoted"><i class="fa fa-quote-right"></i></span>
+                                <div class="testimonial-text">
+                                    <p class="bottom40">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis eius voluptatum porro illo sed inventore exercitationem earum. Esse, harum non!</p>
+                                </div>
+                                <div class="testimonial-photo"><img alt="" src="/assets/images/Patients/patient-1.jpg"></div>
+                                <h4 class="darkcolor">Sam David</h4>
+                                <small class="defaultcolor">Businessman</small>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimonial-wrapp">
+                                <span class="quoted"><i class="fa fa-quote-right"></i></span>
+                                <div class="testimonial-text">
+                                    <p class="bottom40">Donec semper euismod nisi quis feugiat. Nullam finibus metus eget orci volutpat porta. Morbi quis arcu vulputate, dignissim mi ac, varius magna.</p>
+                                </div>
+                                <div class="testimonial-photo"><img alt="" src="images/testimonial-2.jpg"></div>
+                                <h4 class="darkcolor">Jams Shah</h4>
+                                <small class="defaultcolor">Businessman</small>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimonial-wrapp">
+                                <span class="quoted"><i class="fa fa-quote-right"></i></span>
+                                <div class="testimonial-text">
+                                    <p class="bottom40">Donec semper euismod nisi quis feugiat. Nullam finibus metus eget orci volutpat porta. Morbi quis arcu vulputate, dignissim mi ac, varius magna.</p>
+                                </div>
+                                <div class="testimonial-photo"><img alt="" src="images/testimonial-3.jpg"></div>
+                                <h4 class="darkcolor">Zubin Zucker</h4>
+                                <small class="defaultcolor">Businessman</small>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimonial-wrapp">
+                                <span class="quoted"><i class="fa fa-quote-right"></i></span>
+                                <div class="testimonial-text">
+                                    <p class="bottom40">Donec semper euismod nisi quis feugiat. Nullam finibus metus eget orci volutpat porta. Morbi quis arcu vulputate, dignissim mi ac, varius magna.</p>
+                                </div>
+                                <div class="testimonial-photo"><img alt="" src="images/testimonial-1.jpg"></div>
+                                <h4 class="darkcolor">David Zucker</h4>
+                                <small class="defaultcolor">Businessman</small>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
-                    <div class="box featured" data-aos="fade-up" data-aos-delay="200">
-                        <h3>Business</h3>
-                        <h4><sup>$</sup>19<span> / month</span></h4>
-                        <ul>
-                            <li>Aida dere</li>
-                            <li>Nec feugiat nisl</li>
-                            <li>Nulla at volutpat dola</li>
-                            <li>Pharetra massa</li>
-                            <li class="na">Massa ultricies mi</li>
-                        </ul>
-                        <div class="btn-wrap">
-                            <a href="#" class="btn-buy">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
-                    <div class="box" data-aos="fade-up" data-aos-delay="300">
-                        <h3>Developer</h3>
-                        <h4><sup>$</sup>29<span> / month</span></h4>
-                        <ul>
-                            <li>Aida dere</li>
-                            <li>Nec feugiat nisl</li>
-                            <li>Nulla at volutpat dola</li>
-                            <li>Pharetra massa</li>
-                            <li>Massa ultricies mi</li>
-                        </ul>
-                        <div class="btn-wrap">
-                            <a href="#" class="btn-buy">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
-                    <div class="box" data-aos="fade-up" data-aos-delay="400">
-                        <span class="advanced">Advanced</span>
-                        <h3>Ultimate</h3>
-                        <h4><sup>$</sup>49<span> / month</span></h4>
-                        <ul>
-                            <li>Aida dere</li>
-                            <li>Nec feugiat nisl</li>
-                            <li>Nulla at volutpat dola</li>
-                            <li>Pharetra massa</li>
-                            <li>Massa ultricies mi</li>
-                        </ul>
-                        <div class="btn-wrap">
-                            <a href="#" class="btn-buy">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
-    <!--Pricing Section End-->
+    <!-- ======= CommentSlider Section End======= -->
 </main>
 

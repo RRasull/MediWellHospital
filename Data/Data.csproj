@@ -11,10 +11,18 @@
     <Compile Remove="Migrations\20220307181842_CreateAppointmentDepartmentDoctorPatientTable.Designer.cs" />
     <Compile Remove="Migrations\20220307232904_CreateWelcomeTable.cs" />
     <Compile Remove="Migrations\20220307232904_CreateWelcomeTable.Designer.cs" />
+    <Compile Remove="Migrations\20220309104428_AddGenderFeesSplztionToDoctorTable.cs" />
+    <Compile Remove="Migrations\20220309104428_AddGenderFeesSplztionToDoctorTable.Designer.cs" />
+    <Compile Remove="Migrations\20220309105542_AddGenderFeesSplztionToDoctorTable.cs" />
+    <Compile Remove="Migrations\20220309105542_AddGenderFeesSplztionToDoctorTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.22">
       <PrivateAssets>all</PrivateAssets>

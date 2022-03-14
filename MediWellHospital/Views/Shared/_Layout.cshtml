@@ -50,7 +50,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link scrollto hover-underline-animation" href="./index.html">Ana səhifə </a>
+                            <a class="nav-link scrollto hover-underline-animation" asp-controller="Home" asp-action="Index" >Ana səhifə </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link scrollto hover-underline-animation" href="#Departaments">Departamentlər</a>
@@ -62,12 +62,12 @@
                             <a class="nav-link scrollto hover-underline-animation" href="#Doctors">Həkimlər</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link scrollto hover-underline-animation" href="./contact.html">Əlaqə</a>
+                            <a class="nav-link scrollto hover-underline-animation" asp-controller="Home" asp-action="Contact"  >Əlaqə</a>
                         </li>
                     </ul>
                 </div>
 
-                <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Görüş təyin</span> et</a>
+                <a asp-controller="Home" asp-action="Contact" class="appointment-btn scrollto"><span class="d-none d-md-inline">Görüş təyin</span> et</a>
             </div>
         </div>
 

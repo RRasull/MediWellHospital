@@ -1,0 +1,16 @@
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\bin\Debug\netcoreapp3.1\Data.deps.json
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\bin\Debug\netcoreapp3.1\Data.dll
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\bin\Debug\netcoreapp3.1\Data.pdb
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\obj\Debug\netcoreapp3.1\Data.csproj.AssemblyReference.cache
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\obj\Debug\netcoreapp3.1\Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfoInputs.cache
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfo.cs
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\obj\Debug\netcoreapp3.1\Data.csproj.CoreCompileInputs.cache
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\obj\Debug\netcoreapp3.1\Data.dll
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\obj\Debug\netcoreapp3.1\Data.pdb
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\bin\Debug\netcoreapp3.1\Core.dll
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\bin\Debug\netcoreapp3.1\Core.pdb
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\obj\Debug\netcoreapp3.1\Data.csproj.CopyComplete
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.json
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.dev.json
+C:\Users\Rasul\source\repos\HospitalManagementMediWell\Data\obj\Debug\netcoreapp3.1\Data.genruntimeconfig.cache

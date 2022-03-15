@@ -83,9 +83,35 @@ namespace Business.Implementations
         }
 
 
-        public async Task<IEnumerable<Doctor>> GetAllAsync()
+        public async Task<List<DoctorGetVM>> GetAllAsync()
         {
-            return (await _unitOfWork.doctorRepository.GetAllAsync(d => !d.IsDeleted));
+            var dbDoctor= await _unitOfWork.doctorRepository.GetAllAsync(d => !d.IsDeleted);
+
+
+            List<DoctorGetVM> doctorVM = new List<DoctorGetVM>();
+
+            foreach (var doctor in dbDoctor)
+            {
+                DoctorGetVM readVM = new DoctorGetVM
+                {
+                   Id = doctor.Id,
+                   Name = doctor.Name,
+                   Surname = doctor.Surname,
+                   Address = doctor.Address,
+                   Description = doctor.Address,
+                   Education = doctor.Education,
+                   EmailAddress = doctor.EmailAddress,
+                   Image = doctor.Image ,
+                   Phone = doctor.Phone,
+                   Gender = doctor.Gender,
+                   Fees = doctor.Fees,
+                   WorkingHours = doctor.WorkingHours,
+                   Splztion = doctor.Splztion
+                };
+
+                doctorVM.Add(readVM);
+            }
+            return doctorVM;
         }
 
         public Task<Doctor> GetAsync(int id)

@@ -234,6 +234,18 @@ nav{
     color: #fff;
 }
 
+.login-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    margin-left: 1rem;
+}
+
+.login-area i {
+    color: var(--main-color);
+}
+
 @media (max-width: 991px) {
   .navbar-toggler {
     display: block;

@@ -9,7 +9,7 @@ namespace Business.Interfaces
 {
    public interface IDoctorService
     {
-        Task<IEnumerable<Doctor>> GetAllAsync();
+        Task<List<DoctorGetVM>> GetAllAsync();
         Task<Doctor> GetAsync(int id);
         Task CreateAsync(DoctorCreateVM createVM);
         DoctorUpdateVM Update(int id);

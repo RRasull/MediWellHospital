@@ -39,9 +39,25 @@ namespace Business.Implementations
 
        
 
-        public async Task<List<Departament>> GetAllAsync()
+        public async Task<List<DepartmentGetVM>> GetAllAsync()
         {
-            return (await _unitOfWork.departmentRepository.GetAllAsync(d => !d.IsDeleted));
+            var dbDepartments = await _unitOfWork.departmentRepository.GetAllAsync(d => !d.IsDeleted);
+
+
+            List<DepartmentGetVM> departmentVM = new List<DepartmentGetVM>();
+
+            foreach (var category in dbDepartments)
+            {
+                DepartmentGetVM readVM = new DepartmentGetVM
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Image = category.Image
+                };
+
+                departmentVM.Add(readVM);
+            }
+            return departmentVM;
         }
 
         public Task<Departament> GetAsync(int id)
@@ -54,7 +70,6 @@ namespace Business.Implementations
             
         //}
 
-        
 
         public DepartmentUpdateVM Update(int id)
         {

@@ -9,7 +9,7 @@ namespace Business.Interfaces
 {
    public interface IDepartmentService
     {
-        Task<List<Departament>> GetAllAsync();
+        Task<List<DepartmentGetVM>> GetAllAsync();
         Task<Departament> GetAsync(int id);
         Task CreateAsync(DepartmentCreateVM createVM);
         DepartmentUpdateVM Update(int id);

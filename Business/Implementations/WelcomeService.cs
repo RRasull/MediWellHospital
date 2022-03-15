@@ -37,13 +37,21 @@ namespace Business.Implementations
 
         }
 
-        public async Task<IEnumerable<Welcome>> GetAllAsync()
+        public async Task<List<Welcome>> GetAllAsync()
         {
 
             return (await _unitOfWork.welcomeRepository.GetAllAsync(d => !d.IsDeleted));
 
         }
 
+        public async Task<Welcome> GetAsync(int id)
+        {
+
+            var dbWelcome = await _unitOfWork.welcomeRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+
+            if (dbWelcome is null) throw new NullReferenceException();
+            return dbWelcome;
+        }
 
         public async Task RemoveAsync(int id) 
         {

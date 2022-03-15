@@ -21,8 +21,6 @@ namespace Business.ViewModels.DoctorVM
         public string Splztion { get; set; }
         public Gender Gender { get; set; }
 
-        public Dictionary<string, string> Setting { get; set; }
-
 
 
 
@@ -31,7 +29,6 @@ namespace Business.ViewModels.DoctorVM
         public int? DepartamentId { get; set; }
         public Departament Departament { get; set; }
 
-        public ICollection<Appointment> Appointments { get; set; }
 
     }
 }

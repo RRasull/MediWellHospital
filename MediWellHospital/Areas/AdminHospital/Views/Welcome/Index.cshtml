@@ -1,0 +1,47 @@
+﻿@using Business.ViewModels.Auth
+@model Welcome
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Team Table</h4>
+            <div class="table-responsive">
+                <a asp-action="Create" class="btn btn-success">Create</a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>WhyUs</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            
+                            <td>@Model.Title</td>
+                            <td>@Model.Content<</td>
+                            <td>@Model.WhyUs<</td>
+
+
+                            <td>
+                                <a class="btn btn-warning" asp-controller="Doctor" asp-action="Update" asp-route-id="@Model.Id">Update</a>
+
+                                <form method="post" asp-action="Doctor">
+                                    <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</button>
+                                </form>
+
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

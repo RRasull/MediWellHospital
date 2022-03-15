@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using static Business.Utilities.Helper.Helper;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace MediWellHospital.Controllers
@@ -17,14 +18,18 @@ namespace MediWellHospital.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
         private IConfiguration _configuration { get; }
 
         public AccountController(UserManager<User> userManager,
                                       SignInManager<User> signInManager,
+                                      RoleManager<IdentityRole> roleManager,
                                       IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _configuration = configuration;
         }
 
@@ -46,7 +51,7 @@ namespace MediWellHospital.Controllers
 
             };
 
-            var userEmail = await _userManager.FindByEmailAsync(user.Email);
+            User userEmail = await _userManager.FindByEmailAsync(user.Email);
 
             if (userEmail != null)
             {
@@ -56,7 +61,7 @@ namespace MediWellHospital.Controllers
 
             
 
-            IdentityResult identityResult = await _userManager.CreateAsync(user, register.Password);
+            var identityResult = await _userManager.CreateAsync(user, register.Password);
 
 
             if (!identityResult.Succeeded)
@@ -68,11 +73,14 @@ namespace MediWellHospital.Controllers
                 return View(register);
             }
 
+            await _userManager.AddToRoleAsync(user, UserRoles.Admin.ToString());
+
             await _signInManager.SignInAsync(user, isPersistent: false);
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = register.Email }, Request.Scheme);
-            EmailHelper emailHelper = new EmailHelper(_configuration.GetSection("EmailConfirmation:fromEmail").Value, _configuration.GetSection("EmailConfirmation:fromPassword").Value);
+            EmailHelper emailHelper = new EmailHelper();
+
             bool emailResponse = emailHelper.SendEmail(register.Email, confirmationLink);
 
             if (emailResponse)
@@ -89,27 +97,46 @@ namespace MediWellHospital.Controllers
             return View();
         }
 
+       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM loginVM,string ReturnUrl)
         {
             if (!ModelState.IsValid) return View();
 
-            var user = await _userManager.FindByEmailAsync(loginVM.Email);
+            User user = await _userManager.FindByEmailAsync(loginVM.Email);
 
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Email or password is wrong");
+                ModelState.AddModelError(String.Empty, "E-posta veya şifre yanlışdır");
                 return View(loginVM);
             }
 
-            SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, loginVM.Password, loginVM.RememberMe, true);
+            if (!user.IsActivated)
+            {
+                ModelState.AddModelError(String.Empty, "Hesabınızı aktivləşdirin");
+                return View(loginVM);
+            }
 
+            var signInResult = await _signInManager.PasswordSignInAsync(user ,loginVM.Password, loginVM.RememberMe, false);
+
+            bool emailStatus = await _userManager.IsEmailConfirmedAsync(user);
+            if (emailStatus == false)
+            {
+                ModelState.AddModelError(nameof(loginVM.Email), "E-poçt təsdiqlənməyib, əvvəlcə onu təsdiqləyin");
+            }
+
+            if (signInResult.IsLockedOut)
+            {
+                ModelState.AddModelError(String.Empty, "Zəhmət olmasa bir neçə dəqiqə gözləyin");
+                return View(loginVM);
+            }
 
             if (!signInResult.Succeeded)
             {
-                ModelState.AddModelError(String.Empty, "Email or password is wrong");
-                return View(user);
+                ModelState.AddModelError(String.Empty, "E-posta veya şifre yanlışdır");
+                return View(loginVM);
             }
 
             if (ReturnUrl != null)
@@ -122,7 +149,7 @@ namespace MediWellHospital.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogOut()
+        public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
 
@@ -133,7 +160,7 @@ namespace MediWellHospital.Controllers
         {
             if (token == null || email == null)
             {
-                ModelState.AddModelError(string.Empty, "Invalid operation");
+                ModelState.AddModelError(string.Empty, "Əməliyyat yanlışdır");
                 return View();
             }
             return View();
@@ -173,25 +200,34 @@ namespace MediWellHospital.Controllers
             var user = await _userManager.FindByEmailAsync(forgetVM.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Your account is incorrect");
+                ModelState.AddModelError(string.Empty, "Hesabınız yanlışdır");
                 return View();
             }
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var confirmationLink = Url.Action("ResetPassword", "Account", new { token, email = forgetVM.Email }, Request.Scheme);
-            EmailHelper emailHelper = new EmailHelper(_configuration.GetSection("EmailConfirmation:fromEmail").Value, _configuration.GetSection("EmailConfirmation:fromPassword").Value);
+            EmailHelper emailHelper = new EmailHelper();
             bool emailResponse = emailHelper.SendEmail(forgetVM.Email, confirmationLink);
 
 
             if (emailResponse)
             {
-                ModelState.AddModelError(string.Empty, "Succesed ");
+                ModelState.AddModelError(string.Empty, "Uğurla başa çatdı. ");
                 return View();
             }
 
             return View();
         }
 
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        public IActionResult SuccesSending()
+        {
+            return View();
+        }
 
         public IActionResult GoogleLogin(string returnUrl)
         {
@@ -241,6 +277,20 @@ namespace MediWellHospital.Controllers
 
             return RedirectToAction("Register");
         }
+
+
+        #region CreateRole
+        //public async Task CreateRole()
+        //{
+        //    foreach (var role in Enum.GetValues(typeof (UserRoles)))
+        //    {
+        //        if (!await _roleManager.RoleExistsAsync(role.ToString()))
+        //        {
+        //            await _roleManager.CreateAsync(new IdentityRole { Name = role.ToString() });
+        //        }
+        //    }
+        //}
+        #endregion
 
 
 

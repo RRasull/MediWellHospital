@@ -41,11 +41,16 @@ namespace MediWellHospital
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultDatabase")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+
 
             services.AddIdentity<User, IdentityRole>()
                     .AddEntityFrameworkStores<AppDbContext>()
                     .AddDefaultTokenProviders();
+
+            services.Configure<DataProtectionTokenProviderOptions>(opts => opts.TokenLifespan = TimeSpan.FromHours(10));
 
             services.Configure<IdentityOptions>(identityOptions =>
             {
@@ -61,6 +66,7 @@ namespace MediWellHospital
                 //identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
                 //identityOptions.Lockout.AllowedForNewUsers = true;
 
+                identityOptions.SignIn.RequireConfirmedEmail = true;
 
 
             })
@@ -92,6 +98,7 @@ namespace MediWellHospital
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

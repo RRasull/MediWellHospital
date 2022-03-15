@@ -219,6 +219,7 @@ nav{
 
 .appointment-btn {
     margin-left: 25px;
+    margin-right: 25px;
     background: var(--main-color);
     color: #fff;
     border-radius: 50px;
@@ -238,8 +239,14 @@ nav{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
-    margin-left: 1rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    font-size: 1rem;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
 }
 
 .login-area i {

@@ -64,17 +64,52 @@
                         <li class="nav-item">
                             <a class="nav-link scrollto hover-underline-animation" asp-controller="Home" asp-action="Contact">Əlaqə</a>
                         </li>
+
+
+
+
+
                     </ul>
                 </div>
 
-                <a asp-controller="Home" asp-action="Contact" class="appointment-btn scrollto"><span class="d-none d-md-inline">Görüş təyin</span> et</a>
+                <a asp-controller="Appointment" asp-action="Index" class="appointment-btn scrollto"><span class="d-none d-md-inline">Görüş təyin</span> et</a>
 
-                <a asp-controller="Account" asp-action="Register">
-                    <div class="login-area">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h4>@User.Identity.Name</h4>
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="profileDropdown">
 
-                        <i class="fa fa-sign-in" aria-hidden="true"></i>
-                    </div>
-                </a>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+
+                            <form method="post" asp-controller="Account">
+                                @*<button type="submit" asp-controller="Account" asp-action="LogOut" class="btn">Log Out</button>*@
+
+                                <button type="submit" asp-controller="Account" asp-action="Logout" class="dropdown-item login-area">
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                    Hesabdan Çıx
+                                </button>
+                            </form>
+
+                            
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" asp-route-ReturnUrl="@Context.Request.Path.Value">
+                        <div class="login-area">
+
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Daxil OL
+                        </div>
+                    </a>
+                }
+
+
+
+
             </div>
         </div>
 

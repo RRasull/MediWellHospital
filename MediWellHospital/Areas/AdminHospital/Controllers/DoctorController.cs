@@ -22,17 +22,13 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
-        private readonly IMapper _mapper;
         private readonly IDoctorService _doctorService;
 
-        private readonly Dictionary<string, string> _setting;
 
-        public DoctorController(IUnitOfWork unitOfWork,  IWebHostEnvironment env, IMapper mapper, IDoctorService doctorService)
+        public DoctorController(IUnitOfWork unitOfWork,  IWebHostEnvironment env, IDoctorService doctorService)
         {
             _unitOfWork = unitOfWork;
             _env = env;
-            _mapper = mapper;
-            _setting = _unitOfWork.settingRepository.GetSetting();
             _doctorService = doctorService;
         }
         public async Task<IActionResult> Index()
@@ -52,15 +48,15 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         public async Task<IActionResult> Create(DoctorCreateVM createVM)
         {
-            if (!createVM.Photo.CheckContent(_setting["fileType"]))
+            if (!createVM.Photo.CheckContent("image/"))
             {
-                ModelState.AddModelError("Photo", _setting["errorContentType"]);
+                ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");
                 return View();
             }
 
-            if (!createVM.Photo.CheckLength(int.Parse(_setting["maxLengthOfFile"])))
+            if (!createVM.Photo.CheckLength(200))
             {
-                ModelState.AddModelError("Photo", _setting["errorFileLength"]);
+                ModelState.AddModelError("Photo", "Faylın ölçüsü 200 kb-dan az olmalıdır");
                 return View();
             }
 
@@ -94,15 +90,15 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
             if (dbDoctor is null) return NotFound();
 
-            if (!doctorUpdateVM.Photo.CheckContent(_setting["fileType"]))
+            if (!doctorUpdateVM.Photo.CheckContent("image/"))
             {
-                ModelState.AddModelError("Photo", _setting["errorContentType"]);
+                ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");
                 return View();
             }
 
-            if (!doctorUpdateVM.Photo.CheckLength(int.Parse(_setting["maxLengthOfFile"])))
+            if (!doctorUpdateVM.Photo.CheckLength(200))
             {
-                ModelState.AddModelError("Photo", _setting["errorFileLength"]);
+                ModelState.AddModelError("Photo", "Faylın ölçüsü 200 kb-dan az olmalıdır");
                 return View();
             }
 

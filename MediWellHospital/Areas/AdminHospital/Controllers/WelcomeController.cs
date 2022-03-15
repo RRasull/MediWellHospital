@@ -28,11 +28,11 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             _welcomeService = welcomeService;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var dbWelcome = await _unitOfWork.welcomeRepository.GetAllAsync(w => w.IsDeleted == false);
+        
 
-            return View(await _welcomeService.GetAllAsync());
+        public async Task<IActionResult> Index(int Id)
+        {
+            return View(await _welcomeService.GetAsync(Id));
         }
 
         public IActionResult Create()

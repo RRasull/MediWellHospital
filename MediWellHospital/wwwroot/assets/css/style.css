@@ -213,6 +213,27 @@ nav{
   justify-content: space-between;
 }
 
+#header a {
+    text-decoration: none;
+}
+
+.appointment-btn {
+    margin-left: 25px;
+    background: var(--main-color);
+    color: #fff;
+    border-radius: 50px;
+    padding: 8px 25px;
+    white-space: nowrap;
+    transition: 0.3s;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.appointment-btn:hover {
+    background: var(--main-color-hover);
+    color: #fff;
+}
+
 @media (max-width: 991px) {
   .navbar-toggler {
     display: block;

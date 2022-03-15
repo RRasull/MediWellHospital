@@ -21,7 +21,7 @@
     <section id="topbar" class="d-flex align-items-center">
         <div class="container d-flex justify-content-center justify-content-md-between">
             <div class="contact-info d-flex align-items-center">
-                <i class="fas fa-envelope d-flex align-items-center"><a href="mailto:contact@example.com">@Model.Setting["hospitalEmail"]</a></i>
+                <i class="fas fa-envelope d-flex align-items-center"><a href="#">@Model.Setting["hospitalEmail"]</a></i>
                 <i class="fas fa-mobile d-flex align-items-center ms-4"><span>@Model.Setting["hospitalPhone"]</span></i>
             </div>
             <div class="social-links d-none d-md-flex align-items-center">
@@ -83,59 +83,12 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-info">
-                            <h3>Medicio</h3>
-                            <p>
-                                A108 Adam Street <br>
-                                NY 535022, USA<br><br>
-                                <strong>Phone:</strong> +1 5589 55488 55<br>
-                                <strong>Email:</strong> contact@example.com<br>
-                            </p>
-                            <div class="social-links mt-3 d-none d-md-flex align-items-center">
-                                <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
-                                <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                                <a href="#" class="youtube"><i class="fab fa-youtube"></i></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-9 col-md-6">
-                        <!-- insert map -->
-                        <!-- using a responsive iframe -->
-                        <div class="responsive-map-container">
-                            <!-- place the iframe code between here... -->
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1737.6221882978507!2d-98.48650795000005!3d29.421653200000023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865c58aa57e6a56f%3A0xf08a9ad66f03e879!2sHenry+B.+Gonzalez+Convention+Center!5e0!3m2!1sen!2sus!4v1393884854786" width="640" height="480" frameborder="0" style="border:0"></iframe>
-                            <!-- ... and here -->
-                        </div>
-                        <!-- /insert map -->
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Medicio</span></strong>. Bütün hüquqlar qorunur
-            </div>
-        </div>
-    </footer>
-    <!-- End Footer -->
-    <!-- ======= Footer ======= -->
-    <footer id="Footer">
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-info">
                             <h3>MediWell</h3>
                             <p>
-                                A108 Adam Street <br>
-                                NY 535022, USA<br><br>
-                                <strong>Phone:</strong> +1 5589 55488 55<br>
-                                <strong>Email:</strong> contact@example.com<br>
+                                @Model.Setting["hospitalAdress1"] <br>
+                                @Model.Setting["hospitalAdress2"]<br><br>
+                                <strong>Phone:</strong> @Model.Setting["hospitalPhone"]<br>
+                                <strong>Email:</strong> @Model.Setting["hospitalEmail"]<br>
                             </p>
                             <div class="social-links mt-3 d-none d-md-flex align-items-center">
                                 <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>

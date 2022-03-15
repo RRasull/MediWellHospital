@@ -12,7 +12,7 @@ namespace Business.ViewModels
         public IEnumerable<Card> Cards { get; set; }
         public Dictionary<string, string> Setting { get; set; }
         public IEnumerable<Doctor> Doctors { get; set; }
-        public IEnumerable<Departament> Departaments { get; set; }
+        public List<Departament> Departaments { get; set; }
 
 
     }

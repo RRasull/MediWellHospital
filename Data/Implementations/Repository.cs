@@ -19,6 +19,14 @@ namespace Data.Implementations
             _context = context;
         }
 
+        public TEntity Get(Expression<Func<TEntity, bool>> exp = null, params string[] includes)
+        {
+            var query = GetQuery(includes);
+            return exp is null
+                    ? query.FirstOrDefault()
+                    : query.Where(exp).FirstOrDefault();
+        }
+
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> exp = null, params string[] includes)
         {
             var query = GetQuery(includes);
@@ -27,7 +35,7 @@ namespace Data.Implementations
                 : await query.Where(exp).FirstOrDefaultAsync(); 
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> exp = null, params string[] includes)
+        public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> exp = null, params string[] includes)
         {
             var query = GetQuery(includes);
             return exp is null
@@ -35,7 +43,7 @@ namespace Data.Implementations
                 : await query.Where(exp).ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> Take(int number, Expression<Func<TEntity, bool>> exp = null, params string[] includes)
+        public async Task<List<TEntity>> Take(int number, Expression<Func<TEntity, bool>> exp = null, params string[] includes)
         {
             var query = GetQuery(includes);
 
@@ -97,6 +105,6 @@ namespace Data.Implementations
             return query;
         }
 
-        
+       
     }
 }

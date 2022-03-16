@@ -98,86 +98,21 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-3 my-3 col-md-4 col-sm-6">
-                    <a href="#">
-                        <div class="card">
-                            <img class="card-img" src="./assets/images/Departaments/Dermatologiya.png" alt="Dermatologiya">
-                            <div class="card-body">
-                                <p class="card-text">Dermatologiya</p>
+                @foreach (var department in Model.Departaments)
+                {
+                    <div class="col-lg-3 my-3 col-md-4 col-sm-6">
+                        <a asp-controller="Departament" asp-action="Index">
+                            <div class="card">
+                                <img class="card-img" src="./assets/images/Departaments/@department.Image" alt="@department.Name">
+                                <div class="card-body">
+                                    <p class="card-text">@department.Name</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 my-3 col-md-4 col-sm-6">
-                    <a href="#">
-                        <div class="card">
-                            <img class="card-img" src="./assets/images/Departaments/Endokrinologiya.png" alt="Endokrinologiya">
-                            <div class="card-body">
-                                <p class="card-text">Endokrinologiya</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 my-3 col-md-4 col-sm-6">
-                    <a href="#">
-                        <div class="card">
-                            <img class="card-img" src="./assets/images/Departaments/Goz.png" alt="Goz">
-                            <div class="card-body">
-                                <p class="card-text">Goz</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 my-3 col-md-4 col-sm-6">
-                    <a href="#">
-                        <div class="card">
-                            <img class="card-img" src="./assets/images/Departaments/Hepatologiya.png" alt="Hepatologiya">
-                            <div class="card-body">
-                                <p class="card-text">Hepatologiya</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 my-3 col-md-4 col-sm-6">
-                    <a href="#">
-                        <div class="card">
-                            <img class="card-img" src="./assets/images/Departaments/Kardioloji.png" alt="Kardioloji">
-                            <div class="card-body">
-                                <p class="card-text">Kardioloji</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 my-3 col-md-4 col-sm-6">
-                    <a href="#">
-                        <div class="card">
-                            <img class="card-img" src="./assets/images/Departaments/Nevrologiya.png" alt="Nevrologiya">
-                            <div class="card-body">
-                                <p class="card-text">Nevrologiya</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 my-3 col-md-4 col-sm-6">
-                    <a href="#">
-                        <div class="card">
-                            <img class="card-img" src="./assets/images/Departaments/Pediatrik.png" alt="Pediatrik">
-                            <div class="card-body">
-                                <p class="card-text">Pediatrik</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 my-3 col-md-4 col-sm-6">
-                    <a href="#">
-                        <div class="card">
-                            <img class="card-img" src="./assets/images/Departaments/Stomatologiya.png" alt="Stomatologiya">
-                            <div class="card-body">
-                                <p class="card-text">Stomatologiya</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                }
+
+               
             </div>
 
             <div class="row learn-more-row">
@@ -201,125 +136,31 @@
                 <div class="col-lg-12">
 
                     <div class="owl-carousel owl-theme">
-                        <div class="item">
-                            <div class="member" data-aos="fade-up" data-aos-delay="100">
-                                <div class="member-img">
-                                    <a href="#">
-                                        <img src="./assets/images/Doctors/doctors-2.jpg" class="img-fluid" alt="">
-                                    </a>
+                        @foreach (var doctor in Model.Doctors)
+                        {
+                            <div class="item">
+                                <div class="member" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="member-img">
+                                        <a asp-controller="DoctorsInfo" asp-action="Index" asp-route-id="@doctor.Id">
+                                            <img src="./assets/images/Doctors/@doctor.Image" class="img-fluid" alt="@doctor.Name">
+                                        </a>
 
-                                    <div class="social">
-                                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                                        <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
-                                        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                                        <a href="#" class="youtube"><i class="fab fa-linkedin"></i></i></a>
+                                        @*<div class="social">
+                                            <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                                            <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
+                                            <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                                            <a href="#" class="youtube"><i class="fab fa-linkedin"></i></i></a>
+                                        </div>*@
+                                    </div>
+                                    <div class="member-info">
+                                        <h4>@doctor.Name @doctor.Surname</h4>
+                                        <span>@doctor.Splztion</span>
                                     </div>
                                 </div>
-                                <div class="member-info">
-                                    <h4>Walter White</h4>
-                                    <span>Nevroloq</span>
-                                </div>
                             </div>
-                        </div>
-                        <div class="item">
-                            <div class="member" data-aos="fade-up" data-aos-delay="100">
-                                <div class="member-img">
-                                    <a href="#">
-                                        <img src="./assets/images/Doctors/doctors-1.jpg" class="img-fluid" alt="">
-                                    </a>
+                        }
 
-                                    <div class="social">
-                                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                                        <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
-                                        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                                        <a href="#" class="youtube"><i class="fab fa-linkedin"></i></i></a>
-                                    </div>
-                                </div>
-                                <div class="member-info">
-                                    <h4>Walter White</h4>
-                                    <span>Stomatoloq</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="member" data-aos="fade-up" data-aos-delay="100">
-                                <div class="member-img">
-                                    <a href="#">
-                                        <img src="./assets/images/Doctors/doctors-3.jpg" class="img-fluid" alt="">
-                                    </a>
-                                    <div class="social">
-                                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                                        <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
-                                        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                                        <a href="#" class="youtube"><i class="fab fa-linkedin"></i></i></a>
-                                    </div>
-                                </div>
-                                <div class="member-info">
-                                    <h4>Walter White</h4>
-                                    <span>Pediatr</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="member" data-aos="fade-up" data-aos-delay="100">
-                                <div class="member-img">
-                                    <a href="#">
-                                        <img src="./assets/images/Doctors/doctors-1.jpg" class="img-fluid" alt="">
-                                    </a>
 
-                                    <div class="social">
-                                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                                        <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
-                                        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                                        <a href="#" class="youtube"><i class="fab fa-linkedin"></i></i></a>
-                                    </div>
-                                </div>
-                                <div class="member-info">
-                                    <h4>Walter White</h4>
-                                    <span>Endokrinoloq</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="member" data-aos="fade-up" data-aos-delay="100">
-                                <div class="member-img">
-                                    <a href="#">
-                                        <img src="./assets/images/Doctors/doctors-1.jpg" class="img-fluid" alt="">
-                                    </a>
-
-                                    <div class="social">
-                                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                                        <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
-                                        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                                        <a href="#" class="youtube"><i class="fab fa-linkedin"></i></i></a>
-                                    </div>
-                                </div>
-                                <div class="member-info">
-                                    <h4>Walter White</h4>
-                                    <span>Endokrinoloq</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="member" data-aos="fade-up" data-aos-delay="100">
-                                <div class="member-img">
-                                    <a href="#">
-                                        <img src="./assets/images/Doctors/doctors-1.jpg" class="img-fluid" alt="">
-                                    </a>
-
-                                    <div class="social">
-                                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                                        <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
-                                        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                                        <a href="#" class="youtube"><i class="fab fa-linkedin"></i></i></a>
-                                    </div>
-                                </div>
-                                <div class="member-info">
-                                    <h4>Walter White</h4>
-                                    <span>Endokrinoloq</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="row learn-more-row">

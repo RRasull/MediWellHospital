@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Core.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,8 @@ namespace MediWellHospital.Controllers
 {
     public class EmailController : Controller
     {
-        private UserManager<IdentityUser> _userManager;
-        public EmailController(UserManager<IdentityUser> usrMgr)
+        private UserManager<User> _userManager;
+        public EmailController(UserManager<User> usrMgr)
         {
             _userManager = usrMgr;
         }

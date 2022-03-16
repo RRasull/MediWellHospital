@@ -73,7 +73,7 @@ namespace MediWellHospital.Controllers
                 return View(register);
             }
 
-            await _userManager.AddToRoleAsync(user, UserRoles.Admin.ToString());
+            await _userManager.AddToRoleAsync(user, UserRoles.Doctor.ToString());
 
             await _signInManager.SignInAsync(user, isPersistent: false);
 
@@ -113,13 +113,7 @@ namespace MediWellHospital.Controllers
                 return View(loginVM);
             }
 
-            if (!user.IsActivated)
-            {
-                ModelState.AddModelError(String.Empty, "Hesabınızı aktivləşdirin");
-                return View(loginVM);
-            }
-
-            var signInResult = await _signInManager.PasswordSignInAsync(user ,loginVM.Password, loginVM.RememberMe, false);
+            SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, loginVM.Password, loginVM.RememberMe, true);
 
             bool emailStatus = await _userManager.IsEmailConfirmedAsync(user);
             if (emailStatus == false)
@@ -174,6 +168,9 @@ namespace MediWellHospital.Controllers
 
             var user = await _userManager.FindByEmailAsync(resetVM.Email);
 
+            if (user == null)
+                RedirectToAction("ResetPasswordConfirmation");
+
             var result = await _userManager.ResetPasswordAsync(user, resetVM.Token, resetVM.NewPassword);
             if (!result.Succeeded)
             {
@@ -188,6 +185,11 @@ namespace MediWellHospital.Controllers
         }
 
         public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        public IActionResult ResetPasswordConfirmation()
         {
             return View();
         }

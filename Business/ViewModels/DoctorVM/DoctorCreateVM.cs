@@ -19,7 +19,8 @@ namespace Business.ViewModels.DoctorVM
         public double Fees { get; set; }
         public string Splztion { get; set; }
         public Gender Gender { get; set; }
-
+        public int DepartamentId { get; set; }
+        public Departament Departament { get; set; }
 
         public IFormFile Photo { get; set; }
 

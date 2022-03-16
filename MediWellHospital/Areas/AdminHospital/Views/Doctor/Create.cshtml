@@ -1,147 +1,104 @@
 ﻿
-@model DoctorCreateVM
+@model DoctorCreateIdentityVM
 @{
     ViewData["Title"] = "Create";
 }
 
-<section class="content">
-    <div class="container-fluid">
-        <div class="block-header">
-            <h2>Add Doctor</h2>
-        </div>
-            <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>Basic Information</h2>
-                    </div>
-                    <div class="body">
-                        <form class="forms-sample" method="post" enctype="multipart/form-data">
-                            <div class="row clearfix">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input asp-for="Name" class="form-control" placeholder="Name">
-                                            <span class="text-danger" asp-validation-for="Name"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input asp-for="Surname" class="form-control" placeholder="Surname">
-                                            <span class="text-danger" asp-validation-for="Surname"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input asp-for="Surname" class="form-control" placeholder="Surname">
-                                            <span class="text-danger" asp-validation-for="Surname"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group drop-custum">
-                                        <label asp-for="Gender"></label>
-                                        <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<Gender>()">
-                                            <option value="">Select Gender</option>
-                                        </select>
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-description">
+                Həkim Əlavə Et
+            </h1>
 
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input asp-for="Splztion" class="form-control" placeholder="Splztion">
-                                            <span class="text-danger" asp-validation-for="Splztion"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input asp-for="Phone" class="form-control" placeholder="Phone">
-                                            <span class="text-danger" asp-validation-for="Phone"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input asp-for="EmailAddress" class="form-control" placeholder="EmailAddress">
-                                            <span class="text-danger" asp-validation-for="EmailAddress"></span>
-                                            <span class="text-danger" asp-validation-for="EmailAddress"></span>
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <div class="form-group">
-                                                <label asp-for="WorkingHours" class="control-label"></label>
-                                                <div class='input-group date' id='datepicker'>
-                                                    <input asp-for="WorkingHours" type="text" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                </div>
-                                                <span asp-validation-for="WorkingHours" class="text-danger"></span>
-                                            </div>
-                                            @section Scripts
-                                            {
-                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
-
-                                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-                                                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
-                                                <script>
-                                                    $(function () {
-                                                        $('#datepicker').datetimepicker();
-                                                    });
-                                                </script>
-                                            }
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
-                                        <div class="dz-message">
-                                            <div class="drag-icon-cph"> <i class="material-icons">touch_app</i> </div>
-                                            <h3>Drop files here or click to upload.</h3>
-                                            <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
-                                        </div>
-                                        <div class="fallback">
-                                            <input name="file" type="file" multiple />
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <button type="submit" class="btn btn-raised g-bg-cyan">Submit</button>
-                                    <button type="submit" class="btn btn-raised">Cancel</button>
-                                </div>
-                            </div>
-                        </form>
-                        
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="DoctorName" class="form-control" placeholder="Ad">
+                        <span class="text-danger" asp-validation-for="DoctorName"></span>
                     </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="DoctorSurname" class="form-control" placeholder="Soyad">
+                        <span class="text-danger" asp-validation-for="DoctorSurname"></span>
+                    </div>
+                </div>
+                <div class="form-group d-flex">
+                    @*<input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="İstifadəçi adı">*@
+
+                    <input asp-for="Username" class="form-control form-control-lg" placeholder="İstifadəçi adı">
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @*<input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Elektron ünvanınız">*@
+
+                    <input asp-for="Email" class="form-control form-control-lg" placeholder="Elektron ünvanınız">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @*<input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Şifrə">*@
+
+                    <input asp-for="Password" class="form-control form-control-lg" placeholder="Şifrə">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="ConfirmPassword" class="form-control form-control-lg" placeholder="Şifrəni Təsdiqləyin">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="DoctorSplztion" class="form-control" placeholder="Splztion">
+                        <span class="text-danger" asp-validation-for="DoctorSplztion"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="DoctorPhone" class="form-control" placeholder="Phone">
+                        <span class="text-danger" asp-validation-for="DoctorPhone"></span>
+                    </div>
+                </div>
+                <div class="form-group drop-custum">
+                    <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<Gender>()">
+                        <option value="">Cinsini Seç</option>
+                    </select>
+                </div>
+                <div class="form-group drop-custum">
+                    <select asp-for="Departament" class="form-control">
+                       
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Photo" class="form-control">
+                    <span class="text-danger" asp-validation-for="Photo"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="DoctorAddress" class="form-control" placeholder="Ünvan">
+                    <span class="text-danger" asp-validation-for="DoctorAddress"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="DoctorEducation" class="form-control" placeholder="Təhsili">
+                    <span class="text-danger" asp-validation-for="DoctorEducation"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="DoctorFees" class="form-control" placeholder="Maaş">
+                    <span class="text-danger" asp-validation-for="DoctorFees"></span>
+                </div>
+                <div class="form-group">
+                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Şərh(Opsional)"></textarea>
+                    <span class="text-danger" asp-validation-for="Description"></span>
+
+                </div>
+                <button asp-action="Create" type="submit" class="btn btn-primary mr-2">Əlavə Et</button>
+
+                <a asp-action="Index" class="btn btn-light">İmtina</a>
+
+            </form>
         </div>
-        
     </div>
-</section>
+</div>
 

@@ -2,6 +2,7 @@
 using Business.Interfaces;
 using Business.ViewModels.WelcomeVM;
 using Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace MediWellHospital.Areas.AdminHospital.Controllers
 {
     [Area("AdminHospital")]
+    [Authorize(Roles = "Admin")]
 
     public class WelcomeController : Controller
     {

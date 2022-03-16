@@ -20,7 +20,7 @@ namespace MediWellHospital.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        private IConfiguration _configuration { get; }
+        private  IConfiguration _configuration { get; }
 
         public AccountController(UserManager<User> userManager,
                                       SignInManager<User> signInManager,
@@ -48,7 +48,7 @@ namespace MediWellHospital.Controllers
             {
                 UserName = register.Username,
                 Email = register.Email
-
+                
             };
 
             User userEmail = await _userManager.FindByEmailAsync(user.Email);

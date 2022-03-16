@@ -27,10 +27,24 @@ namespace Business.Implementations
             _mapper = mapper;
             _env = env;
         }
-        public async Task CreateAsync(DoctorCreateVM createVM)
+        public async Task CreateAsync(DoctorCreateIdentityVM identityCreateVM)
         {
-            string fileName = await createVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
-            Doctor doctor = _mapper.Map<Doctor>(createVM);
+            string fileName = await identityCreateVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
+            Doctor doctor = new Doctor
+            {
+                Name = identityCreateVM.DoctorName,
+                Surname = identityCreateVM.DoctorSurname,
+                Address = identityCreateVM.DoctorAddress,
+                EmailAddress = identityCreateVM.DoctorEmailAdress,
+                Education = identityCreateVM.DoctorEducation,
+                Fees = identityCreateVM.DoctorFees,
+                Photo = identityCreateVM.Photo,
+                Splztion = identityCreateVM.DoctorSplztion,
+                Gender = identityCreateVM.Gender,
+                WorkingHours = identityCreateVM.DoctorWorkingHours,
+                Phone = identityCreateVM.DoctorPhone,
+                Description = identityCreateVM.Description
+            };
 
             doctor.Image = fileName;
 

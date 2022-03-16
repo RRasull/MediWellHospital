@@ -1,7 +1,35 @@
-﻿
+﻿@using Business.ViewModels 
+@model HomeVM
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<!-- ======= Main Section Start ======= -->
+<main id="Main">
+    <section class="departaments">
+        <div class="container my-5">
+            <div class="row departament-row">
+                @foreach (var department in Model.Departaments)
+                {
+                    <div class="col-lg-4 col-md-8">
+                        <div class="dept-box">
+                            <div class="dept-img">
+                                <a href="department-details.html">
+                                    <img width="80" height="80" alt="@department.Name"
+                                         src="./assets/images/Departaments/@department.Image">
+                                </a>
+                            </div>
+                            <h4 class="my-3"><a href="department-details.html">Stomatoloq</a></h4>
+                            <p class="text-center">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                tempor.
+                            </p>
+                        </div>
+                    </div>
+                }
 
+            </div>
+        </div>
+    </section>
+</main>
+<!-- ======= Main Section End ======= -->

@@ -73,7 +73,7 @@ namespace MediWellHospital.Controllers
                 return View(register);
             }
 
-            await _userManager.AddToRoleAsync(user, UserRoles.Doctor.ToString());
+            //await _userManager.AddToRoleAsync(user, UserRoles.Doctor.ToString());
 
             await _signInManager.SignInAsync(user, isPersistent: false);
 

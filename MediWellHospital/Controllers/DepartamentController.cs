@@ -1,4 +1,6 @@
-﻿using Core;
+﻿using Business.Interfaces;
+using Business.ViewModels;
+using Core;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,11 +12,27 @@ namespace MediWellHospital.Controllers
     public class DepartamentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IDoctorService _doctorService;
 
-        private readonly IDepartamentService _doctorService;
-        public IActionResult Index()
+
+        public DepartamentController(IUnitOfWork unitOfWork, IDoctorService doctorService)
         {
-            return View();
+            _unitOfWork = unitOfWork;
+            _doctorService = doctorService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            HomeVM homeVM = new HomeVM
+            {
+                Welcome = await _unitOfWork.welcomeRepository.GetAsync(W => W.IsDeleted == false),
+                Cards = await _unitOfWork.cardRepository.Take(4, c => c.IsDeleted == false),
+                Departaments = await _unitOfWork.departmentRepository.Take(8, d => d.IsDeleted == false),
+                Doctors = await _doctorService.GetAllAsync(),
+                Setting = _unitOfWork.settingRepository.GetSetting()
+
+            };
+            return View(homeVM);
         }
     }
 }

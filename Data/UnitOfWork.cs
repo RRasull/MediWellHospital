@@ -18,7 +18,7 @@ namespace Data
         private IPatientRepository _patientRepository;
         private IPatientCommentRepository _patientCommentRepository;
         private IAppointmentRepository _appointmentRepository;
-
+        private IContactUsRepository _contactUsRepository;
 
         public UnitOfWork(AppDbContext context)
         {
@@ -37,6 +37,8 @@ namespace Data
         public IPatientCommentRepository patientCommentRepository => _patientCommentRepository = _patientCommentRepository ?? new PatientCommentRepository(_context);
 
         public IAppointmentRepository appointmentRepository => _appointmentRepository = _appointmentRepository ?? new AppointmentRepository(_context);
+
+        public IContactUsRepository contactUsRepository => _contactUsRepository = _contactUsRepository ?? new ContactUsRepository(_context);
 
         public async Task SaveAsync()
         {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Business.Implementations
 {
-   public class AppointmentService : ICardService
+   public class AppointmentService : IAppointmentService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -19,51 +19,30 @@ namespace Business.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        public Task CreateAsync(CardCreateVM createVM)
+        public async Task<List<AppointmentGetVM>> GetAllAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        //public async Task<List<CardGetVM>> GetAllAsync()
-        //{
-        //    var dbAppointment = await _unitOfWork.appointmentRepository.GetAllAsync(d => !d.IsDeleted);
+            var dbAppointment = await _unitOfWork.appointmentRepository.GetAllAsync(d => !d.IsDeleted);
 
 
-        //    List<AppointmentGetVM> appointmentVM = new List<AppointmentGetVM>();
+            List<AppointmentGetVM> appointmentVM = new List<AppointmentGetVM>();
 
-        //    foreach (var card in dbAppointment)
-        //    {
-        //        CardGetVM readVM = new CardGetVM
-        //        {
-        //            Id = card.Id,
-        //            Icon = card.Icon,
-        //            Description = card.Description,
-        //            Title = card.Title
-        //        };
+            foreach (var appointment in dbAppointment)
+            {
+                AppointmentGetVM readVM = new AppointmentGetVM
+                {
+                    Id = appointment.Id,
+                    AppointDate = appointment.AppointDate,
+                    Status = appointment.Status,
+                    DoctorComment = appointment.DoctorComment,
+                    DoctorId = appointment.DoctorId,
+                    Doctor = appointment.Doctor,
+                    PatientId = appointment.PatientId,
+                    Patient = appointment.Patient
+                };
 
-        //        cardVM.Add(readVM);
-        //    }
-        //    return cardVM;
-        //}
-
-        public Task<Card> GetAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public CardUpdateVM Update(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(int id, CardUpdateVM updateVM)
-        {
-            throw new NotImplementedException();
+                appointmentVM.Add(readVM);
+            }
+            return appointmentVM;
         }
     }
 }

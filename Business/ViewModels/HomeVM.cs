@@ -1,4 +1,7 @@
-﻿using Business.ViewModels.DoctorVM;
+﻿using Business.ViewModels.AppointmentVM;
+using Business.ViewModels.ContactUsVM;
+using Business.ViewModels.DepartmentVM;
+using Business.ViewModels.DoctorVM;
 using Core.Models;
 using System;
 using System.Collections.Generic;
@@ -14,6 +17,10 @@ namespace Business.ViewModels
         public Dictionary<string, string> Setting { get; set; }
         public List<DoctorGetVM> Doctors { get; set; }
         public List<Departament> Departaments { get; set; }
+
+        public AppointCreateVM AppointCreateVM { get; set; }
+
+        public List<ContactUsViewModel> ContactUsVM { get; set; }
 
 
     }

@@ -62,7 +62,7 @@
                             <a class="nav-link scrollto hover-underline-animation" href="#Doctors">Həkimlər</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link scrollto hover-underline-animation" asp-controller="Home" asp-action="Contact">Əlaqə</a>
+                            <a class="nav-link scrollto hover-underline-animation" asp-controller="Contact" asp-action="Index">Əlaqə</a>
                         </li>
 
 
@@ -181,5 +181,8 @@
 
     <script src="./assets/owl-carousel/owl-carousel files/owl.carousel.min.js"></script>
     <script src="./assets/owl-carousel/main.js"></script>
+
+    <script src="~/assets/lib/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false); 
 </body>
 </html>

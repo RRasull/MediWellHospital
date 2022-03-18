@@ -77,11 +77,12 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         public async Task<IActionResult> Create(DoctorCreateIdentityVM doctorCreateIdentityVM)
         {
+            if (!ModelState.IsValid) return View(doctorCreateIdentityVM);
             var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
 
             doctorCreateIdentityVM.Departaments = departaments;
 
-            if (!ModelState.IsValid) return View(doctorCreateIdentityVM);
+            
 
             if (!doctorCreateIdentityVM.Photo.CheckContent("image/"))
             {

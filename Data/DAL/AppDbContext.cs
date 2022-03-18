@@ -28,6 +28,8 @@ namespace Data.DAL
 
         public DbSet<Card> Cards { get; set; }
         public DbSet<PatientComment> PatientComments { get; set; }
+        public DbSet<ContactUs> ContactUs { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)

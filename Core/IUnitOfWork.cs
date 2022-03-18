@@ -16,6 +16,7 @@ namespace Core
 
         public IAppointmentRepository appointmentRepository { get; }
 
+        public IContactUsRepository contactUsRepository { get; }
 
 
 

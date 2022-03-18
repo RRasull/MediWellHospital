@@ -8,16 +8,15 @@ namespace Business.ViewModels.AppointmentVM
    public class AppointmentGetVM
     {
         public int? Id { get; set; }
-        public List<DateTime> AppointDate { get; set; }
+        public DateTime AppointDate { get; set; }
         public string DoctorComment { get; set; }
         public bool Status { get; set; }
 
-        public int Patient { get; set; }
-        public IEnumerable<Patient> Patients { get; set; }
+        public int? PatientId { get; set; }
+        public Patient Patient { get; set; }
 
-        public int Doctor { get; set; }
-        public IEnumerable<Doctor> Doctors { get; set; }
+        public int? DoctorId { get; set; }
+        public Doctor Doctor { get; set; }
 
-        public IEnumerable<Appointment> Appointments { get; set; }
     }
 }

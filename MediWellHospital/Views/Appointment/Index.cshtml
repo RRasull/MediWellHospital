@@ -1,4 +1,5 @@
 ﻿
+@model HomeVM
 @{
     ViewData["Title"] = "Index";
 }
@@ -12,25 +13,41 @@
             <p>Klinikamıza gəlmədən öncədən görüş təyin ederek qeydiyyatdan keçə bilərsiniz</p>
         </div>
 
-        <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+        <form action="forms/appointment.php" method="post">
             <div class="row">
                 <div class="col-md-4 form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Adınız" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                    <div class="validate"></div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input asp-for="AppointCreateVM.Name" class="form-control" placeholder="Ad">
+                            <span class="text-danger" asp-validation-for="AppointCreateVM.Name"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group mt-3 mt-md-0">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="E-posta" data-rule="email" data-msg="Please enter a valid email">
-                    <div class="validate"></div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input asp-for="AppointCreateVM.Email" class="form-control" placeholder="E-Posta">
+                            <span class="text-danger" asp-validation-for="AppointCreateVM.Email"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group mt-3 mt-md-0">
-                    <input type="tel" class="form-control" name="phone" id="phone" placeholder="Telefon" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                    <div class="validate"></div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input asp-for="AppointCreateVM.Phone" class="form-control" placeholder="Telefon">
+                            <span class="text-danger" asp-validation-for="AppointCreateVM.Phone"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 form-group mt-3">
-                    <input type="datetime" name="date" class="form-control datepicker" id="date" placeholder="Qeydiyyat Tarixi" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                    <div class="validate"></div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="AppointCreateVM.AppointDate" name="AppointCreateVM.AppointDate" value="@Model.AppointCreateVM.AppointDate.ToString("dd-MM-yyyy")" class="datepicker form-control" placeholder="Qeydiyyat Tarixi">
+                            <span class="text-danger" asp-validation-for="AppointCreateVM.AppointDate"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group mt-3">
                     <select name="department" id="department" class="form-select">
@@ -56,11 +73,6 @@
                 <textarea class="form-control" name="message" rows="5" placeholder="Mesaj (Opsional)"></textarea>
                 <div class="validate"></div>
             </div>
-            <div class="mb-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
-            </div>
             <div class="text-center"><button type="submit">Qeydiyyat Götür</button></div>
         </form>
 
@@ -72,4 +84,15 @@
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
     <i class="fas fa-arrow-up"></i>
 </a>
+
+@section Scripts{
+                <script>
+                    $(function () {
+                        $('.datepicker').datepicker(
+                            {
+                                dateFormat: 'dd-MM-yyyy'
+                            });
+                    });
+                </script>
+            } 
 

@@ -9,5 +9,7 @@ namespace Core.Models
     {
         public string Fullname { get; set; }
         public bool IsActivated { get; set; }
+
+        public List<Doctor> Doctors { get; set; }
     }
 }

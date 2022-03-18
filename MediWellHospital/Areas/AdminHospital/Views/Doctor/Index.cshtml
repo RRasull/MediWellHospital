@@ -37,7 +37,7 @@
                         <tr>
 
                             <td>@count</td>
-                            <td><img src="/assets/images/team/@doctor.Image" alt="Alternate Text" /></td>
+                            <td><img src="/assets/images/Doctors/@doctor.Image" alt="Alternate Text" /></td>
                             <td>@doctor.Name</td>
                             <td>@doctor.Surname</td>
                             <td>@doctor.Splztion</td>
@@ -60,10 +60,10 @@
 
 
                             <td>
-                                <a class="btn btn-warning" asp-controller="Doctor" asp-action="Update" asp-route-id="@doctor.Id">Update</a>
+                                <a class="btn btn-warning" asp-controller="Doctor" asp-action="Update"  asp-route-id="@doctor.Id">Yenilə</a>
 
-                                <form method="post" asp-action="Doctor">
-                                    <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@doctor.Id">Delete</button>
+                                <form method="post" asp-action="Delete">
+                                    <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@doctor.Id">Sil</button>
                                 </form>
 
                             </td>

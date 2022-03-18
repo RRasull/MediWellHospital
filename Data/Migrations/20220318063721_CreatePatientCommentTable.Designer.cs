@@ -4,14 +4,16 @@ using Data.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220318063721_CreatePatientCommentTable")]
+    partial class CreatePatientCommentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,9 +135,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int?>("DepartamentId")
                         .HasColumnType("int");
 
@@ -191,8 +190,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("DepartamentId");
 
@@ -313,9 +310,6 @@ namespace Data.Migrations
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Profession")
                         .IsRequired()
@@ -603,10 +597,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.Doctor", b =>
                 {
-                    b.HasOne("Core.Models.User", "ApplicationUser")
-                        .WithMany("Doctors")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("Core.Models.Departament", "Departament")
                         .WithMany("Doctors")
                         .HasForeignKey("DepartamentId");

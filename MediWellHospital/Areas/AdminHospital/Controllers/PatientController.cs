@@ -25,7 +25,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
-        private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
 
         private readonly AppDbContext _context;
@@ -40,7 +39,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         public PatientController(IUnitOfWork unitOfWork,
                                 IWebHostEnvironment env,
-                                IDoctorService doctorService,
                                 IPatientService patientService,
                                 UserManager<User> userManager,
                                 SignInManager<User> signInManager,
@@ -49,7 +47,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         {
             _unitOfWork = unitOfWork;
             _env = env;
-            _doctorService = doctorService;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
@@ -60,14 +57,18 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(await _doctorService.GetAllAsync());
+            return View(await _patientService.GetAllAsync());
 
         }
 
         public async Task<IActionResult> Create()
         {
-            await GetSelectedItemAsync();
-            return View();
+            //var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
+            //PatientCreateIdentityVM createDto = new PatientCreateIdentityVM
+            //{
+            //    Departaments = departaments
+            //};
+            //return View(createDto);
         }
 
 
@@ -77,7 +78,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         public async Task<IActionResult> Create(PatientCreateIdentityVM patientCreateIdentityVM)
         {
-            await GetSelectedItemAsync();
             if (!patientCreateIdentityVM.Photo.CheckContent("image/"))
             {
                 ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");
@@ -175,11 +175,5 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task GetSelectedItemAsync()
-        {
-            ViewBag.Departments = new SelectList(await _context.Departaments
-                                                .Where(d => d.IsDeleted == false)
-                                                .ToListAsync(), "Id", "Name");
-        }
     }
 }

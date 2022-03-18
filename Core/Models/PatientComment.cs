@@ -24,5 +24,8 @@ namespace Core.Models
         [Required,MaxLength(50)]
 
         public string Profession { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; }
     }
 }

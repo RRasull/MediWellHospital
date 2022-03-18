@@ -77,17 +77,22 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         public async Task<IActionResult> Create(DoctorCreateIdentityVM doctorCreateIdentityVM)
         {
+            var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
+
+            doctorCreateIdentityVM.Departaments = departaments;
+
             if (!ModelState.IsValid) return View(doctorCreateIdentityVM);
+
             if (!doctorCreateIdentityVM.Photo.CheckContent("image/"))
             {
                 ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");
-                return View();
+                return View(doctorCreateIdentityVM);
             }
 
             if (!doctorCreateIdentityVM.Photo.CheckLength(2000))
             {
                 ModelState.AddModelError("Photo", "Faylın ölçüsü 2 mb-dan az olmalıdır");
-                return View();
+                return View(doctorCreateIdentityVM);
             }
 
             
@@ -104,7 +109,7 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             if (userEmail != null)
             {
                 ModelState.AddModelError(string.Empty, "Bu e-poçtla qeydiyyatdan keçə bilməzsiniz, çünki o, artıq mövcuddur");
-                return View();
+                return View(doctorCreateIdentityVM);
             }
 
 
@@ -133,16 +138,25 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
-            DoctorUpdateVM doctorUpdateVM = _doctorService.Update(id);
+            
+            DoctorUpdateVM doctorUpdateVM = await _doctorService.Update(id);
             return View(doctorUpdateVM);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, DoctorUpdateVM doctorUpdateVM)
         {
+            var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
+
+            DoctorCreateIdentityVM doctorCreate = new DoctorCreateIdentityVM
+            {
+                Departaments = departaments
+            };
+
             if (!ModelState.IsValid) return View(doctorUpdateVM);
             if (id != doctorUpdateVM.Id) return BadRequest();
             var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
@@ -151,13 +165,13 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             if (!doctorUpdateVM.Photo.CheckContent("image/"))
             {
                 ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");
-                return View();
+                return View(departaments);
             }
 
             if (!doctorUpdateVM.Photo.CheckLength(2000))
             {
                 ModelState.AddModelError("Photo", "Faylın ölçüsü 2 mb-dan az olmalıdır");
-                return View();
+                return View(departaments);
             }
 
 

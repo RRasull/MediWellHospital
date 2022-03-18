@@ -16,6 +16,7 @@ namespace Data
         private IWelcomeRepository _welcomeRepository;
         private IUsersRepository _userRepository;
         private IPatientRepository _patientRepository;
+        private IPatientCommentRepository _patientCommentRepository;
 
 
 
@@ -32,6 +33,8 @@ namespace Data
         public IPatientRepository patientRepository => _patientRepository = _patientRepository ?? new PatientRepository(_context);
 
         public IUsersRepository usersRepository => _userRepository = _userRepository ?? new UsersRepository(_context);
+
+        public IPatientCommentRepository patientCommentRepository => _patientCommentRepository = _patientCommentRepository ?? new PatientCommentRepository(_context);
 
         public async Task SaveAsync()
         {

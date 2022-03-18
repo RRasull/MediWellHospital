@@ -74,31 +74,35 @@ namespace Business.Implementations
             await _unitOfWork.SaveAsync();
         }
 
-        public DoctorUpdateVM Update(int id)
+        public async Task<DoctorUpdateVM> Update(int id)
         {
+            var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
+           
+
             var dbDoctor = _unitOfWork.doctorRepository.Get(d => !d.IsDeleted && d.Id == id);
-            var dbUser = _unitOfWork.usersRepository.Get(u => int.Parse(u.Id) == id);
+            //var dbUser = _unitOfWork.usersRepository.Get(u=>u.Id==userId);
 
             if (dbDoctor is null) throw new NotFoundException("Doctor Not Found") ;
 
             DoctorUpdateVM doctorUpdateVM = new DoctorUpdateVM
             {
                 Id = dbDoctor.Id,
+                //UserId = dbUser.Id,
+                //Username = dbUser.UserName,
+                //Email = dbUser.Email,
                 Name = dbDoctor.Name,
                 Surname = dbDoctor.Surname,
                 Education = dbDoctor.Education,
                 Gender = dbDoctor.Gender,
                 Fees = dbDoctor.Fees,
                 Address = dbDoctor.Address,
-                EmailAddress = dbDoctor.EmailAddress,
                 Description = dbDoctor.Description,
                 Phone = dbDoctor.Phone,
                 Photo = dbDoctor.Photo,
                 Splztion = dbDoctor.Splztion,
                 WorkingHours = dbDoctor.WorkingHours,
                 Image = dbDoctor.Image,
-                Departament = dbDoctor.Departament,
-                DepartamentId = dbDoctor.DepartamentId
+                Departaments = departaments
             };
             return doctorUpdateVM;
         }
@@ -106,6 +110,9 @@ namespace Business.Implementations
         public async Task UpdateAsync(int id, DoctorUpdateVM updateVM)
         {
             var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+
+            //var dbUser = await _unitOfWork.usersRepository.GetAsync(u => u.Id==updateVM.UserId);
+
 
             var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Doctors", updateVM.Photo.FileName);
 
@@ -124,12 +131,11 @@ namespace Business.Implementations
             dbDoctor.Description = updateVM.Description;
             dbDoctor.Address = updateVM.Address;
             dbDoctor.Education = updateVM.Education;
-            dbDoctor.EmailAddress = updateVM.EmailAddress;
             dbDoctor.Fees = updateVM.Fees;
             dbDoctor.Gender = updateVM.Gender;
             dbDoctor.Splztion = updateVM.Splztion;
             dbDoctor.Phone = updateVM.Phone;
-            dbDoctor.Departament = updateVM.Departament;
+            dbDoctor.DepartamentId = updateVM.DepartamentId;
             dbDoctor.Image = fileName;
 
             await _unitOfWork.SaveAsync();
@@ -148,6 +154,7 @@ namespace Business.Implementations
                 DoctorGetVM readVM = new DoctorGetVM
                 {
                    Id = doctor.Id,
+                   //UserId = doctor.ApplicationUserId,
                    Name = doctor.Name,
                    Surname = doctor.Surname,
                    Address = doctor.Address,

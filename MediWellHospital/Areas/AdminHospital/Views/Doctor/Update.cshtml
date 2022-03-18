@@ -26,22 +26,16 @@
                         <span class="text-danger" asp-validation-for="Surname"></span>
                     </div>
                 </div>
-                <div class="form-group d-flex">
-                    @*<input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="İstifadəçi adı">*@
-
-                    <input asp-for="Username" class="form-control form-control-lg" placeholder="İstifadəçi adı">
-                    <span asp-validation-for="Username" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    @*<input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Elektron ünvanınız">*@
-
-                    <input asp-for="Email" class="form-control form-control-lg" placeholder="Elektron ünvanınız">
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
                 <div class="form-group">
                     <div class="form-line">
                         <input asp-for="Splztion" class="form-control" placeholder="Sahəsi">
                         <span class="text-danger" asp-validation-for="Splztion"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="Address" class="form-control" placeholder="Adress">
+                        <span class="text-danger" asp-validation-for="Address"></span>
                     </div>
                 </div>
 
@@ -60,11 +54,18 @@
                 </div>
                 <div class="form-group drop-custum">
                     <select asp-for="DepartamentId" asp-items="@ViewBag.Departments" class="form-control">
-                        <option value="">Şöbə Seçin</option>
+                        <option selected>Şöbə Seçin</option>
+                        @foreach (var departament in Model.Departaments)
+                        {
+                            <option value="@departament.Id">@departament.Name</option>
+
+                        }
                     </select>
                     <span class="text-danger" asp-validation-for="DepartamentId"></span>
 
                 </div>
+
+
                 <div class="form-group">
                     <input asp-for="Photo" class="form-control">
                     <span class="text-danger" asp-validation-for="Photo"></span>
@@ -72,10 +73,6 @@
                 <div class="form-group">
                     <input asp-for="WorkingHours" class="form-control" placeholder="İş Saatları">
                     <span class="text-danger" asp-validation-for="WorkingHours"></span>
-                </div>
-                <div class="form-group">
-                    <input asp-for="EmailAddress" class="form-control" placeholder="İş Saatları">
-                    <span class="text-danger" asp-validation-for="EmailAddress"></span>
                 </div>
                 <div class="form-group">
                     <input asp-for="Education" class="form-control" placeholder="Təhsili">

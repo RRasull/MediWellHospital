@@ -12,6 +12,7 @@ namespace Core
         public IWelcomeRepository welcomeRepository { get; }
         public IUsersRepository usersRepository { get; }
         public IPatientRepository patientRepository { get; }
+        public IPatientCommentRepository patientCommentRepository { get; }
 
 
 

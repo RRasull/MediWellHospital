@@ -31,7 +31,6 @@ namespace Business.Implementations
                 Name = createIdentityVM.Name,
                 Surname = createIdentityVM.Surname,
                 Phone = createIdentityVM.Phone,
-                Token = createIdentityVM.Token,
                 Address = createIdentityVM.Address,
                 BirthDate= createIdentityVM.BirthDate,
                 Gender= createIdentityVM.Gender,

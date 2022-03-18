@@ -81,7 +81,6 @@
                         @foreach (var departament in Model.Departaments)
                         {
                             <option value="@departament.Id">@departament.Name</option>
-
                         }
                     </select>
                     <span class="text-danger" asp-validation-for="DepartamentId"></span>

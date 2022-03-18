@@ -20,8 +20,6 @@ namespace Business.ViewModels.PatientVM
         [Required]
 
         public Gender Gender { get; set; }
-        [Required]
-        public string Token { get; set; }
 
         [Required]
         public DateTime BirthDate { get; set; }

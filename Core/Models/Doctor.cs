@@ -20,6 +20,10 @@ namespace Core.Models
         public double Fees { get; set; }
         public string Splztion { get; set; }
 
+
+        public string ApplicationUserId { get; set; }
+        public User ApplicationUser { get; set; }
+
         public Gender Gender { get; set; }
 
 

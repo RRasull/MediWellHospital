@@ -49,8 +49,6 @@ namespace Business.ViewModels.DoctorVM
         [Required]
         public int DepartamentId { get; set; }
 
-        [Required]
-
         public List<Departament> Departaments { get; set; }
 
         //Doctor Identity

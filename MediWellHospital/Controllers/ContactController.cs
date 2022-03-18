@@ -71,7 +71,8 @@ namespace MediWellHospital.Controllers
                
                 await _contactUsService.CreateAsync(contactUsCreateVM);
                 contactUsCreateVM.Setting = _settingService.GetSetting();
-                return View(contactUsCreateVM);
+                return RedirectToAction("SentSuccessfully","Contact");
+
             }
             catch (Exception ex)
             {

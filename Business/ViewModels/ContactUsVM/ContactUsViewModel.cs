@@ -7,6 +7,7 @@ namespace Business.ViewModels.ContactUsVM
 {
    public class ContactUsViewModel
     {
+        public int Id { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }

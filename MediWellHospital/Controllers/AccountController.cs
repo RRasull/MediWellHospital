@@ -47,7 +47,7 @@ namespace MediWellHospital.Controllers
             User user = new User()
             {
                 UserName = register.Username,
-                Email = register.Email
+                Email = register.Email  
                 
             };
 

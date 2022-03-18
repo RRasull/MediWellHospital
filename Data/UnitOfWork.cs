@@ -14,7 +14,8 @@ namespace Data
         private IDepartmentRepository _departmentRepository;
         private ICardRepository _cardRepository;
         private IWelcomeRepository _welcomeRepository;
-
+        private IUsersRepository _userRepository;
+        private IPatientRepository _patientRepository;
 
 
 
@@ -28,8 +29,9 @@ namespace Data
         public IDepartmentRepository departmentRepository => _departmentRepository = _departmentRepository ?? new DepartmentRepository(_context);
         public ICardRepository cardRepository => _cardRepository = _cardRepository ?? new CardRepository(_context);
         public IWelcomeRepository welcomeRepository => _welcomeRepository = _welcomeRepository ?? new WelcomeRepository(_context);
+        public IPatientRepository patientRepository => _patientRepository = _patientRepository ?? new PatientRepository(_context);
 
-
+        public IUsersRepository usersRepository => _userRepository = _userRepository ?? new UsersRepository(_context);
 
         public async Task SaveAsync()
         {

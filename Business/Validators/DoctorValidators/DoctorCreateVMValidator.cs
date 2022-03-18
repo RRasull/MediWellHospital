@@ -48,9 +48,6 @@ namespace Business.Validators.DoctorValidators
             RuleFor(d => d.WorkingHours)
                .NotNull()
                .NotEmpty();
-            RuleFor(d => d.IsAvailable)
-               .NotNull()
-               .NotEmpty();
             RuleFor(d => d.IsDeleted)
                .NotNull()
                .NotEmpty();

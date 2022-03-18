@@ -11,7 +11,7 @@ namespace Core.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public decimal Phone { get; set; }
+        public string Phone { get; set; }
         public string Address { get; set; }
         public string EmailAddress { get; set; }
         public string Description { get; set; }
@@ -25,7 +25,6 @@ namespace Core.Models
 
 
 
-        public bool IsAvailable { get; set; }
         public int? DepartamentId { get; set; }
         public Departament Departament { get; set; }
 

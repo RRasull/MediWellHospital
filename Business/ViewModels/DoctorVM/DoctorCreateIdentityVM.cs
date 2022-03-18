@@ -1,5 +1,6 @@
 ﻿using Core.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,13 +19,11 @@ namespace Business.ViewModels.DoctorVM
         public string DoctorSurname { get; set; }
         [Required, MaxLength(50)]
 
-        public decimal DoctorPhone { get; set; }
+        public string DoctorPhone { get; set; }
         [Required, MaxLength(255)]
 
         public string DoctorAddress { get; set; }
-        [Required, MaxLength(255)]
-
-        public string DoctorEmailAdress { get; set; }
+     
         [MaxLength(255)]
 
         public string Description { get; set; }
@@ -46,11 +45,13 @@ namespace Business.ViewModels.DoctorVM
 
         [Required, NotMapped]
         public IFormFile Photo { get; set; }
+
         [Required]
         public int DepartamentId { get; set; }
+
         [Required]
 
-        public Departament Departament { get; set; }
+        public List<Departament> Departaments { get; set; }
 
         //Doctor Identity
 

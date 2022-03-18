@@ -10,32 +10,52 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
+using static Business.Utilities.Helper.Helper;
+using System.Security.Policy;
+using Business.Utilities.Email;
 
 namespace Business.Implementations
 {
     public class DoctorService : IDoctorService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _env;
+        private readonly UserManager<User> _userManager;
 
 
 
-        public DoctorService(IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment env)
+
+
+        public DoctorService(IUnitOfWork unitOfWork, IWebHostEnvironment env, UserManager<User> userManager)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _env = env;
+            _userManager = userManager;
         }
         public async Task CreateAsync(DoctorCreateIdentityVM identityCreateVM)
         {
+           
+            if (!identityCreateVM.Photo.CheckContent("image/"))
+            {
+                throw new FileTypeException("Fayl şəkil formatında olmalıdır");
+            }
+
+            if (!identityCreateVM.Photo.CheckLength(2000))
+            {
+                throw new FileTypeException("Faylın ölçüsü uygun gəlmir");
+            }
+
+            
+
             string fileName = await identityCreateVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
             Doctor doctor = new Doctor
             {
                 Name = identityCreateVM.DoctorName,
                 Surname = identityCreateVM.DoctorSurname,
                 Address = identityCreateVM.DoctorAddress,
-                EmailAddress = identityCreateVM.DoctorEmailAdress,
+                EmailAddress = identityCreateVM.Email,
                 Education = identityCreateVM.DoctorEducation,
                 Fees = identityCreateVM.DoctorFees,
                 Photo = identityCreateVM.Photo,
@@ -43,7 +63,8 @@ namespace Business.Implementations
                 Gender = identityCreateVM.Gender,
                 WorkingHours = identityCreateVM.DoctorWorkingHours,
                 Phone = identityCreateVM.DoctorPhone,
-                Description = identityCreateVM.Description
+                Description = identityCreateVM.Description,
+                DepartamentId = identityCreateVM.DepartamentId     
             };
 
             doctor.Image = fileName;
@@ -55,17 +76,36 @@ namespace Business.Implementations
 
         public DoctorUpdateVM Update(int id)
         {
-            var dbDoctor = _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+            var dbDoctor = _unitOfWork.doctorRepository.Get(d => !d.IsDeleted && d.Id == id);
+            var dbUser = _unitOfWork.usersRepository.Get(u => int.Parse(u.Id) == id);
 
             if (dbDoctor is null) throw new NotFoundException("Doctor Not Found") ;
 
-            return _mapper.Map<DoctorUpdateVM>(dbDoctor);
+            DoctorUpdateVM doctorUpdateVM = new DoctorUpdateVM
+            {
+                Id = dbDoctor.Id,
+                Name = dbDoctor.Name,
+                Surname = dbDoctor.Surname,
+                Education = dbDoctor.Education,
+                Gender = dbDoctor.Gender,
+                Fees = dbDoctor.Fees,
+                Address = dbDoctor.Address,
+                EmailAddress = dbDoctor.EmailAddress,
+                Description = dbDoctor.Description,
+                Phone = dbDoctor.Phone,
+                Photo = dbDoctor.Photo,
+                Splztion = dbDoctor.Splztion,
+                WorkingHours = dbDoctor.WorkingHours,
+                Image = dbDoctor.Image,
+                Departament = dbDoctor.Departament,
+                DepartamentId = dbDoctor.DepartamentId
+            };
+            return doctorUpdateVM;
         }
 
         public async Task UpdateAsync(int id, DoctorUpdateVM updateVM)
         {
             var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
-
 
             var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Doctors", updateVM.Photo.FileName);
 
@@ -90,7 +130,6 @@ namespace Business.Implementations
             dbDoctor.Splztion = updateVM.Splztion;
             dbDoctor.Phone = updateVM.Phone;
             dbDoctor.Departament = updateVM.Departament;
-
             dbDoctor.Image = fileName;
 
             await _unitOfWork.SaveAsync();
@@ -136,6 +175,8 @@ namespace Business.Implementations
         public async Task RemoveAsync(int id)
         {
             var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+            var dbUser = await _unitOfWork.usersRepository.GetAsync(d=>int.Parse(d.Id)==id);
+
 
             if (dbDoctor is null) throw new NotFoundException("While Remove Doctor Not Found");
 
@@ -143,6 +184,7 @@ namespace Business.Implementations
             dbDoctor.Photo.RemoveFileAsync(_env.WebRootPath, "assets/images/Doctors", dbDoctor.Image);
 
             dbDoctor.IsDeleted = true;
+            _unitOfWork.usersRepository.Remove(dbUser);
 
             await _unitOfWork.SaveAsync();
         }

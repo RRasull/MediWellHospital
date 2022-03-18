@@ -15,6 +15,10 @@
     <Compile Remove="Migrations\20220309104428_AddGenderFeesSplztionToDoctorTable.Designer.cs" />
     <Compile Remove="Migrations\20220309105542_AddGenderFeesSplztionToDoctorTable.cs" />
     <Compile Remove="Migrations\20220309105542_AddGenderFeesSplztionToDoctorTable.Designer.cs" />
+    <Compile Remove="Migrations\20220317143133_UpdatePhoneOnDoctorTable.cs" />
+    <Compile Remove="Migrations\20220317143133_UpdatePhoneOnDoctorTable.Designer.cs" />
+    <Compile Remove="Migrations\20220318063251_CreatePatientCommentTable.cs" />
+    <Compile Remove="Migrations\20220318063251_CreatePatientCommentTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

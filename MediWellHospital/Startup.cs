@@ -1,12 +1,9 @@
 using Business.Implementations;
 using Business.Interfaces;
-using Business.Profiles;
-using Business.Validators.DoctorValidators;
 using Core;
 using Core.Models;
 using Data;
 using Data.DAL;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,12 +28,8 @@ namespace MediWellHospital
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddFluentValidation(fv => {
-                fv.DisableDataAnnotationsValidation = true;
-            });
-            services.AddMapperService();
+           
             services.AddControllersWithViews();
-
             services.AddDbContext<AppDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultDatabase")));
 
@@ -44,6 +37,8 @@ namespace MediWellHospital
 
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IWelcomeService, WelcomeService>();
+            services.AddScoped<ICardService, CardService>();
 
 
             services.AddIdentity<User, IdentityRole>()

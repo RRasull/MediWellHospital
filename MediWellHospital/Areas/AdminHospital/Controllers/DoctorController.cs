@@ -14,10 +14,11 @@ using System.IO;
 using Core.Interfaces;
 using Business.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Business.ViewModels.Auth;
 using Microsoft.AspNetCore.Identity;
 using Business.Utilities.Email;
 using static Business.Utilities.Helper.Helper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MediWellHospital.Areas.AdminHospital.Controllers
 {
@@ -28,6 +29,7 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly IDoctorService _doctorService;
+
 
 
         private readonly UserManager<User> _userManager;
@@ -53,33 +55,42 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         public async Task<IActionResult> Index()
         {
+            
             return View(await _doctorService.GetAllAsync());
 
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
+            DoctorCreateIdentityVM createDto = new DoctorCreateIdentityVM
+            {
+                Departaments = departaments
+            };
+            return View(createDto);
         }
+
+       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
 
         public async Task<IActionResult> Create(DoctorCreateIdentityVM doctorCreateIdentityVM)
         {
+            if (!ModelState.IsValid) return View(doctorCreateIdentityVM);
             if (!doctorCreateIdentityVM.Photo.CheckContent("image/"))
             {
                 ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");
                 return View();
             }
 
-            if (!doctorCreateIdentityVM.Photo.CheckLength(200))
+            if (!doctorCreateIdentityVM.Photo.CheckLength(2000))
             {
-                ModelState.AddModelError("Photo", "Faylın ölçüsü 200 kb-dan az olmalıdır");
+                ModelState.AddModelError("Photo", "Faylın ölçüsü 2 mb-dan az olmalıdır");
                 return View();
             }
 
-            if (!ModelState.IsValid) return View(doctorCreateIdentityVM);
+            
 
             User user = new User()
             {
@@ -112,30 +123,12 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
             await _userManager.AddToRoleAsync(user, UserRoles.Doctor.ToString());
 
-            await _signInManager.SignInAsync(user, isPersistent: false);
-
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = doctorCreateIdentityVM.Email }, Request.Scheme);
+            var confirmationLink = Url.Action("ConfirmEmail", "EmailAdmin", new { token, email = doctorCreateIdentityVM.Email }, Request.Scheme);
             EmailHelper emailHelper = new EmailHelper();
 
-            bool emailResponse = emailHelper.SendEmail(doctorCreateIdentityVM.Email, confirmationLink);
-
-            if (emailResponse)
-            {
-
-                return RedirectToAction("SuccesSending", "Account");
-            }
-
-            //string fileName = await createVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
-            //Doctor doctor = _mapper.Map<Doctor>(createVM);
-
-            //doctor.Image = fileName;
-
-
-            //await _unitOfWork.doctorRepository.CreateAsync(doctor);
-            //await _unitOfWork.SaveAsync();
-
             await _doctorService.CreateAsync(doctorCreateIdentityVM);
+            
  
             return RedirectToAction(nameof(Index));
         }
@@ -161,41 +154,12 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
                 return View();
             }
 
-            if (!doctorUpdateVM.Photo.CheckLength(200))
+            if (!doctorUpdateVM.Photo.CheckLength(2000))
             {
-                ModelState.AddModelError("Photo", "Faylın ölçüsü 200 kb-dan az olmalıdır");
+                ModelState.AddModelError("Photo", "Faylın ölçüsü 2 mb-dan az olmalıdır");
                 return View();
             }
 
-            //var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Doctors", doctorVM.Photo.FileName);
-
-
-            //if (System.IO.File.Exists(oldPath))
-            //{
-            //    System.IO.File.Delete(oldPath);
-            //}
-
-            //string fileName = await doctorVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
-
-
-            //dbDoctor.Name = doctorVM.Name;
-            //dbDoctor.Surname = doctorVM.Surname;
-            //dbDoctor.WorkingHours = doctorVM.WorkingHours;
-            //dbDoctor.Description = doctorVM.Description;
-            //dbDoctor.Address = doctorVM.Address;
-            //dbDoctor.Education = doctorVM.Education;
-            //dbDoctor.EmailAddress = doctorVM.EmailAddress;
-            //dbDoctor.Fees = doctorVM.Fees;
-            //dbDoctor.Gender = doctorVM.Gender;
-            //dbDoctor.Splztion = doctorVM.Splztion;
-            //dbDoctor.Phone = doctorVM.Phone;
-            //dbDoctor.Departament = doctorVM.Departament;
-
-
-
-            //dbDoctor.Image = fileName;
-
-            //await _unitOfWork.SaveAsync();
 
             await _doctorService.UpdateAsync(id, doctorUpdateVM);
 
@@ -206,19 +170,10 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            //var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
-
-            //if (dbDoctor is null) return NotFound();
-
-
-            //dbDoctor.Photo.RemoveFileAsync(_env.WebRootPath, "assets/images/Doctors", dbDoctor.Image);
-
-            //dbDoctor.IsDeleted = true;
-
-            //await _unitOfWork.SaveAsync();
             await _doctorService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
+
     }
 
 }

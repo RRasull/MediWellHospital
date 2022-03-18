@@ -13,7 +13,7 @@
 
             <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-            <form class="forms-sample" method="post" enctype="multipart/form-data">
+            <form class="forms-sample" method="post" enctype="multipart/form-data" accept="image/*">
                 <div class="form-group">
                     <div class="form-line">
                         <input asp-for="DoctorName" class="form-control" placeholder="Ad">
@@ -51,13 +51,20 @@
                 </div>
                 <div class="form-group">
                     <div class="form-line">
-                        <input asp-for="DoctorSplztion" class="form-control" placeholder="Splztion">
+                        <input asp-for="DoctorSplztion" class="form-control" placeholder="Sahəsi">
                         <span class="text-danger" asp-validation-for="DoctorSplztion"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-line">
-                        <input asp-for="DoctorPhone" class="form-control" placeholder="Phone">
+                        <input asp-for="DoctorWorkingHours" class="form-control" placeholder="İş Saatları">
+                        <span class="text-danger" asp-validation-for="DoctorWorkingHours"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="DoctorPhone" class="form-control" placeholder="Telefon">
                         <span class="text-danger" asp-validation-for="DoctorPhone"></span>
                     </div>
                 </div>
@@ -65,12 +72,20 @@
                     <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<Gender>()">
                         <option value="">Cinsini Seç</option>
                     </select>
+                    <span class="text-danger" asp-validation-for="Gender"></span>
+
                 </div>
                 <div class="form-group drop-custum">
-                    <select asp-for="Departament" class="form-control">
-                       
+                    <select asp-for="DepartamentId" class="form-control">
+                        <option value="">Şöbə Seçin</option>
+                        @foreach (var departament in Model.Departaments)
+                        {
+                            <option value="@departament.Id">@departament.Name</option>
 
+                        }
                     </select>
+                    <span class="text-danger" asp-validation-for="DepartamentId"></span>
+
                 </div>
                 <div class="form-group">
                     <input asp-for="Photo" class="form-control">

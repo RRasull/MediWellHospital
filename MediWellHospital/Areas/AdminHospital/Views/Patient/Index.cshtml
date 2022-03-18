@@ -1,0 +1,85 @@
+﻿
+@model List<PatientGetVM>
+
+@{
+    ViewData["Title"] = "Index";
+    int count = 1;
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Həkimlər</h4>
+            <div class="table-responsive">
+                <a asp-action="Create" class="btn btn-success">Create</a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sıra</th>
+                            <th>Şəkil</th>
+                            <th>Ad</th>
+                            <th>Soyad</th>
+                            <th>Nömrə</th>
+                            <th>Boy</th>
+                            <th>Çəki</th>
+                            <th>Doğum ili</th>
+                            <th>Adress</th>
+                            <th>E-Posta</th>
+                            <th>Cinsiyyət</th>
+                            <th>Şərh</th>
+                            <th>Setting</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var patient in Model)
+                        {
+                        <tr>
+
+                            <td>@count</td>
+                            <td><img src="/assets/images/team/@patient.Image" alt="Alternate Text" /></td>
+                            <td>@patient.Name</td>
+                            <td>@patient.Surname</td>
+                            <td>@patient.Phone</td>
+                            <td>@patient.Height</td>
+                            <td>@patient.Weight</td>
+                            <td>@patient.BirthDate</td>
+                            <td>@patient.Address</td>
+                            <td>@patient.EmailAddress</td>
+                            <td>@patient.Gender</td>
+
+                            @if (patient.Description == String.Empty)
+                            {
+                                <td>"Line Is Empty"</td>
+                            }
+                            else
+                            {
+                                <td>@patient.Description</td>
+                            }
+
+
+
+
+                            <td>
+                                <a class="btn btn-warning" asp-controller="Patient" asp-action="Update" asp-route-id="@patient.Id">Update</a>
+
+                                <form method="post" asp-action="Doctor">
+                                    <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@patient.Id">Delete</button>
+                                </form>
+
+                            </td>
+
+                        </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

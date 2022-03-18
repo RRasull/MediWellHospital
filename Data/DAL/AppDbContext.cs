@@ -27,6 +27,8 @@ namespace Data.DAL
         public DbSet<Setting> Settings { get; set; }
 
         public DbSet<Card> Cards { get; set; }
+        public DbSet<PatientComment> PatientComments { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

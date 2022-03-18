@@ -16,21 +16,27 @@ namespace Business.Implementations
     public class WelcomeService : IWelcomeService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _env;
 
 
 
-        public WelcomeService(IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment env)
+        public WelcomeService(IUnitOfWork unitOfWork, IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _env = env;
         }
 
         public async Task CreateAsync(WelcomeCreateVM createVM)
         {
-            Welcome welcome = _mapper.Map<Welcome>(createVM);
+            //Welcome welcome = _mapper.Map<Welcome>(createVM);
+
+
+            Welcome welcome = new Welcome
+            {
+                Content = createVM.Content,
+                WhyUs = createVM.WhyUs,
+                Title = createVM.Title
+            };
 
             await _unitOfWork.welcomeRepository.CreateAsync(welcome);
             await _unitOfWork.SaveAsync();
@@ -65,11 +71,18 @@ namespace Business.Implementations
 
         public WelcomeUpdateVM Update(int id)
         {
-            var dbWelcome = _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+            var dbWelcome = _unitOfWork.welcomeRepository.Get(d => !d.IsDeleted && d.Id == id);
 
             if (dbWelcome is null) throw new NotFoundException("Doctor Not Found");
 
-            return _mapper.Map<WelcomeUpdateVM>(dbWelcome);
+            WelcomeUpdateVM welcomeUpdateVM = new WelcomeUpdateVM
+            {
+                Id = dbWelcome.Id,
+                Content = dbWelcome.Content,
+                Title = dbWelcome.Title,
+                WhyUs = dbWelcome.WhyUs
+            };
+            return welcomeUpdateVM;
         }
 
         public async Task UpdateAsync(int id, WelcomeUpdateVM updateVM)

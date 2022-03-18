@@ -10,6 +10,9 @@ namespace Core
         public IDepartmentRepository departmentRepository { get; }
         public ICardRepository cardRepository { get; }
         public IWelcomeRepository welcomeRepository { get; }
+        public IUsersRepository usersRepository { get; }
+        public IPatientRepository patientRepository { get; }
+
 
 
 

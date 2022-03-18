@@ -35,6 +35,7 @@ namespace Data.Implementations
                 : await query.Where(exp).FirstOrDefaultAsync(); 
         }
 
+
         public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> exp = null, params string[] includes)
         {
             var query = GetQuery(includes);
@@ -52,23 +53,6 @@ namespace Data.Implementations
                    ? await query.Take(number).ToListAsync()
                    : await query.Where(exp).Take(number).ToListAsync();
         }
-
-        //public IEnumerable<TEntity> OrderByDescending(Expression<Func<TEntity, bool>> isExistExp, Expression<Func<TEntity, int>> descendingExp)
-        //{
-
-        //    return _context.Set<TEntity>().Where(isExistExp).OrderByDescending(descendingExp);
-        //}
-        //public async Task<IEnumerable<TEntity>> Take(Expression<Func<TEntity, bool>> isExistExp, int number)
-        //{
-        //    return await _context.Set<TEntity>().Where(isExistExp).Take(number).ToListAsync();
-        //}
-
-        //public async Task<IEnumerable<TEntity>> Skip(int number)
-        //{
-        //    return await _context.Set<TEntity>().Skip(number).ToListAsync();
-        //}
-
-
 
 
         public async Task<bool> IsExistsAsync(Expression<Func<TEntity, bool>> exp = null)

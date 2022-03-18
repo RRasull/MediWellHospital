@@ -7,8 +7,6 @@ namespace Business.Utilities.Email
 {
    public class EmailHelper
     {
-        private string _privateEmail { get; }
-        private string _privatePassword { get; }
 
 
         public bool SendEmail(string userEmail, string confirmationLink)

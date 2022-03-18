@@ -24,9 +24,6 @@ namespace MediWellHospital.Controllers
 
             var result = await _userManager.ConfirmEmailAsync(user, token);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
-
-            //var result = await _userManager.ConfirmEmailAsync(user, token);
-            //return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
     }
 }

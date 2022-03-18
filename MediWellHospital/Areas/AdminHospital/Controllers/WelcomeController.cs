@@ -18,15 +18,11 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
     public class WelcomeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _env;
-        private readonly IMapper _mapper;
         private readonly IWelcomeService _welcomeService;
 
-        public WelcomeController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IMapper mapper, IWelcomeService welcomeService)
+        public WelcomeController(IUnitOfWork unitOfWork, IWelcomeService welcomeService)
         {
             _unitOfWork = unitOfWork;
-            _env = env;
-            _mapper = mapper;
             _welcomeService = welcomeService;
         }
 
@@ -83,9 +79,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             await _welcomeService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
-
-
-
 
     }
 }

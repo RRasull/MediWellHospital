@@ -20,7 +20,6 @@ namespace Data.Configuration
             builder.Property(d => d.EmailAddress).IsRequired().HasMaxLength(150);
             builder.Property(d => d.Image).IsRequired();
             builder.Property(d => d.Description).IsRequired().HasMaxLength(255);
-            builder.Property(d => d.IsAvailable).IsRequired();
 
 
 

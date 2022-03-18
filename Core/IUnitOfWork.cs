@@ -14,6 +14,7 @@ namespace Core
         public IPatientRepository patientRepository { get; }
         public IPatientCommentRepository patientCommentRepository { get; }
 
+        public IAppointmentRepository appointmentRepository { get; }
 
 
 

@@ -61,15 +61,15 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         }
 
-        public async Task<IActionResult> Create()
-        {
-            //var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
-            //PatientCreateIdentityVM createDto = new PatientCreateIdentityVM
-            //{
-            //    Departaments = departaments
-            //};
-            //return View(createDto);
-        }
+        //public async Task<IActionResult> Create()
+        //{
+        //    //var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
+        //    //PatientCreateIdentityVM createDto = new PatientCreateIdentityVM
+        //    //{
+        //    //    Departaments = departaments
+        //    //};
+        //    //return View(createDto);
+        //}
 
 
 
@@ -171,7 +171,7 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _doctorService.RemoveAsync(id);
+            await _patientService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 

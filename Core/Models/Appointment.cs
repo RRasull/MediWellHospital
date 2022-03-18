@@ -14,8 +14,6 @@ namespace Core.Models
         public Patient Patient { get; set; }
         public int? DoctorId { get; set; }
         public Doctor Doctor { get; set; }
-        public int? DoctorTimeSlotId { get; set; }
-        public DoctorTimeSlot DoctorTimeSlot { get; set; }
         public bool IsChecked { get; set; }
 
         public bool IsDeleted { get; set; }

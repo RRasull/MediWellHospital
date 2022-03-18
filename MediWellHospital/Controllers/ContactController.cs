@@ -1,6 +1,8 @@
-﻿using Business.ViewModels;
+﻿using Business.Interfaces;
+using Business.ViewModels;
 using Business.ViewModels.ContactUsVM;
 using Core;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,38 +13,72 @@ namespace MediWellHospital.Controllers
 {
     public class ContactController : Controller
     {
+        private readonly IContactUsService _contactUsService;
+        private readonly ISettingService _settingService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ContactController(IUnitOfWork unitOfWork)
+
+        public ContactController(IContactUsService contactUsService, ISettingService settingService, IUnitOfWork unitOfWork)
         {
+            _contactUsService = contactUsService;
+            _settingService = settingService;
             _unitOfWork = unitOfWork;
         }
-        public IActionResult Index()
-        {
-            ContactUsViewModel contactUsViewModel = new ContactUsViewModel
-            {
-                Setting = _unitOfWork.settingRepository.GetSetting()
+        //public async Task<IActionResult> Index()
+        //{
+        //    //ContactUsViewModel dbContactUs = await _contactUsService.Get();
+        //    ////ContactUsViewModel contactUsView = new ContactUsViewModel
+        //    ////{
+        //    ////    Setting = _settingService.GetSetting()
+        //    ////};
+        //    //HomeVM homeVM = new HomeVM
+        //    //{
+        //    //    Setting = _settingService.GetSetting(),
+        //    //    ContactUsVM = dbContactUs
+        //    //};
+        //    //return View(homeVM);
+        //    var dbContactUs = await _contactUsService.GetAllAsync();
 
-            };
-            return View(contactUsViewModel);
-        }
+        //    ContactUsCreateVM contactUsCreateVM = new ContactUsCreateVM
+        //    {
+        //        Email = dbContactUs.E
+        //    };
+
+        //    return View();
+        //}
 
 
         public  IActionResult Create()
         {
-            return View();
+            var setting = _settingService.GetSetting();
 
+
+            ContactUsCreateVM contactUsCreate = new ContactUsCreateVM
+            {
+                Setting = setting
+            };
+
+            return View(contactUsCreate);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> Create(ContactUsViewModel contactUsVM)
+        public async Task<IActionResult> Create(ContactUsCreateVM contactUsCreateVM)
         {
-            if (!ModelState.IsValid) return View(contactUsVM);
+            try
+            {
+                if (!ModelState.IsValid) return View(contactUsCreateVM);
+               
+                await _contactUsService.CreateAsync(contactUsCreateVM);
+                contactUsCreateVM.Setting = _settingService.GetSetting();
+                return View(contactUsCreateVM);
+            }
+            catch (Exception ex)
+            {
 
-
-            return RedirectToAction(nameof(Index));
+                ModelState.AddModelError(String.Empty, ex.Message.ToString());
+                return View(contactUsCreateVM);
+            }
 
         }
     }

@@ -40,6 +40,8 @@ namespace MediWellHospital
             services.AddScoped<IWelcomeService, WelcomeService>();
             services.AddScoped<ICardService, CardService>();
             services.AddScoped<IPatientService, PatientService>();
+            services.AddScoped<IContactUsService, ContactUsService>();
+            services.AddScoped<ISettingService, SettingService>();
 
 
             services.AddIdentity<User, IdentityRole>()

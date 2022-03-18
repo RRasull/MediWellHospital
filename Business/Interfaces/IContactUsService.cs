@@ -10,7 +10,9 @@ namespace Business.Interfaces
    public interface IContactUsService
     {
         Task<List<ContactUsViewModel>> GetAllAsync();
-        Task<ContactUs> GetAsync(int id);
+        //Task<ContactUsViewModel> GetAsync();
+        Task CreateAsync(ContactUsCreateVM contactCreateVM);
+
         Task RemoveAsync(int id);
     }
 }

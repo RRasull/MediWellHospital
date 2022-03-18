@@ -8,6 +8,8 @@ namespace Business.Interfaces
 {
    public interface ISettingService
     {
-        Task<List<Setting>> GetAllAsync();
+
+        Dictionary<string, string> GetSetting();
+
     }
 }

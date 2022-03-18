@@ -28,8 +28,6 @@ namespace Business.Implementations
 
         public async Task CreateAsync(WelcomeCreateVM createVM)
         {
-            //Welcome welcome = _mapper.Map<Welcome>(createVM);
-
 
             Welcome welcome = new Welcome
             {

@@ -1,5 +1,6 @@
 ﻿using Business.Interfaces;
 using Business.ViewModels;
+using Business.ViewModels.DoctorVM;
 using Core;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,35 @@ namespace MediWellHospital.Controllers
                 Departaments = await _unitOfWork.departmentRepository.Take(8, d => d.IsDeleted == false),
                 Doctors = await _doctorService.GetAllAsync(),
                 Setting = _unitOfWork.settingRepository.GetSetting()
+
+            };
+            return View(homeVM);
+        }
+
+        public async Task<IActionResult> DoctorsInfo(int id)
+        {
+            var doctor =  await _doctorService.GetAsync(id);
+            DoctorInfoVM doctorInfoVM = new DoctorInfoVM
+            {
+                Id = doctor.Id,
+                Name = doctor.Name,
+                Surname = doctor.Surname,
+                Education = doctor.Education,
+                EmailAdress = doctor.EmailAddress,
+                WorkingHours = doctor.WorkingHours,
+                Splztn = doctor.Splztion,
+                Description = doctor.Description,
+                Image = doctor.Image
+            };
+
+            HomeVM homeVM = new HomeVM
+            {
+                Welcome = await _unitOfWork.welcomeRepository.GetAsync(W => W.IsDeleted == false),
+                Cards = await _unitOfWork.cardRepository.Take(4, c => c.IsDeleted == false),
+                Departaments = await _unitOfWork.departmentRepository.Take(8, d => d.IsDeleted == false),
+                Doctors = await _doctorService.GetAllAsync(),
+                Setting = _unitOfWork.settingRepository.GetSetting(),
+                DoctorInfoVM  = doctorInfoVM
 
             };
             return View(homeVM);

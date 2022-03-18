@@ -1,0 +1,85 @@
+﻿@using Business.ViewModels
+@model HomeVM
+@{
+    ViewData["Title"] = "DoctorsInfo";
+}
+@*@{
+
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
+
+<!-- ======= Main Section Start ======= -->
+
+<main>
+    <section id="AllDoctors">
+        <div class="container my-5">
+
+            <div class="doctor">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <img style="width: 500px; height: 500px;" src="./assets/images/Doctors/@Model.DoctorInfoVM.Image" alt="Doc1">
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="doctor-info">
+                            <h1 class="my-3 doctor-profession">
+                                <span class="font-weight-light">@Model.DoctorInfoVM.Splztn</span>
+                            </h1>
+                            <h2 class="my-5 doctor-name">
+                                <span class="font-weight-bold">Ad:</span>  <span class="font-weight-light">@Model.DoctorInfoVM.Name @Model.DoctorInfoVM.Surname </span>
+                            </h2>
+                            <h2 class="my-5 doctor-profession">
+                                <span class="font-weight-bold">Iş saatları:</span>  <span class="font-weight-light">hər gün saat @Model.DoctorInfoVM.WorkingHours</span>
+                            </h2>
+                            <h2 class="my-5 doctor-profession">
+                                <span class="font-weight-bold">Email:</span>  <span class="font-weight-light">@Model.DoctorInfoVM.EmailAdress</span>
+                            </h2>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-6">
+                        <div class="doctor-info">
+                            <h3 class="my-5 doctor-name">
+                                <span class="font-weight-bold">Təhsil: </span>
+
+                            </h3>
+                            <p>@Model.DoctorInfoVM.Education</p>
+
+                          
+
+                            <h3 class="my-5 doctor-name">
+                                <span class="font-weight-bold">Məşğul olduğu sahələr: </span>
+                            </h3>
+
+                            <ul>
+                                <li>
+                                    <i class="fa-solid fa-check mx-3"></i>
+                                    @Model.DoctorInfoVM.Description
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-check mx-3"></i>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, rem.
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-check mx-3"></i>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, rem.
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-check mx-3"></i>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, rem.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<!-- ======= Main Section End ======= -->

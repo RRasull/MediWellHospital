@@ -1,4 +1,4 @@
-﻿@model HomeVM
+﻿@model ContactUsCreateVM
 @{
     ViewData["Title"] = "Index";
 }
@@ -43,19 +43,30 @@
                     <form method="post">
                         <div class="row">
                             <div class="col-md-12 form-group mt-3 mt-md-0">
-                                <!--<div class="form-group">-->
+                                <div class="form-group">
                                     @*<input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Elektron ünvanınız">*@
 
-                                    <!--<input asp-for="Model" class="form-control form-control-lg" placeholder="Elektron ünvanınız">
+                                    <input asp-for="Email" class="form-control form-control-lg" placeholder="Elektron ünvanınız">
                                     <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>-->
+                                </div>
                             </div>
                         </div>
                         <div class="form-group mt-3">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                            <div class="form-group">
+                                @*<input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Elektron ünvanınız">*@
+
+                                <input asp-for="Subject" class="form-control form-control-lg" placeholder="Mövzu">
+                                <span asp-validation-for="Subject" class="text-danger"></span>
+                            </div>
                         </div>
                         <div class="form-group mt-3">
-                            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                            <div class="form-group">
+                                @*<input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Elektron ünvanınız">*@
+                                <textarea asp-for="Message" class="form-control form-control-lg" placeholder="Mesaj" required></textarea>
+                                @*<input asp-for="ContactUsVM.Subject" class="form-control form-control-lg" placeholder="Mövzu">*@
+                                <span asp-validation-for="Message" class="text-danger"></span>
+                            </div>
+                            
                         </div>
                         <div class="text-center"><button type="submit">Mesajı Göndər</button></div>
                     </form>

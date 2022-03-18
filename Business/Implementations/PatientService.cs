@@ -25,6 +25,7 @@ namespace Business.Implementations
         }
         public async Task CreateAsync(PatientCreateIdentityVM createIdentityVM)
         {
+
             string fileName = await createIdentityVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Patients");
             Patient patient = new Patient
             {

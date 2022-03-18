@@ -1,0 +1,52 @@
+﻿@using Business.ViewModels.ContactUsVM 
+@model List<ContactUsViewModel>
+@{
+    ViewData["Title"] = "Index";
+    int count = 1;
+}
+
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Həkimlər</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sıra</th>
+                            <th>E-Poçta</th>
+                            <th>Mesaj</th>
+                            <th>Mövzu</th>
+                            <th>Ayarlar</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var contactUs in Model)
+                        {
+                        <tr>
+
+                            <td>@count</td>
+                            <td>@contactUs.Email</td>
+                            <td>@contactUs.Message</td>
+                            <td>@contactUs.Subject</td>
+
+                            <td>
+
+                                <form method="post" asp-action="Delete">
+                                    <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@contactUs.Id">Sil</button>
+                                </form>
+
+                            </td>
+
+                        </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

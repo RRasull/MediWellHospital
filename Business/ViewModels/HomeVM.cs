@@ -20,7 +20,10 @@ namespace Business.ViewModels
 
         public AppointCreateVM AppointCreateVM { get; set; }
 
-        public List<ContactUsViewModel> ContactUsVM { get; set; }
+        public ContactUsCreateVM ContactUsVM { get; set; }
+
+        public DoctorInfoVM DoctorInfoVM { get; set; }
+        public List<ContactUs> ContactUs { get; set; }
 
 
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Business.Exceptions
 {
-    public class EmailAlreadyExistsException : FileException
+    public class EmailAlreadyExistsException : Exception
     {
         public EmailAlreadyExistsException(string message) : base(message)
         {

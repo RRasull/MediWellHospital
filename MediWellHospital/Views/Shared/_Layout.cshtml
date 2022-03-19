@@ -76,26 +76,45 @@
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <h4>@User.Identity.Name</h4>
-                    <li class="nav-item nav-profile dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="profileDropdown">
+                    @*<h4>@User.Identity.Name</h4>
+        <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="profileDropdown">
 
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
 
-                            <form method="post" asp-controller="Account">
-                                @*<button type="submit" asp-controller="Account" asp-action="LogOut" class="btn">Log Out</button>*@
+                <form method="post" asp-controller="Account">
+                    <button type="submit" asp-controller="Account" asp-action="LogOut" class="btn">Log Out</button>
 
-                                <button type="submit" asp-controller="Account" asp-action="Logout" class="dropdown-item login-area">
-                                    <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                    Hesabdan Çıx
-                                </button>
+                    
 
-                            </form>
+                </form>
 
-                            
-                        </div>
+
+            </div>
+        </li>*@
+
+        <div class="User-area">
+            <div class="User-avtar">
+                <img />
+            </div>
+            <form method="post" asp-controller="Account">
+                <ul class="User-Dropdown U-open">
+
+                    <li>
+                        <a asp-controller="UserSetting" asp-action="ChangeSetting">Parametrlər</a>
                     </li>
+                    <li>
+                        <button type="submit" asp-controller="Account" asp-action="Logout" class=" login-area">
+                            @*<i class="fa fa-sign-in" aria-hidden="true"></i>*@
+                            Hesabdan Çıx
+                        </button>
+                    </li>
+
+
+                </ul>
+            </form>
+        </div>
                 }
                 else
                 {
@@ -107,9 +126,6 @@
                         </div>
                     </a>
                 }
-
-
-
 
             </div>
         </div>

@@ -26,8 +26,6 @@ namespace Business.Implementations
 
 
 
-
-
         public DoctorService(IUnitOfWork unitOfWork, IWebHostEnvironment env, UserManager<User> userManager)
         {
             _unitOfWork = unitOfWork;

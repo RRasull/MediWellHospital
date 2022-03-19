@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Business.Exceptions
 {
-   public class DepartmentNameAlreadyExistsException : FileException
+   public class DepartmentNameAlreadyExistsException : Exception
     {
         public DepartmentNameAlreadyExistsException(string message) : base(message)
         {

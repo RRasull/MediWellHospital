@@ -4,11 +4,10 @@ using System.Text;
 
 namespace Business.Exceptions
 {
-   public class BadRequestException : Exception
+    public class SetPasswordException : UserException
     {
-        public BadRequestException(string message) : base(message)
+        public SetPasswordException(string message) : base(message)
         {
-
         }
     }
 }

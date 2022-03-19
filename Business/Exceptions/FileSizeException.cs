@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Business.Exceptions
 {
-    public class FileSizeException : FileException
+    public class FileSizeException : Exception
     {
         public FileSizeException(string message) : base(message)
         {

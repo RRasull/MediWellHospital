@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Business.Exceptions
 {
-    public class FileTypeException : FileException
+    public class FileTypeException : Exception
     {
         public FileTypeException(string message) : base(message)
         {

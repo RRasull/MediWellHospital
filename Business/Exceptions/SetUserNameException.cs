@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Business.Exceptions
 {
-   public class BadRequestException : Exception
+    public class SetUserNameException : UserException
     {
-        public BadRequestException(string message) : base(message)
+        public SetUserNameException(string message) : base(message)
         {
 
         }

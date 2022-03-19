@@ -82,5 +82,10 @@ namespace MediWellHospital.Controllers
             }
 
         }
+
+        public IActionResult SentSuccessfully()
+        {
+            return View();
+        }
     }
 }

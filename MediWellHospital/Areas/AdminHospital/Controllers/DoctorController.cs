@@ -63,15 +63,8 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
-            DoctorCreateIdentityVM createDto = new DoctorCreateIdentityVM
-            {
-                Departaments = departaments
-            };
-            return View(createDto);
+            return View(await _doctorService.Create());
         }
-
-       
 
         [HttpPost]
         [ValidateAntiForgeryToken]

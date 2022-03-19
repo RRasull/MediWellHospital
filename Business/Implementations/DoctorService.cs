@@ -36,7 +36,7 @@ namespace Business.Implementations
         }
         public async Task CreateAsync(DoctorCreateIdentityVM identityCreateVM)
         {
-           
+
             if (!identityCreateVM.Photo.CheckContent("image/"))
             {
                 throw new FileTypeException("Fayl şəkil formatında olmalıdır");
@@ -73,6 +73,8 @@ namespace Business.Implementations
             await _unitOfWork.doctorRepository.CreateAsync(doctor);
             await _unitOfWork.SaveAsync();
         }
+
+        
 
         public async Task<DoctorUpdateVM> Update(int id)
         {
@@ -206,6 +208,14 @@ namespace Business.Implementations
             await _unitOfWork.SaveAsync();
         }
 
-        
+        public async Task<DoctorCreateIdentityVM> Create()
+        {
+            var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
+            DoctorCreateIdentityVM createDto = new DoctorCreateIdentityVM
+            {
+                Departaments = departaments
+            };
+            return createDto;
+        }
     }
 }

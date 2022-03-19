@@ -10,6 +10,7 @@ namespace Core.Models
         public string Fullname { get; set; }
         public bool IsActivated { get; set; }
 
+        public string Image { get; set; }
         public List<Doctor> Doctors { get; set; }
     }
 }

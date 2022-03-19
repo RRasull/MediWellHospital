@@ -5,7 +5,7 @@
 }
 
 <!-- ======= Appointment Section ======= -->
-<section id="appointment" class="appointment section-bg">
+<section id="appointment" class="appointment ctn section-bg">
     <div class="container my-5">
 
         <div class="section-title">
@@ -50,21 +50,37 @@
                     </div>
                 </div>
                 <div class="col-md-4 form-group mt-3">
-                    <select name="department" id="department" class="form-select">
+                    <div class="form-group drop-custum">
+                        <select asp-for="AppointCreateVM.DepartamentId" class="form-control">
+                            <option value="">Şöbə Seçin</option>
+                            @foreach (var departament in Model.Departaments)
+                            {
+                                <option value="@departament.Id">@departament.Name</option>
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="AppointCreateVM.DepartamentId"></span>
+
+                    </div>
+                    @*<select name="department" id="department" class="form-select">
                         <option value="">Departament Seç</option>
                         <option value="Department 1">Department 1</option>
                         <option value="Department 2">Department 2</option>
                         <option value="Department 3">Department 3</option>
-                    </select>
+                    </select>*@
                     <div class="validate"></div>
                 </div>
                 <div class="col-md-4 form-group mt-3">
-                    <select name="doctor" id="doctor" class="form-select">
-                        <option value="">Həkim Seç</option>
-                        <option value="Doctor 1">Doctor 1</option>
-                        <option value="Doctor 2">Doctor 2</option>
-                        <option value="Doctor 3">Doctor 3</option>
-                    </select>
+                    <div class="form-group drop-custum">
+                        <select asp-for="AppointCreateVM.DoctorId" class="form-control">
+                            <option value="">Həkim Seçin</option>
+                            @foreach (var doctor in Model.Doctors)
+                            {
+                                <option value="@doctor.Id">@doctor.Name</option>
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="AppointCreateVM.DoctorId"></span>
+
+                    </div>
                     <div class="validate"></div>
                 </div>
             </div>
@@ -73,7 +89,7 @@
                 <textarea class="form-control" name="message" rows="5" placeholder="Mesaj (Opsional)"></textarea>
                 <div class="validate"></div>
             </div>
-            <div class="text-center"><button type="submit">Qeydiyyat Götür</button></div>
+            <div class="text-center cta-btn scrollto"><button type="submit">Qeydiyyat Götür</button></div>
         </form>
 
     </div>

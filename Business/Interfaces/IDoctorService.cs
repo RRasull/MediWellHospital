@@ -11,6 +11,7 @@ namespace Business.Interfaces
     {
         Task<List<DoctorGetVM>> GetAllAsync();
         Task<Doctor> GetAsync(int id);
+        Task<DoctorCreateIdentityVM> Create();
         Task CreateAsync(DoctorCreateIdentityVM createIdentityVM);
         Task<DoctorUpdateVM> Update(int id);
         Task UpdateAsync(int id, DoctorUpdateVM updateVM);

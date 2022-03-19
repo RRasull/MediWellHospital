@@ -18,8 +18,11 @@ namespace MediWellHospital.Controllers
         private readonly IUnitOfWork _unitOfWork;
 
 
-        public ContactController(IContactUsService contactUsService, ISettingService settingService, IUnitOfWork unitOfWork)
+       
+
+        public ContactController( IContactUsService contactUsService, ISettingService settingService, IUnitOfWork unitOfWork)
         {
+
             _contactUsService = contactUsService;
             _settingService = settingService;
             _unitOfWork = unitOfWork;
@@ -67,9 +70,11 @@ namespace MediWellHospital.Controllers
         {
             try
             {
+              
                 if (!ModelState.IsValid) return View(contactUsCreateVM);
-               
+
                 await _contactUsService.CreateAsync(contactUsCreateVM);
+               
                 contactUsCreateVM.Setting = _settingService.GetSetting();
                 return RedirectToAction("SentSuccessfully","Contact");
 

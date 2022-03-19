@@ -109,6 +109,16 @@ namespace Business.Implementations
 
         public async Task UpdateAsync(int id, DoctorUpdateVM updateVM)
         {
+            if (!updateVM.Photo.CheckContent("image/"))
+            {
+                throw new FileTypeException("Fayl şəkil formatında olmalıdır");
+
+            }
+
+            if (!updateVM.Photo.CheckLength(2000))
+            {
+                throw new FileTypeException("Fayl 2 mb-dan az olmamalıdır");
+            }
             var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
 
             //var dbUser = await _unitOfWork.usersRepository.GetAsync(u => u.Id==updateVM.UserId);

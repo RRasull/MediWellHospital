@@ -8,7 +8,6 @@ namespace Business.Utilities.Email
    public class EmailHelper
     {
 
-
         public bool SendEmail(string userEmail, string confirmationLink)
         {
             MailMessage mailMessage = new MailMessage();

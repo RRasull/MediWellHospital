@@ -83,7 +83,8 @@ namespace Business.Implementations
 
         public async Task<Patient> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.patientRepository.GetAsync(d => d.IsDeleted == false && d.Id == id);
+
         }
 
         public async Task RemoveAsync(int id)

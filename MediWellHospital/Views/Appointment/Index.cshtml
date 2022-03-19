@@ -44,7 +44,7 @@
                 <div class="col-md-4 form-group mt-3">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" id="AppointCreateVM.AppointDate" name="AppointCreateVM.AppointDate" value="@Model.AppointCreateVM.AppointDate.ToString("dd-MM-yyyy")" class="datepicker form-control" placeholder="Qeydiyyat Tarixi">
+                            <input asp-for="AppointCreateVM.AppointDate" class="datepicker form-control" placeholder="Qeydiyyat Tarixi">
                             <span class="text-danger" asp-validation-for="AppointCreateVM.AppointDate"></span>
                         </div>
                     </div>
@@ -86,13 +86,13 @@
 </a>
 
 @section Scripts{
-                <script>
-                    $(function () {
-                        $('.datepicker').datepicker(
-                            {
-                                dateFormat: 'dd-MM-yyyy'
-                            });
-                    });
-                </script>
+            <script>
+                $(function () {
+                    $('.datepicker').datepicker(
+                        {
+                            dateFormat: 'dd-MM-yyyy'
+                        });
+                });
+            </script>
             } 
 

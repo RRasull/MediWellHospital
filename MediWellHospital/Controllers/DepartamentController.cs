@@ -13,12 +13,14 @@ namespace MediWellHospital.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDoctorService _doctorService;
+        private readonly IDepartmentService _departmentService;
 
 
-        public DepartamentController(IUnitOfWork unitOfWork, IDoctorService doctorService)
+        public DepartamentController(IUnitOfWork unitOfWork, IDoctorService doctorService, IDepartmentService departmentService)
         {
             _unitOfWork = unitOfWork;
             _doctorService = doctorService;
+            _departmentService = departmentService;
         }
 
         public async Task<IActionResult> Index()
@@ -27,7 +29,7 @@ namespace MediWellHospital.Controllers
             {
                 Welcome = await _unitOfWork.welcomeRepository.GetAsync(W => W.IsDeleted == false),
                 Cards = await _unitOfWork.cardRepository.Take(4, c => c.IsDeleted == false),
-                Departaments = await _unitOfWork.departmentRepository.Take(8, d => d.IsDeleted == false),
+                Departaments = await _unitOfWork.departmentRepository.GetAllAsync(d=>d.IsDeleted==false),
                 Doctors = await _doctorService.GetAllAsync(),
                 Setting = _unitOfWork.settingRepository.GetSetting()
 

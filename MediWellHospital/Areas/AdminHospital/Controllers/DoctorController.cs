@@ -29,6 +29,7 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly IDoctorService _doctorService;
+        private readonly ISettingService _settingService;
 
 
 
@@ -41,6 +42,7 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         public DoctorController(IUnitOfWork unitOfWork,
                                 IWebHostEnvironment env,
                                 IDoctorService doctorService,
+                                ISettingService settingService,
                                 UserManager<User> userManager,
                                 SignInManager<User> signInManager,
                                 RoleManager<IdentityRole> roleManager)
@@ -51,13 +53,12 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _settingService = settingService;
         }
 
         public async Task<IActionResult> Index()
         {
-            
             return View(await _doctorService.GetAllAsync());
-
         }
 
         public async Task<IActionResult> Create()
@@ -83,7 +84,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             doctorCreateIdentityVM.Departaments = departaments;
 
             
-
             if (!doctorCreateIdentityVM.Photo.CheckContent("image/"))
             {
                 ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");

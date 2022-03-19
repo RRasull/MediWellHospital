@@ -29,6 +29,7 @@ namespace Business.Implementations
             ContactUs contactUs = new ContactUs
             {
                 Email = createVM.Email,
+                Name = createVM.Name,
                 Message = createVM.Message,
                 Subject = createVM.Subject
             };
@@ -65,6 +66,7 @@ namespace Business.Implementations
                 {
                     Id = contactUs.Id,
                     Email = contactUs.Email,
+                    Name = contactUs.Name,
                     Message = contactUs.Message,
                     Subject = contactUs.Subject,
                     Setting = _unitOfWork.settingRepository.GetSetting()

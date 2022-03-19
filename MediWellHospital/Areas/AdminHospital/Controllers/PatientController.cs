@@ -63,12 +63,12 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         //public async Task<IActionResult> Create()
         //{
-        //    //var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
-        //    //PatientCreateIdentityVM createDto = new PatientCreateIdentityVM
-        //    //{
-        //    //    Departaments = departaments
-        //    //};
-        //    //return View(createDto);
+        //    var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
+        //    PatientCreateIdentityVM createDto = new PatientCreateIdentityVM
+        //    {
+        //        Departaments = departaments
+        //    };
+        //    return View(createDto);
         //}
 
 

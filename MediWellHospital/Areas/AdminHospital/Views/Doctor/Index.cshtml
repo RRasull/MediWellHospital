@@ -60,10 +60,14 @@
 
 
                             <td>
-                                <a class="btn btn-warning" asp-controller="Doctor" asp-action="Update"  asp-route-id="@doctor.Id">Yenilə</a>
+                                <a class="btn btn-warning" asp-controller="Doctor" asp-action="Update"  asp-route-id="@doctor.Id">
+                                    <i class="fas fa-edit"></i>
+                                </a>
 
                                 <form method="post" asp-action="Delete">
-                                    <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@doctor.Id">Sil</button>
+                                    <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@doctor.Id">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
                                 </form>
 
                             </td>

@@ -19,11 +19,14 @@
     <Compile Remove="Migrations\20220317143133_UpdatePhoneOnDoctorTable.Designer.cs" />
     <Compile Remove="Migrations\20220318063251_CreatePatientCommentTable.cs" />
     <Compile Remove="Migrations\20220318063251_CreatePatientCommentTable.Designer.cs" />
+    <Compile Remove="Migrations\20220319082740_UpdateDescriptionColumnToDepartmentTable.cs" />
+    <Compile Remove="Migrations\20220319082740_UpdateDescriptionColumnToDepartmentTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+    <PackageReference Include="MailKit" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.23" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.23" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.22" />

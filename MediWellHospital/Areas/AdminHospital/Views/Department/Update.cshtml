@@ -1,13 +1,13 @@
-﻿@model DepartmentCreateVM
+﻿@model DepartmentUpdateVM
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Update";
 }
 
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
             <h1 class="card-description">
-                Kart Əlavə Et
+                Departament Edit
             </h1>
 
             <div class="text-danger" asp-validation-summary="ModelOnly"></div>
@@ -31,7 +31,7 @@
                     <input asp-for="Description" class="form-control form-control-lg" placeholder="Deskripsiya">
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
-                <button asp-action="Create" type="submit" class="btn btn-primary mr-2">Əlavə Et</button>
+                <button asp-action="Update" type="submit" class="btn btn-primary mr-2">Yenilə</button>
 
                 <a asp-action="Index" class="btn btn-light">İmtina</a>
 
@@ -39,4 +39,3 @@
         </div>
     </div>
 </div>
-

@@ -13,6 +13,8 @@ namespace Business.ViewModels.ContactUsVM
         [Required]
         public string Subject { get; set; }
         [Required]
+        public string Name { get; set; }
+        [Required]
         public string Message { get; set; }
 
         public Dictionary<string, string> Setting { get; set; }

@@ -2,14 +2,11 @@
 using Business.Interfaces;
 using Business.Utilities.Helper;
 using Business.ViewModels.PatientCommentVM;
-using Business.ViewModels.PatientVM;
 using Core;
 using Core.Models;
 using Microsoft.AspNetCore.Hosting;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Business.Implementations

@@ -19,7 +19,6 @@ namespace Core.Models
         public string Education { get; set; }
         public string WorkingHours { get; set; }
         public double Fees { get; set; }
-        public string Splztion { get; set; }
 
 
         public string ApplicationUserId { get; set; }

@@ -37,8 +37,6 @@ namespace Business.ViewModels.DoctorVM
 
         public double DoctorFees { get; set; }
 
-        [Required, MaxLength(255)]
-        public string DoctorSplztion { get; set; }
 
         [Required]
         public Gender Gender { get; set; }

@@ -3,13 +3,8 @@ using Business.ViewModels;
 using Business.ViewModels.AppointmentVM;
 using Core;
 using Core.Models;
-using Data.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MediWellHospital.Controllers

@@ -1,12 +1,9 @@
 ﻿using Business.Interfaces;
 using Business.ViewModels.AppointmentVM;
-using Business.ViewModels.CardVM;
 using Core;
 using Core.Models;
 using Microsoft.AspNetCore.Identity;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Business.Implementations

@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-using Business.Interfaces;
-using Business.Utilities.Helper;
+﻿using Business.Interfaces;
 using Business.ViewModels.DepartmentVM;
 using Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MediWellHospital.Areas.AdminHospital.Controllers

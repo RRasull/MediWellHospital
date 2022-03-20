@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Business.Exceptions;
+﻿using Business.Exceptions;
 using Business.Utilities.Helper;
 using Business.Interfaces;
 using Business.ViewModels.DoctorVM;
@@ -10,11 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
-using static Business.Utilities.Helper.Helper;
-using System.Security.Policy;
-using Business.Utilities.Email;
+
 
 namespace Business.Implementations
 {
@@ -126,6 +122,9 @@ namespace Business.Implementations
                 }
 
                 string fileName = await updateVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
+
+                dbDoctor.Image = fileName;
+
             }
 
 

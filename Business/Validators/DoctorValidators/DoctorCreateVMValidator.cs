@@ -1,8 +1,5 @@
 ﻿using Core.Models;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Validators.DoctorValidators
 {
@@ -33,12 +30,7 @@ namespace Business.Validators.DoctorValidators
             RuleFor(d => d.Fees)
                .NotNull()
                .NotEmpty();
-            RuleFor(d => d.Splztion)
-               .NotNull()
-               .NotEmpty();
-            RuleFor(d => d.Splztion)
-               .NotNull()
-               .NotEmpty();
+           
             RuleFor(d => d.Gender)
                .NotNull()
                .NotEmpty();

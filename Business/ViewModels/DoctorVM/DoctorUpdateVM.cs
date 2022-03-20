@@ -19,7 +19,7 @@ namespace Business.ViewModels.DoctorVM
         public string Education { get; set; }
         public string WorkingHours { get; set; }
         public double Fees { get; set; }
-        public string Splztion { get; set; }
+        //public string Splztion { get; set; }
         public Gender Gender { get; set; }
         public int? DepartamentId { get; set; }
         public List<Departament> AllDepartaments { get; set; }

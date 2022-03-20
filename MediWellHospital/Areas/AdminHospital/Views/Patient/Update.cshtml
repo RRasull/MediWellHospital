@@ -1,0 +1,95 @@
+﻿@model PatientUpdateVM
+@{
+    ViewData["Title"] = "Update";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-description">
+                Pasient Əlavə Et
+            </h1>
+
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+            <form class="forms-sample" method="post" enctype="multipart/form-data" accept="image/*">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="Name" class="form-control" placeholder="Ad">
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="Surname" class="form-control" placeholder="Soyad">
+                        <span class="text-danger" asp-validation-for="Surname"></span>
+                    </div>
+                </div>
+                <div class="form-group d-flex">
+                    @*<input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="İstifadəçi adı">*@
+
+                    <input asp-for="Username" class="form-control form-control-lg" placeholder="İstifadəçi adı">
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="Height" class="form-control" placeholder="Boy">
+                        <span class="text-Height" asp-validation-for="Height"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="Weight" class="form-control" placeholder="Çəki">
+                        <span class="text-Height" asp-validation-for="Weight"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-line">
+                        <input asp-for="Phone" class="form-control" placeholder="Telefon">
+                        <span class="text-danger" asp-validation-for="Phone"></span>
+                    </div>
+                </div>
+                <div class="form-group drop-custum">
+                    <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<Gender>()">
+                        <option value="">Cinsini Seç</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="Gender"></span>
+
+                </div>
+                <div class="form-group">
+                    <input asp-for="Photo" class="form-control">
+                    <span class="text-danger" asp-validation-for="Photo"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Address" class="form-control" placeholder="Ünvan">
+                    <span class="text-danger" asp-validation-for="Address"></span>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="BirthDate" name="BirthDate" class="datepicker form-control" placeholder="Doğum İli">
+                    <span class="text-danger" asp-validation-for="BirthDate"></span>
+                </div>
+                <div class="form-group">
+                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Şərh(Opsional)"></textarea>
+                    <span class="text-danger" asp-validation-for="Description"></span>
+                </div>
+
+                <button asp-action="Update" type="submit" class="btn btn-primary mr-2">Yenilə</button>
+
+                <a asp-action="Index" class="btn btn-light">İmtina</a>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('.datepicker').datepicker(
+                {
+                    dateFormat: 'dd-MM-yyyy'
+                });
+        });
+    </script>
+}

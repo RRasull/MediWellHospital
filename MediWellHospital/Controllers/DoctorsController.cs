@@ -2,11 +2,7 @@
 using Business.ViewModels;
 using Business.ViewModels.DoctorVM;
 using Core;
-using Core.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MediWellHospital.Controllers
@@ -50,7 +46,7 @@ namespace MediWellHospital.Controllers
                 Education = doctor.Education,
                 EmailAdress = doctor.EmailAddress,
                 WorkingHours = doctor.WorkingHours,
-                Splztn = doctor.Splztion,
+                //Splztn = doctor.Splztion,
                 Description = doctor.Description,
                 Image = doctor.Image
             };

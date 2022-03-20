@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Business.Exceptions;
+﻿using Business.Exceptions;
 using Business.Interfaces;
 using Business.ViewModels.WelcomeVM;
 using Core;
@@ -7,7 +6,6 @@ using Core.Models;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Business.Implementations

@@ -5,10 +5,8 @@ using Business.ViewModels.PatientVM;
 using Core;
 using Core.Models;
 using Microsoft.AspNetCore.Hosting;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Business.Implementations
@@ -157,6 +155,8 @@ namespace Business.Implementations
                 }
 
                 string fileName = await updateVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
+
+                dbPatient.Image = fileName;
             }
 
 

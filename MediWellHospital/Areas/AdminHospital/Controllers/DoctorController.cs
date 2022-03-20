@@ -1,24 +1,16 @@
-﻿using AutoMapper;
-using Business.ViewModels.DoctorVM;
+﻿using Business.ViewModels.DoctorVM;
 using Core;
 using Core.Models;
-using Data.DAL;
 using Business.Utilities.Helper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.IO;
-using Core.Interfaces;
 using Business.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Business.Utilities.Email;
 using static Business.Utilities.Helper.Helper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Business.Exceptions;
 
 namespace MediWellHospital.Areas.AdminHospital.Controllers

@@ -21,6 +21,8 @@
     <Compile Remove="Migrations\20220318063251_CreatePatientCommentTable.Designer.cs" />
     <Compile Remove="Migrations\20220319082740_UpdateDescriptionColumnToDepartmentTable.cs" />
     <Compile Remove="Migrations\20220319082740_UpdateDescriptionColumnToDepartmentTable.Designer.cs" />
+    <Compile Remove="Migrations\20220320011041_AddForeignKeyToDepartmentIdOnDoctorTable.cs" />
+    <Compile Remove="Migrations\20220320011041_AddForeignKeyToDepartmentIdOnDoctorTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

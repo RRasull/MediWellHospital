@@ -1,5 +1,7 @@
 ﻿using Business.Interfaces;
 using Business.ViewModels;
+using Business.ViewModels.AppointmentVM;
+using Business.ViewModels.DepartmentVM;
 using Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,14 +30,14 @@ namespace MediWellHospital.Controllers
     }
         public async Task<IActionResult> Index()
         {
-            HomeVM homeVM = new HomeVM
+            AppointCreateVM appointCreateVM = new AppointCreateVM();
+            AppointmentVM appointmentVM = new AppointmentVM
             {
-                Setting = _unitOfWork.settingRepository.GetSetting(),
-                Departaments = await _unitOfWork.departmentRepository.GetAllAsync(d=>d.IsDeleted==false),
-                Doctors =await _doctorService.GetAllAsync() 
-
+                Departaments = await _unitOfWork.departmentRepository.GetAllAsync(d => d.IsDeleted == false),
+                Doctors = await _doctorService.GetAllAsync(),
+                AppointCreateVM = appointCreateVM
             };
-            return View(homeVM);
+            return View(appointmentVM);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Business.ViewModels.ContactUsVM;
 using Business.ViewModels.DepartmentVM;
 using Business.ViewModels.DoctorVM;
+using Core;
 using Core.Models;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace Business.ViewModels
 
         public DoctorInfoVM DoctorInfoVM { get; set; }
         public List<ContactUs> ContactUs { get; set; }
-
+        public User User { get; set; }
+        public IUnitOfWork UnitOfWork { get; set; }
 
     }
 }

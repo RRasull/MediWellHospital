@@ -46,6 +46,8 @@ namespace MediWellHospital
             services.AddScoped<IContactUsService, ContactUsService>();
             services.AddScoped<ISettingService, SettingService>();
 
+            services.AddScoped<LayoutService>();
+
 
             services.AddIdentity<User, IdentityRole>()
                     .AddEntityFrameworkStores<AppDbContext>()

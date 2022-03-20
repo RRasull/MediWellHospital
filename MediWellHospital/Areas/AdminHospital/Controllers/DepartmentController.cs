@@ -73,9 +73,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             try
             {
                 if (!ModelState.IsValid) return View(departmentUpdateVM);
-                //if (id != departmentUpdateVM.Id) return BadRequest();
-                //var dbDepartment = await _unitOfWork.departmentRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
-                //if (dbDepartment is null) return NotFound();
 
                 await _departmentService.UpdateAsync(id, departmentUpdateVM);
 

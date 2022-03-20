@@ -1,7 +1,8 @@
-﻿
-@model HomeVM
+﻿@using Business.ViewModels.AppointmentVM
+@model AppointmentVM
 @{
     ViewData["Title"] = "Index";
+
 }
 
 <!-- ======= Appointment Section ======= -->
@@ -14,6 +15,7 @@
         </div>
 
         <form action="forms/appointment.php" method="post">
+
             <div class="row">
                 <div class="col-md-4 form-group">
                     <div class="form-group">
@@ -62,11 +64,11 @@
 
                     </div>
                     @*<select name="department" id="department" class="form-select">
-                        <option value="">Departament Seç</option>
-                        <option value="Department 1">Department 1</option>
-                        <option value="Department 2">Department 2</option>
-                        <option value="Department 3">Department 3</option>
-                    </select>*@
+                            <option value="">Departament Seç</option>
+                            <option value="Department 1">Department 1</option>
+                            <option value="Department 2">Department 2</option>
+                            <option value="Department 3">Department 3</option>
+                        </select>*@
                     <div class="validate"></div>
                 </div>
                 <div class="col-md-4 form-group mt-3">
@@ -102,13 +104,13 @@
 </a>
 
 @section Scripts{
-            <script>
-                $(function () {
-                    $('.datepicker').datepicker(
-                        {
-                            dateFormat: 'dd-MM-yyyy'
-                        });
+    <script>
+        $(function () {
+            $('.datepicker').datepicker(
+                {
+                    dateFormat: 'dd-MM-yyyy'
                 });
-            </script>
-            } 
+        });
+    </script>
+}
 

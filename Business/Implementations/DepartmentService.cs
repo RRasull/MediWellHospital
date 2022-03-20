@@ -136,25 +136,12 @@ namespace Business.Implementations
                 dbDepartment.Image = fileName;
             }
 
-            //if(dbDepartment.Name.ToLower().Trim() == updateVM.Name.ToLower().Trim())
-            //{
-            //    throw new DepartmentNameAlreadyExistsException("Department Name Already Exist");
-            //}
-
             bool isExist =await _unitOfWork.departmentRepository.IsExistsAsync(d => d.Name.ToLower().Trim() == updateVM.Name.ToLower().Trim());
 
             if (isExist)
             {
                 throw new DepartmentNameAlreadyExistsException("Department Name Already Exist");
             }
-            //var dbDepartments = await _unitOfWork.departmentRepository.GetAllAsync(d => d.IsDeleted == false);
-            //foreach (var dbDepartament in dbDepartments)
-            //{
-            //    if (updateVM.Name.ToLower().Trim() == dbDepartament.Name.ToLower().Trim())
-            //    {
-            //        throw new DepartmentNameAlreadyExistsException("Department already exist");
-            //    }
-            //}
 
             dbDepartment.Name = updateVM.Name != null ? updateVM.Name : dbDepartment.Name;
             dbDepartment.Description = updateVM.Description != null ? updateVM.Description : dbDepartment.Description;

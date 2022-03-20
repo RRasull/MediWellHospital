@@ -28,12 +28,6 @@
                 </div>
                 <div class="form-group">
                     <div class="form-line">
-                        <input asp-for="Splztion" class="form-control" placeholder="Sahəsi">
-                        <span class="text-danger" asp-validation-for="Splztion"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-line">
                         <input asp-for="Address" class="form-control" placeholder="Adress">
                         <span class="text-danger" asp-validation-for="Address"></span>
                     </div>
@@ -53,12 +47,11 @@
 
                 </div>
                 <div class="form-group drop-custum">
-                    <select asp-for="DepartamentId" asp-items="@ViewBag.Departments" class="form-control">
-                        <option selected>Şöbə Seçin</option>
-                        @foreach (var departament in Model.Departaments)
+                    <select asp-for="DepartamentId" class="form-control">
+                        <option value="">Şöbə Seçin</option>
+                        @foreach (var departament in Model.AllDepartaments)
                         {
                             <option value="@departament.Id">@departament.Name</option>
-
                         }
                     </select>
                     <span class="text-danger" asp-validation-for="DepartamentId"></span>

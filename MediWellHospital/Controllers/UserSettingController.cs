@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -74,6 +75,10 @@ namespace MediWellHospital.Controllers
                 {
                     await ChangePassword(user, userSettingVM);
                 }
+                if (userSettingVM.ProfilePhoto != null)
+                {
+                    await ChangeImage(user, userSettingVM);
+                }
             }
             catch (Exception ex)
             {
@@ -107,25 +112,50 @@ namespace MediWellHospital.Controllers
 
         }
 
-        //public async Task ChangeImage(User user, UserSettingVM userSettingVM)
-        //{
+        public async Task ChangeImage(User user, UserSettingVM userSettingVM)
+        {
 
-        //    if (!userSettingVM.ProfilePhoto.CheckContent("image/"))
-        //    {
-        //        throw new FileTypeException("Fayl şəkil formatında olmalıdır");
-        //    }
+            User dbUser = await _userManager.FindByIdAsync(user.Id);
 
-        //    if (!userSettingVM.ProfilePhoto.CheckLength(2000))
-        //    {
-        //        throw new FileTypeException("Fayl 2mb-dan çox ola bilməz");
-        //    }
+            if (dbUser is null) throw new UserException("User Not Found");
 
-        //    string fileName = await userSettingVM.ProfilePhoto.SaveFileAsync(_env.WebRootPath, "assets/images/Profile");
+            if(userSettingVM.ProfilePhoto != null)
+            {
+                if (!userSettingVM.ProfilePhoto.CheckContent("image/"))
+                {
+                    throw new FileTypeException("Fayl şəkil formatında olmalıdır");
+                }
 
-        //    userSettingVM.Image = fileName;
+                if (!userSettingVM.ProfilePhoto.CheckLength(2000))
+                {
+                    throw new FileTypeException("Fayl 2 mb-dan az olmamalıdır");
+                }
 
-        //    await _unitOfWork..CreateAsync(department);
-        //    await _unitOfWork.SaveAsync();
-        //}
+                string fileName = await userSettingVM.ProfilePhoto.SaveFileAsync(_env.WebRootPath, "assets/images/Profile");
+
+                //Photo Update
+                if (dbUser.Image != null)
+                {
+                    var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Profile", userSettingVM.ProfilePhoto.FileName);
+
+
+                    if (System.IO.File.Exists(oldPath))
+                    {
+                        System.IO.File.Delete(oldPath);
+                    }
+
+                    
+                }
+
+                //Photo Create
+                dbUser.Image = fileName;
+
+
+                //await _unitOfWork.departmentRepository.CreateAsync(department);
+
+            }
+
+            await _unitOfWork.SaveAsync();
+        }
     }
 }

@@ -22,8 +22,8 @@ namespace Business.ViewModels.DoctorVM
         public string Splztion { get; set; }
         public Gender Gender { get; set; }
         public int? DepartamentId { get; set; }
-        public List<Departament> Departaments { get; set; }
-
+        public List<Departament> AllDepartaments { get; set; }
+        public Departament Department { get; set; }
 
         public string Image { get; set; }
         public IFormFile Photo { get; set; }

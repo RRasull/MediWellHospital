@@ -19,6 +19,7 @@ using Business.Utilities.Email;
 using static Business.Utilities.Helper.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Business.Exceptions;
 
 namespace MediWellHospital.Areas.AdminHospital.Controllers
 {
@@ -90,7 +91,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             }
 
             
-
             User user = new User()
             {
                 UserName = doctorCreateIdentityVM.Username,
@@ -105,7 +105,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
                 ModelState.AddModelError(string.Empty, "Bu e-poçtla qeydiyyatdan keçə bilməzsiniz, çünki o, artıq mövcuddur");
                 return View(doctorCreateIdentityVM);
             }
-
 
 
             var identityResult = await _userManager.CreateAsync(user, doctorCreateIdentityVM.Password);
@@ -134,7 +133,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         public async Task<IActionResult> Update(int id)
         {
-            
             DoctorUpdateVM doctorUpdateVM = await _doctorService.Update(id);
             return View(doctorUpdateVM);
         }
@@ -144,41 +142,53 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, DoctorUpdateVM doctorUpdateVM)
         {
-            var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
-
-            DoctorCreateIdentityVM doctorCreate = new DoctorCreateIdentityVM
+            try
             {
-                Departaments = departaments
-            };
+                if (!ModelState.IsValid) return View(doctorUpdateVM);
+                //if (id != doctorUpdateVM.Id) return BadRequest();
+                //var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+                //if (dbDoctor is null) return NotFound();
 
-            if (!ModelState.IsValid) return View(doctorUpdateVM);
-            if (id != doctorUpdateVM.Id) return BadRequest();
-            var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
-            if (dbDoctor is null) return NotFound();
+                //var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
 
-            if (!doctorUpdateVM.Photo.CheckContent("image/"))
-            {
-                ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");
-                return View(departaments);
+                //DoctorCreateIdentityVM doctorCreate = new DoctorCreateIdentityVM
+                //{
+                //    Departaments = departaments
+                //};
+
+                await _doctorService.UpdateAsync(id, doctorUpdateVM);
+
+                return RedirectToAction(nameof(Index));
             }
-
-            if (!doctorUpdateVM.Photo.CheckLength(2000))
+            catch (Exception ex)
             {
-                ModelState.AddModelError("Photo", "Faylın ölçüsü 2 mb-dan az olmalıdır");
-                return View(departaments);
+                ModelState.AddModelError(String.Empty, ex.Message.ToString());
+                return RedirectToAction(nameof(Index));
             }
-
-
-            await _doctorService.UpdateAsync(id, doctorUpdateVM);
-
-            return RedirectToAction(nameof(Index));
+           
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _doctorService.RemoveAsync(id);
+            var user = await _userManager.GetUserAsync(User);
+            User dbUser = await _userManager.FindByIdAsync(user.Id);
+
+            var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+
+
+            if (dbDoctor is null) throw new NotFoundException("Doctor Not Found While Remove ");
+
+
+            dbDoctor.Photo.RemoveFileAsync(_env.WebRootPath, "assets/images/Doctors", dbDoctor.Image);
+
+            dbDoctor.IsDeleted = true;
+            _unitOfWork.usersRepository.Remove(dbUser);
+
+            await _userManager.DeleteAsync(dbUser);
+
+            await _unitOfWork.SaveAsync();
             return RedirectToAction(nameof(Index));
         }
 

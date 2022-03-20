@@ -34,19 +34,6 @@ namespace Business.Implementations
         }
         public async Task CreateAsync(DoctorCreateIdentityVM identityCreateVM)
         {
-
-            if (!identityCreateVM.Photo.CheckContent("image/"))
-            {
-                throw new FileTypeException("Fayl şəkil formatında olmalıdır");
-            }
-
-            if (!identityCreateVM.Photo.CheckLength(2000))
-            {
-                throw new FileTypeException("Faylın ölçüsü uygun gəlmir");
-            }
-
-            
-
             string fileName = await identityCreateVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
             Doctor doctor = new Doctor
             {
@@ -57,12 +44,11 @@ namespace Business.Implementations
                 Education = identityCreateVM.DoctorEducation,
                 Fees = identityCreateVM.DoctorFees,
                 Photo = identityCreateVM.Photo,
-                Splztion = identityCreateVM.DoctorSplztion,
                 Gender = identityCreateVM.Gender,
                 WorkingHours = identityCreateVM.DoctorWorkingHours,
                 Phone = identityCreateVM.DoctorPhone,
                 Description = identityCreateVM.Description,
-                DepartamentId = identityCreateVM.DepartamentId     
+                DepartamentId = identityCreateVM.DepartamentId
             };
 
             doctor.Image = fileName;
@@ -80,16 +66,12 @@ namespace Business.Implementations
            
 
             var dbDoctor = _unitOfWork.doctorRepository.Get(d => !d.IsDeleted && d.Id == id);
-            //var dbUser = _unitOfWork.usersRepository.Get(u=>u.Id==userId);
 
             if (dbDoctor is null) throw new NotFoundException("Doctor Not Found") ;
 
             DoctorUpdateVM doctorUpdateVM = new DoctorUpdateVM
             {
                 Id = dbDoctor.Id,
-                //UserId = dbUser.Id,
-                //Username = dbUser.UserName,
-                //Email = dbUser.Email,
                 Name = dbDoctor.Name,
                 Surname = dbDoctor.Surname,
                 Education = dbDoctor.Education,
@@ -99,55 +81,65 @@ namespace Business.Implementations
                 Description = dbDoctor.Description,
                 Phone = dbDoctor.Phone,
                 Photo = dbDoctor.Photo,
-                Splztion = dbDoctor.Splztion,
                 WorkingHours = dbDoctor.WorkingHours,
                 Image = dbDoctor.Image,
-                Departaments = departaments
+                AllDepartaments = departaments
             };
             return doctorUpdateVM;
         }
 
         public async Task UpdateAsync(int id, DoctorUpdateVM updateVM)
         {
-            if (!updateVM.Photo.CheckContent("image/"))
-            {
-                throw new FileTypeException("Fayl şəkil formatında olmalıdır");
-
-            }
-
-            if (!updateVM.Photo.CheckLength(2000))
-            {
-                throw new FileTypeException("Fayl 2 mb-dan az olmamalıdır");
-            }
+            if (id != updateVM.Id) throw new BadRequestException("400 Bad Request");
             var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+            if (dbDoctor is null) throw new BadRequestException("404 Not Found");
 
-            //var dbUser = await _unitOfWork.usersRepository.GetAsync(u => u.Id==updateVM.UserId);
+            var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
 
-
-            var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Doctors", updateVM.Photo.FileName);
-
-
-            if (System.IO.File.Exists(oldPath))
+            DoctorCreateIdentityVM doctorCreate = new DoctorCreateIdentityVM
             {
-                System.IO.File.Delete(oldPath);
+                Departaments = departaments
+            };
+
+            if(updateVM.Photo != null)
+            {
+                if (!updateVM.Photo.CheckContent("image/"))
+                {
+                    throw new FileTypeException("Fayl şəkil formatında olmalıdır");
+
+                }
+
+                if (!updateVM.Photo.CheckLength(2000))
+                {
+                    throw new FileTypeException("Fayl 2 mb-dan az olmamalıdır");
+                }
+
+                //var dbUser = await _unitOfWork.usersRepository.GetAsync(u => u.Id==updateVM.UserId);
+
+
+                var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Doctors", updateVM.Photo.FileName);
+
+
+                if (System.IO.File.Exists(oldPath))
+                {
+                    System.IO.File.Delete(oldPath);
+                }
+
+                string fileName = await updateVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
             }
 
-            string fileName = await updateVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
 
-
-            dbDoctor.Name = updateVM.Name;
-            dbDoctor.Surname = updateVM.Surname;
-            dbDoctor.WorkingHours = updateVM.WorkingHours;
-            dbDoctor.Description = updateVM.Description;
-            dbDoctor.Address = updateVM.Address;
-            dbDoctor.Education = updateVM.Education;
-            dbDoctor.Fees = updateVM.Fees;
-            dbDoctor.Gender = updateVM.Gender;
-            dbDoctor.Splztion = updateVM.Splztion;
-            dbDoctor.Phone = updateVM.Phone;
-            dbDoctor.DepartamentId = updateVM.DepartamentId;
-            dbDoctor.Image = fileName;
-
+            dbDoctor.Name = updateVM.Name != null ? updateVM.Name : dbDoctor.Name;
+            dbDoctor.Surname = updateVM.Surname != null ? updateVM.Surname : dbDoctor.Surname;
+            dbDoctor.WorkingHours = updateVM.WorkingHours != null ? updateVM.WorkingHours : dbDoctor.WorkingHours;
+            dbDoctor.Description = updateVM.Description != null ? updateVM.Description : dbDoctor.Description;
+            dbDoctor.Address = updateVM.Address != null ? updateVM.Address : dbDoctor.Address;
+            dbDoctor.Education = updateVM.Education != null ? updateVM.Education : dbDoctor.Education;
+            dbDoctor.Fees = updateVM.Fees != null ? updateVM.Fees : dbDoctor.Fees;
+            dbDoctor.Gender = updateVM.Gender != null ? updateVM.Gender : dbDoctor.Gender;
+            dbDoctor.Phone = updateVM.Phone != null ? updateVM.Phone : dbDoctor.Phone;
+            dbDoctor.DepartamentId = updateVM.DepartamentId != null ? updateVM.DepartamentId : dbDoctor.DepartamentId;
+            
             await _unitOfWork.SaveAsync();
         }
 
@@ -156,15 +148,14 @@ namespace Business.Implementations
         {
             var dbDoctor= await _unitOfWork.doctorRepository.GetAllAsync(d => !d.IsDeleted);
 
-
             List<DoctorGetVM> doctorVM = new List<DoctorGetVM>();
 
             foreach (var doctor in dbDoctor)
             {
+                var department =await _unitOfWork.departmentRepository.GetAsync(d => !d.IsDeleted && d.Id ==doctor.DepartamentId);
                 DoctorGetVM readVM = new DoctorGetVM
                 {
                    Id = doctor.Id,
-                   //UserId = doctor.ApplicationUserId,
                    Name = doctor.Name,
                    Surname = doctor.Surname,
                    Address = doctor.Address,
@@ -176,7 +167,7 @@ namespace Business.Implementations
                    Gender = doctor.Gender,
                    Fees = doctor.Fees,
                    WorkingHours = doctor.WorkingHours,
-                   Splztion = doctor.Splztion
+                   Departament = department
                 };
 
                 doctorVM.Add(readVM);
@@ -191,19 +182,21 @@ namespace Business.Implementations
 
         public async Task RemoveAsync(int id)
         {
-            var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
-            var dbUser = await _unitOfWork.usersRepository.GetAsync(d=>int.Parse(d.Id)==id);
+            //var user = await _userManager.GetUserAsync(User);
+            //User dbUser = await _userManager.FindByIdAsync(user.);
+
+            //var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+            
+
+            //if (dbDoctor is null) throw new NotFoundException("While Remove Doctor Not Found");
 
 
-            if (dbDoctor is null) throw new NotFoundException("While Remove Doctor Not Found");
+            //dbDoctor.Photo.RemoveFileAsync(_env.WebRootPath, "assets/images/Doctors", dbDoctor.Image);
 
+            //dbDoctor.IsDeleted = true;
+            //_unitOfWork.usersRepository.Remove(dbUser);
 
-            dbDoctor.Photo.RemoveFileAsync(_env.WebRootPath, "assets/images/Doctors", dbDoctor.Image);
-
-            dbDoctor.IsDeleted = true;
-            _unitOfWork.usersRepository.Remove(dbUser);
-
-            await _unitOfWork.SaveAsync();
+            //await _unitOfWork.SaveAsync();
         }
 
         public async Task<DoctorCreateIdentityVM> Create()

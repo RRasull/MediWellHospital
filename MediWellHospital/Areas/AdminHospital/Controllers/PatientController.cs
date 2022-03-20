@@ -1,4 +1,5 @@
-﻿using Business.Interfaces;
+﻿using Business.Exceptions;
+using Business.Interfaces;
 using Business.Utilities.Email;
 using Business.Utilities.Helper;
 using Business.ViewModels.PatientVM;
@@ -163,7 +164,22 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _patientService.RemoveAsync(id);
+            var user = await _userManager.GetUserAsync(User);
+            User dbUser = await _userManager.FindByIdAsync(user.Id);
+
+            var dbPatient = await _unitOfWork.patientRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+
+
+            if (dbPatient is null) throw new NotFoundException("Patient Not Found While Remove ");
+
+
+            dbPatient.Photo.RemoveFileAsync(_env.WebRootPath, "assets/images/Patients", dbPatient.Image);
+
+            dbPatient.IsDeleted = true;
+            _unitOfWork.usersRepository.Remove(dbUser);
+
+            await _userManager.DeleteAsync(dbUser);
+            await _unitOfWork.SaveAsync();
             return RedirectToAction(nameof(Index));
         }
 

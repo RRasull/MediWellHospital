@@ -1,0 +1,52 @@
+﻿@using Business.ViewModels.AppointmentVM
+@model List<AppointmentGetVM>
+@{
+    ViewData["Title"] = "Index";
+    int count = 1;
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Həkimlər</h4>
+            <div class="table-responsive">
+                <a asp-action="Create" class="btn btn-success">Create</a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sıra</th>
+                            <th>Pasientin E-Postası</th>
+                            <th>Pasientin Istifadəçi adı</th>
+                            <th>Pasientin Mobil Nömrəsi</th>
+                            <th>Həkimin Adı</th>
+                            <th>Həkimin E-Postası</th>
+                            <th>Pasient Mesajı</th>
+                            <th>Qeydiyyat Tarixi</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var appointment in Model)
+                        {
+                        <tr>
+
+                            <td>@count</td>
+
+                            <td>@appointment.PatientEmail</td>
+                            <td>@appointment.PatientUserName</td>
+                            <td>@appointment.PatientPhone</td>
+                            <td>@appointment.Doctor.Name</td>
+                            <td>@appointment.Doctor.EmailAddress</td>
+                            <td>@appointment.PatientMessage</td>
+                            <td>@appointment.AppointDate</td>
+
+                        </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

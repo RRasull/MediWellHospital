@@ -10,9 +10,8 @@ namespace Business.ViewModels.AppointmentVM
    public class AppointmentVM
     {
         public List<DoctorGetVM> Doctors { get; set; }
-        public List<Departament> Departaments { get; set; }
 
-        [DisplayFormat(DataFormatString = "{dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public AppointCreateVM AppointCreateVM { get; set; }
     }
 }

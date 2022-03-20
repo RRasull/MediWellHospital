@@ -11,12 +11,13 @@ namespace Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Appointment> builder)
         {
-            builder.Property(d => d.Status).IsRequired();
+            builder.Property(d => d.PatientMessage).IsRequired();
+            builder.Property(d => d.PatientPhone).IsRequired();
             builder.Property(d => d.AppointDate).IsRequired();
+            builder.Property(d => d.DoctorId).IsRequired();
+
+
             builder.Property(d => d.IsDeleted).IsRequired().HasDefaultValue(false);
-
-
-
 
         }
     }

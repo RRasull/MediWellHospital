@@ -172,11 +172,10 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            var user = await _userManager.GetUserAsync(User);
-            User dbUser = await _userManager.FindByIdAsync(user.Id);
 
             var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
 
+            var dbUser = await _userManager.FindByEmailAsync(dbDoctor.EmailAddress);
 
             if (dbDoctor is null) throw new NotFoundException("Doctor Not Found While Remove ");
 

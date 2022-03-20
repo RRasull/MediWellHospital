@@ -44,6 +44,14 @@ namespace Data.Implementations
                 : await query.Where(exp).ToListAsync();
         }
 
+        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> exp = null, params string[] includes)
+        {
+            var query = GetQuery(includes);
+            return exp is null
+                ? query.ToList()
+                : query.Where(exp).ToList();
+        }
+
         public async Task<List<TEntity>> Take(int number, Expression<Func<TEntity, bool>> exp = null, params string[] includes)
         {
             var query = GetQuery(includes);

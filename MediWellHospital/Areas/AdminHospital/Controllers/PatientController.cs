@@ -164,11 +164,12 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            var user = await _userManager.GetUserAsync(User);
-            User dbUser = await _userManager.FindByIdAsync(user.Id);
+            
+            //User dbUser = await _userManager.FindByIdAsync(user.Id);
 
             var dbPatient = await _unitOfWork.patientRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
 
+            var user = await _userManager.FindByEmailAsync(dbPatient.EmailAddress);
 
             if (dbPatient is null) throw new NotFoundException("Patient Not Found While Remove ");
 
@@ -176,9 +177,9 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             dbPatient.Photo.RemoveFileAsync(_env.WebRootPath, "assets/images/Patients", dbPatient.Image);
 
             dbPatient.IsDeleted = true;
-            _unitOfWork.usersRepository.Remove(dbUser);
+            _unitOfWork.usersRepository.Remove(user);
 
-            await _userManager.DeleteAsync(dbUser);
+            await _userManager.DeleteAsync(user);
             await _unitOfWork.SaveAsync();
             return RedirectToAction(nameof(Index));
         }

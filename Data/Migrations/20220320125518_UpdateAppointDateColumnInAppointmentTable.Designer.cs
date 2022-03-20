@@ -4,14 +4,16 @@ using Data.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220320125518_UpdateAppointDateColumnInAppointmentTable")]
+    partial class UpdateAppointDateColumnInAppointmentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,38 +31,30 @@ namespace Data.Migrations
                     b.Property<DateTime>("AppointDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DoctorId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<string>("DoctorName")
+                    b.Property<string>("DoctorComment")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DoctorId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("DoctorTimeSlotId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsChecked")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<string>("PatientEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PatientMessage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("PatientPhone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PatientUsername")
-                        .IsRequired()
+                    b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -636,9 +630,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("Core.Models.Doctor", "Doctor")
                         .WithMany("Appointments")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DoctorId");
 
                     b.HasOne("Core.Models.DoctorTimeSlot", null)
                         .WithMany("Appointments")

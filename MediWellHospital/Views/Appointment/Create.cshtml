@@ -1,0 +1,109 @@
+﻿@model AppointCreateVM
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- ======= Appointment Section ======= -->
+<section id="appointment" class="appointment ctn section-bg">
+    <div class="container my-5">
+
+        <div class="section-title">
+            <h2>Görüş Təyin Et</h2>
+            <p>Klinikamıza gəlmədən öncədən görüş təyin ederek qeydiyyatdan keçə bilərsiniz</p>
+        </div>
+
+        <form method="post">
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input asp-for="User.UserName" class="form-control" placeholder="Ad">
+                            <span class="text-danger" asp-validation-for="User.UserName"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group mt-3 mt-md-0">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input asp-for="User.Email" class="form-control" placeholder="E-Posta">
+                            <span class="text-danger" asp-validation-for="User.Email"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group mt-3 mt-md-0">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input asp-for="Phone" class="form-control" placeholder="Telefon">
+                            <span class="text-danger" asp-validation-for="Phone"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group mt-3">
+                    <div class="form-group">
+                        <div id="datetimepicker1" class="form-line">
+                            <input asp-for="AppointDate" class="datepicker form-control" placeholder="Qeydiyyat Tarixi">
+                            <span class="text-danger" asp-validation-for="AppointDate"></span>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-md-4 form-group mt-3">
+                        <div class="form-group drop-custum">
+                            <select asp-for="AppointCreateVM.DepartamentId" id="ddlDepartment" class="form-control">
+                                <option value="">Şöbə Seçin</option>
+                                @foreach (var departament in Model.Departaments)
+                                {
+                                    <option value="@departament.Id">@departament.Name</option>
+                                }
+                            </select>
+                            <span class="text-danger" asp-validation-for="AppointCreateVM.DepartamentId"></span>
+
+                        </div>
+
+                        <div class="validate"></div>
+                    </div>*@
+                <div class="col-md-4 form-group mt-3">
+                    <div class="form-group drop-custum">
+                        <select asp-for="DoctorId" class="form-control">
+                            <option value="">Həkim Seçin</option>
+                            @foreach (var doctor in Model.Doctors)
+                            {
+                                <option value="@doctor.Id">@doctor.Name</option>
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="DoctorId"></span>
+
+                    </div>
+                    <div class="validate"></div>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <textarea class="form-control" asp-for="Message" rows="5" placeholder="Mesaj (Opsional)"></textarea>
+                @*<div class="validate"></div>*@
+            </div>
+            <div class="text-center cta-btn scrollto">
+                <button asp-for="Create" type="submit">Qeydiyyat Götür</button>
+            </div>
+        </form>
+
+    </div>
+</section>
+<!-- End Appointment Section -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="fas fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'DD/MM/YYYY HH:mm'
+        });
+    });
+</script>
+
+

@@ -25,6 +25,8 @@
     <Compile Remove="Migrations\20220320011041_AddForeignKeyToDepartmentIdOnDoctorTable.Designer.cs" />
     <Compile Remove="Migrations\20220320111623_UpdateAppointDateColumnInAppointmentTable.cs" />
     <Compile Remove="Migrations\20220320111623_UpdateAppointDateColumnInAppointmentTable.Designer.cs" />
+    <Compile Remove="Migrations\20220320124830_UpdateAppointDateColumnInAppointmentTable.cs" />
+    <Compile Remove="Migrations\20220320124830_UpdateAppointDateColumnInAppointmentTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -197,6 +197,7 @@
     <script src="~/assets/owl-carousel/main.js"></script>
 
     <script src="~/assets/lib/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false); 
+    <script src="~/assets/lib/jquery.unobtrusive-ajax.min.js"></script>
+    @RenderSection("Scripts", required: false); 
 </body>
 </html>

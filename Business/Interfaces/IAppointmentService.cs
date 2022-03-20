@@ -9,5 +9,7 @@ namespace Business.Interfaces
    public interface IAppointmentService
     {
         Task<List<AppointmentGetVM>> GetAllAsync();
+        Task CreateAsync(AppointCreateVM appointCreateVM);
+
     }
 }

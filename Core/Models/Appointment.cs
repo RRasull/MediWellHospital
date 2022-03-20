@@ -8,16 +8,29 @@ namespace Core.Models
    public class Appointment
     {
         public int? Id { get; set; }
-        [DisplayFormat(DataFormatString = "{dd-MM-yyyy}", ApplyFormatInEditMode = true)]
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime AppointDate { get; set; }
-        public string DoctorComment { get; set; }
-        public bool Status { get; set; }
         public int? PatientId { get; set; }
         public Patient Patient { get; set; }
+        [Required]
         public int? DoctorId { get; set; }
         public Doctor Doctor { get; set; }
-        public bool IsChecked { get; set; }
+
+        [Required]
+        public string PatientMessage { get; set; }
+        [Required]
+
+        public string PatientPhone { get; set; }
+
+        [Required]
+        public string PatientUsername { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string PatientEmail { get; set; }
+
+        public string DoctorName { get; set; }
 
         public bool IsDeleted { get; set; }
     }

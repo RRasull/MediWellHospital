@@ -10,10 +10,11 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 {
     [Area("AdminHospital")]
     [Authorize(Roles = "Admin")]
-    public class AppointmentController : Controller
+    public class AppointmentAdminController : Controller
     {
         private readonly IAppointmentService _appointmentService;
-        public AppointmentController(IAppointmentService appointmentService)
+
+        public AppointmentAdminController(IAppointmentService appointmentService)
         {
             _appointmentService = appointmentService;
         }
@@ -22,7 +23,5 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         {
             return View(await _appointmentService.GetAllAsync());
         }
-
-
     }
 }

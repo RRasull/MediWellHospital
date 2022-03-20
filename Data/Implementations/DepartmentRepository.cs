@@ -19,9 +19,5 @@ namespace Data.Implementations
         {
             _context = context;
         }
-
-
-
-        
     }
 }

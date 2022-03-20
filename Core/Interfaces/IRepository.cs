@@ -9,6 +9,8 @@ namespace Core.Interfaces
     {
         Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> exp = null, params string[] includes);
 
+        List<TEntity> GetAll(Expression<Func<TEntity, bool>> exp = null, params string[] includes);
+
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> exp = null, params string[] includes);
         TEntity Get(Expression<Func<TEntity, bool>> exp = null, params string[] includes);
 

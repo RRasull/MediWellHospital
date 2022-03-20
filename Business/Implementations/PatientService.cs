@@ -132,6 +132,13 @@ namespace Business.Implementations
             var dbPatient = await _unitOfWork.patientRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
             if (dbPatient is null) throw new BadRequestException("404 Not Found");
 
+            //var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
+
+            //PatientCreateIdentityVM doctorCreate = new PatientCreateIdentityVM
+            //{
+            //    Departaments = departaments
+            //};
+
             if (updateVM.Photo != null)
             {
                 if (!updateVM.Photo.CheckContent("image/"))
@@ -145,8 +152,10 @@ namespace Business.Implementations
                     throw new FileTypeException("Fayl 2 mb-dan az olmamalıdır");
                 }
 
+                //var dbUser = await _unitOfWork.usersRepository.GetAsync(u => u.Id==updateVM.UserId);
 
-                var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Patients", updateVM.Photo.FileName);
+
+                var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Doctors", updateVM.Photo.FileName);
 
 
                 if (System.IO.File.Exists(oldPath))
@@ -157,18 +166,32 @@ namespace Business.Implementations
                 string fileName = await updateVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
 
                 dbPatient.Image = fileName;
+
             }
 
 
-            dbPatient.Name = updateVM.Name != null ? updateVM.Name : dbPatient.Name;
-            dbPatient.Surname = updateVM.Surname != null ? updateVM.Surname : dbPatient.Surname;
-            dbPatient.Gender = updateVM.Gender != null ? updateVM.Gender : dbPatient.Gender;
-            dbPatient.Description = updateVM.Description != null ? updateVM.Description : dbPatient.Description;
-            dbPatient.Address = updateVM.Address != null ? updateVM.Address : dbPatient.Address;
-            dbPatient.Phone = updateVM.Phone != null ? updateVM.Phone : dbPatient.Phone;
-            dbPatient.BirthDate = updateVM.BirthDate != null ? updateVM.BirthDate : dbPatient.BirthDate;
-            dbPatient.Height = updateVM.Height != null ? updateVM.Height : dbPatient.Height;
-            dbPatient.Weight = updateVM.Weight != null ? updateVM.Weight : dbPatient.Weight;
+            //dbDoctor.Name = updateVM.Name != null ? updateVM.Name : dbDoctor.Name;
+            //dbDoctor.Surname = updateVM.Surname != null ? updateVM.Surname : dbDoctor.Surname;
+            //dbDoctor.WorkingHours = updateVM.WorkingHours != null ? updateVM.WorkingHours : dbDoctor.WorkingHours;
+            //dbDoctor.Description = updateVM.Description != null ? updateVM.Description : dbDoctor.Description;
+            //dbDoctor.Address = updateVM.Address != null ? updateVM.Address : dbDoctor.Address;
+            //dbDoctor.Education = updateVM.Education != null ? updateVM.Education : dbDoctor.Education;
+            //dbDoctor.Fees = updateVM.Fees != null ? updateVM.Fees : dbDoctor.Fees;
+            //dbDoctor.Gender = updateVM.Gender != null ? updateVM.Gender : dbDoctor.Gender;
+            //dbDoctor.Phone = updateVM.Phone != null ? updateVM.Phone : dbDoctor.Phone;
+            //dbDoctor.DepartamentId = updateVM.DepartamentId != null ? updateVM.DepartamentId : dbDoctor.DepartamentId;
+
+            dbPatient.Name = dbPatient.Name != null ? dbPatient.Name : dbPatient.Name;
+            dbPatient.Surname = dbPatient.Surname != null ? dbPatient.Surname : dbPatient.Surname;
+            dbPatient.Address = dbPatient.Address != null ? dbPatient.Address : dbPatient.Address;
+            dbPatient.BirthDate = dbPatient.BirthDate != null ? dbPatient.BirthDate : dbPatient.BirthDate;
+            dbPatient.Description = dbPatient.Description != null ? dbPatient.Description : dbPatient.Description;
+            dbPatient.Gender = dbPatient.Gender != null ? dbPatient.Gender : dbPatient.Gender;
+            dbPatient.Weight = dbPatient.Weight != null ? dbPatient.Weight : dbPatient.Weight;
+            dbPatient.Height = dbPatient.Height != null ? dbPatient.Height : dbPatient.Height;
+            dbPatient.Phone = dbPatient.Phone != null ? dbPatient.Phone : dbPatient.Phone;
+
+
 
             await _unitOfWork.SaveAsync();
         }

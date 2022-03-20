@@ -133,27 +133,51 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, PatientUpdateVM patientUpdateVM)
         {
-            if (!ModelState.IsValid) return View(patientUpdateVM);
-            if (id != patientUpdateVM.Id) return BadRequest();
-            var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
-            if (dbDoctor is null) return NotFound();
+            //if (!ModelState.IsValid) return View(patientUpdateVM);
+            //if (id != patientUpdateVM.Id) return BadRequest();
+            //var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+            //if (dbDoctor is null) return NotFound();
 
-            if (!patientUpdateVM.Photo.CheckContent("image/"))
+            //if (!patientUpdateVM.Photo.CheckContent("image/"))
+            //{
+            //    ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");
+            //    return View();
+            //}
+
+            //if (!patientUpdateVM.Photo.CheckLength(2000))
+            //{
+            //    ModelState.AddModelError("Photo", "Faylın ölçüsü 2 mb-dan az olmalıdır");
+            //    return View();
+            //}
+
+
+            //await _patientService.UpdateAsync(id, patientUpdateVM);
+
+            //return RedirectToAction(nameof(Index));
+
+            try
             {
-                ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");
-                return View();
-            }
+                if (!ModelState.IsValid) return View(doctorUpdateVM);
+                //if (id != doctorUpdateVM.Id) return BadRequest();
+                //var dbDoctor = await _unitOfWork.doctorRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+                //if (dbDoctor is null) return NotFound();
 
-            if (!patientUpdateVM.Photo.CheckLength(2000))
+                //var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
+
+                //DoctorCreateIdentityVM doctorCreate = new DoctorCreateIdentityVM
+                //{
+                //    Departaments = departaments
+                //};
+
+                await _doctorService.UpdateAsync(id, doctorUpdateVM);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
             {
-                ModelState.AddModelError("Photo", "Faylın ölçüsü 2 mb-dan az olmalıdır");
-                return View();
+                ModelState.AddModelError(String.Empty, ex.Message.ToString());
+                return RedirectToAction(nameof(Index));
             }
-
-
-            await _patientService.UpdateAsync(id, patientUpdateVM);
-
-            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]

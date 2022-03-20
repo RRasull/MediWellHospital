@@ -39,7 +39,8 @@ namespace MediWellHospital.Controllers
                 Departaments = await _unitOfWork.departmentRepository.Take(8, d => d.IsDeleted == false),
                 Doctors = await _doctorService.GetAllAsync(),
                 Setting = _unitOfWork.settingRepository.GetSetting(),
-                User = await _userManager.GetUserAsync(User)
+                User = await _userManager.GetUserAsync(User),
+                PatientComments = await _unitOfWork.patientCommentRepository.GetAllAsync(d => !d.IsDeleted)
             };
             
             return View(homeVM);

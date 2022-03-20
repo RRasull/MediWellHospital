@@ -108,7 +108,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             }
 
 
-
             var identityResult = await _userManager.CreateAsync(user, patientCreateIdentityVM.Password);
 
 
@@ -128,7 +127,6 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
             EmailHelper emailHelper = new EmailHelper();
 
             await _patientService.CreateAsync(patientCreateIdentityVM);
-
 
 
             return RedirectToAction(nameof(Index));

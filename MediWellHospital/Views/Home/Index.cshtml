@@ -167,50 +167,54 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div id="testimonial-slider" class="owl-carousel">
-                        <div class="item">
-                            <div class="testimonial-wrapp">
-                                <span class="quoted"><i class="fa fa-quote-right"></i></span>
-                                <div class="testimonial-text">
-                                    <p class="bottom40">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis eius voluptatum porro illo sed inventore exercitationem earum. Esse, harum non!</p>
+                        @foreach (var patientComment in Model.PatientComments)
+                        {
+                            <div class="item">
+                                <div class="testimonial-wrapp">
+                                    <span class="quoted"><i class="fa fa-quote-right"></i></span>
+                                    <div class="testimonial-text">
+                                        <p class="bottom40">@patientComment.Comment</p>
+                                    </div>
+                                    <div class="testimonial-photo"><img alt="" src="/assets/images/Patients/@patientComment.Image"></div>
+                                    <h4 class="darkcolor">@patientComment.Fullname</h4>
+                                    <small class="defaultcolor">@patientComment.Profession</small>
                                 </div>
-                                <div class="testimonial-photo"><img alt="" src="/assets/images/Patients/patient-1.jpg"></div>
-                                <h4 class="darkcolor">Sam David</h4>
-                                <small class="defaultcolor">Businessman</small>
                             </div>
-                        </div>
-                        <div class="item">
-                            <div class="testimonial-wrapp">
-                                <span class="quoted"><i class="fa fa-quote-right"></i></span>
-                                <div class="testimonial-text">
-                                    <p class="bottom40">Donec semper euismod nisi quis feugiat. Nullam finibus metus eget orci volutpat porta. Morbi quis arcu vulputate, dignissim mi ac, varius magna.</p>
-                                </div>
-                                <div class="testimonial-photo"><img alt="" src="images/testimonial-2.jpg"></div>
-                                <h4 class="darkcolor">Jams Shah</h4>
-                                <small class="defaultcolor">Businessman</small>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="testimonial-wrapp">
-                                <span class="quoted"><i class="fa fa-quote-right"></i></span>
-                                <div class="testimonial-text">
-                                    <p class="bottom40">Donec semper euismod nisi quis feugiat. Nullam finibus metus eget orci volutpat porta. Morbi quis arcu vulputate, dignissim mi ac, varius magna.</p>
-                                </div>
-                                <div class="testimonial-photo"><img alt="" src="images/testimonial-3.jpg"></div>
-                                <h4 class="darkcolor">Zubin Zucker</h4>
-                                <small class="defaultcolor">Businessman</small>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="testimonial-wrapp">
-                                <span class="quoted"><i class="fa fa-quote-right"></i></span>
-                                <div class="testimonial-text">
-                                    <p class="bottom40">Donec semper euismod nisi quis feugiat. Nullam finibus metus eget orci volutpat porta. Morbi quis arcu vulputate, dignissim mi ac, varius magna.</p>
-                                </div>
-                                <div class="testimonial-photo"><img alt="" src="images/testimonial-1.jpg"></div>
-                                <h4 class="darkcolor">David Zucker</h4>
-                                <small class="defaultcolor">Businessman</small>
-                            </div>
-                        </div>
+                        }
+
+                        @*<div class="item">
+            <div class="testimonial-wrapp">
+                <span class="quoted"><i class="fa fa-quote-right"></i></span>
+                <div class="testimonial-text">
+                    <p class="bottom40">Donec semper euismod nisi quis feugiat. Nullam finibus metus eget orci volutpat porta. Morbi quis arcu vulputate, dignissim mi ac, varius magna.</p>
+                </div>
+                <div class="testimonial-photo"><img alt="" src="images/testimonial-2.jpg"></div>
+                <h4 class="darkcolor">Jams Shah</h4>
+                <small class="defaultcolor">Businessman</small>
+            </div>
+        </div>
+        <div class="item">
+            <div class="testimonial-wrapp">
+                <span class="quoted"><i class="fa fa-quote-right"></i></span>
+                <div class="testimonial-text">
+                    <p class="bottom40">Donec semper euismod nisi quis feugiat. Nullam finibus metus eget orci volutpat porta. Morbi quis arcu vulputate, dignissim mi ac, varius magna.</p>
+                </div>
+                <div class="testimonial-photo"><img alt="" src="images/testimonial-3.jpg"></div>
+                <h4 class="darkcolor">Zubin Zucker</h4>
+                <small class="defaultcolor">Businessman</small>
+            </div>
+        </div>
+        <div class="item">
+            <div class="testimonial-wrapp">
+                <span class="quoted"><i class="fa fa-quote-right"></i></span>
+                <div class="testimonial-text">
+                    <p class="bottom40">Donec semper euismod nisi quis feugiat. Nullam finibus metus eget orci volutpat porta. Morbi quis arcu vulputate, dignissim mi ac, varius magna.</p>
+                </div>
+                <div class="testimonial-photo"><img alt="" src="images/testimonial-1.jpg"></div>
+                <h4 class="darkcolor">David Zucker</h4>
+                <small class="defaultcolor">Businessman</small>
+            </div>
+        </div>*@
                     </div>
                 </div>
             </div>

@@ -25,6 +25,8 @@ namespace Business.ViewModels
 
         public DoctorInfoVM DoctorInfoVM { get; set; }
         public List<ContactUs> ContactUs { get; set; }
+        public List<PatientComment> PatientComments { get; set; }
+
         public User User { get; set; }
         public IUnitOfWork UnitOfWork { get; set; }
 

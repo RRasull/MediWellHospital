@@ -45,6 +45,7 @@ namespace MediWellHospital
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IContactUsService, ContactUsService>();
             services.AddScoped<ISettingService, SettingService>();
+            services.AddScoped<IPatientCommentService, PatientCommentService>();
 
             services.AddScoped<LayoutService>();
 

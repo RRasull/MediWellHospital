@@ -25,13 +25,10 @@ namespace Business.ViewModels.PatientVM
         public DateTime BirthDate { get; set; }
         [Required]
 
-        public decimal Phone { get; set; }
+        public string Phone { get; set;     }
         [Required]
 
         public string Address { get; set; }
-        [Required]
-
-        public string EmailAddress { get; set; }
         [Required]
 
         public string Description { get; set; }

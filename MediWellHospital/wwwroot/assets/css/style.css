@@ -118,6 +118,10 @@ nav{
     .navbar #appointment{
       margin-left: 0px;
     }
+
+    #header a{
+        margin-right:30px;
+    }
   }
 
   .fixed {
@@ -140,9 +144,10 @@ nav{
     letter-spacing: 0.5px;
     text-transform: uppercase;
   }
-  nav .header-logo a {
-    color: #555555;
-  }
+    nav .header-logo a {
+        color: #555555;
+        
+    }
   nav .header-logo img {
     max-height: 40px;
   }
@@ -342,6 +347,10 @@ nav{
 
 #header a {
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
 }
 
 .appointment-btn {

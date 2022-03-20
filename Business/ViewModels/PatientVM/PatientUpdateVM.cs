@@ -19,7 +19,7 @@ namespace Business.ViewModels.PatientVM
         public DateTime BirthDate { get; set; }
 
 
-        public decimal Phone { get; set; }
+        public string Phone { get; set; }
 
 
         public string Address { get; set; }

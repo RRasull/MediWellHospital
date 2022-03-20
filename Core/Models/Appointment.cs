@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Core.Models
@@ -7,6 +8,8 @@ namespace Core.Models
    public class Appointment
     {
         public int? Id { get; set; }
+        [DisplayFormat(DataFormatString = "{dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+
         public DateTime AppointDate { get; set; }
         public string DoctorComment { get; set; }
         public bool Status { get; set; }

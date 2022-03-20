@@ -15,12 +15,11 @@ namespace Core.Models
         }
         public ICollection<Appointment> Appointments { get; set; }
         public int Id { get; set; }
-        public string Token { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public Gender Gender { get; set; }
         public DateTime BirthDate { get; set; }
-        public decimal Phone { get; set; }
+        public string Phone { get; set; }
         public string Address { get; set; }
         public string EmailAddress { get; set; }
         public string Description { get; set; }

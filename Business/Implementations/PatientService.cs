@@ -71,7 +71,6 @@ namespace Business.Implementations
                     Description = patient.Description,
                     Height = patient.Height,
                     Weight = patient.Weight,
-                    Appointments = patient.Appointments,
                     Image = patient.Image,
                     Phone = patient.Phone
                 };
@@ -89,26 +88,26 @@ namespace Business.Implementations
 
         public async Task RemoveAsync(int id)
         {
-            var dbPatient = await _unitOfWork.patientRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
-            var dbUser = await _unitOfWork.usersRepository.GetAsync(d => int.Parse(d.Id) == id);
+            //var dbPatient = await _unitOfWork.patientRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+            //var dbUser = await _unitOfWork.usersRepository.GetAsync(d => int.Parse(d.Id) == id);
 
 
-            if (dbPatient is null) throw new NotFoundException("While Remove Doctor Not Found");
+            //if (dbPatient is null) throw new NotFoundException("While Remove Doctor Not Found");
 
 
-            dbPatient.Photo.RemoveFileAsync(_env.WebRootPath, "assets/images/Doctors", dbPatient.Image);
+            //dbPatient.Photo.RemoveFileAsync(_env.WebRootPath, "assets/images/Doctors", dbPatient.Image);
 
-            dbPatient.IsDeleted = true;
-            _unitOfWork.usersRepository.Remove(dbUser);
+            //dbPatient.IsDeleted = true;
+            //_unitOfWork.usersRepository.Remove(dbUser);
 
-            await _unitOfWork.SaveAsync();
+            //await _unitOfWork.SaveAsync();
         }
 
         public PatientUpdateVM Update(int id)
         {
             var dbPatient = _unitOfWork.patientRepository.Get(d => !d.IsDeleted && d.Id == id);
 
-            if (dbPatient is null) throw new NotFoundException("Doctor Not Found");
+            if (dbPatient is null) throw new NotFoundException("Patient Not Found");
 
             PatientUpdateVM patientUpdateVM = new PatientUpdateVM
             {
@@ -117,7 +116,6 @@ namespace Business.Implementations
                 Surname = dbPatient.Surname,
                 Gender = dbPatient.Gender,
                 Address = dbPatient.Address,
-                EmailAddress = dbPatient.EmailAddress,
                 Description = dbPatient.Description,
                 Phone = dbPatient.Phone,
                 Photo = dbPatient.Photo,
@@ -132,36 +130,45 @@ namespace Business.Implementations
 
         public async Task UpdateAsync(int id, PatientUpdateVM updateVM)
         {
+            if (id != updateVM.Id) throw new BadRequestException("400 Bad Request");
             var dbPatient = await _unitOfWork.patientRepository.GetAsync(d => !d.IsDeleted && d.Id == id);
+            if (dbPatient is null) throw new BadRequestException("404 Not Found");
 
-
-            var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Patients", updateVM.Photo.FileName);
-
-
-            if (System.IO.File.Exists(oldPath))
+            if (updateVM.Photo != null)
             {
-                System.IO.File.Delete(oldPath);
+                if (!updateVM.Photo.CheckContent("image/"))
+                {
+                    throw new FileTypeException("Fayl şəkil formatında olmalıdır");
+
+                }
+
+                if (!updateVM.Photo.CheckLength(2000))
+                {
+                    throw new FileTypeException("Fayl 2 mb-dan az olmamalıdır");
+                }
+
+
+                var oldPath = Path.Combine(_env.WebRootPath, "assets", "images", "Patients", updateVM.Photo.FileName);
+
+
+                if (System.IO.File.Exists(oldPath))
+                {
+                    System.IO.File.Delete(oldPath);
+                }
+
+                string fileName = await updateVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
             }
 
-            string fileName = await updateVM.Photo.SaveFileAsync(_env.WebRootPath, "assets/images/Doctors");
 
-
-            dbPatient.Name = updateVM.Name;
-            dbPatient.Surname = updateVM.Surname;
-            dbPatient.Gender = updateVM.Gender;
-            dbPatient.Description = updateVM.Description;
-            dbPatient.Address = updateVM.Address;
-            dbPatient.EmailAddress = updateVM.EmailAddress;
-            dbPatient.Gender = updateVM.Gender;
-            dbPatient.Photo = updateVM.Photo;
-            dbPatient.Phone = updateVM.Phone;
-            dbPatient.BirthDate = updateVM.BirthDate;
-            dbPatient.Height = updateVM.Height;
-            dbPatient.Weight = updateVM.Weight;
-
-
-
-            dbPatient.Image = fileName;
+            dbPatient.Name = updateVM.Name != null ? updateVM.Name : dbPatient.Name;
+            dbPatient.Surname = updateVM.Surname != null ? updateVM.Surname : dbPatient.Surname;
+            dbPatient.Gender = updateVM.Gender != null ? updateVM.Gender : dbPatient.Gender;
+            dbPatient.Description = updateVM.Description != null ? updateVM.Description : dbPatient.Description;
+            dbPatient.Address = updateVM.Address != null ? updateVM.Address : dbPatient.Address;
+            dbPatient.Phone = updateVM.Phone != null ? updateVM.Phone : dbPatient.Phone;
+            dbPatient.BirthDate = updateVM.BirthDate != null ? updateVM.BirthDate : dbPatient.BirthDate;
+            dbPatient.Height = updateVM.Height != null ? updateVM.Height : dbPatient.Height;
+            dbPatient.Weight = updateVM.Weight != null ? updateVM.Weight : dbPatient.Weight;
 
             await _unitOfWork.SaveAsync();
         }

@@ -25,7 +25,7 @@ namespace Business.ViewModels.AppointmentVM
         public List<Doctor> Doctors { get; set; }
 
         [Required]
-        [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString ="{dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime AppointDate
         {
             get

@@ -41,7 +41,7 @@ namespace MediWellHospital.Controllers
 
         public async Task<IActionResult> DoctorsInfo(int id)
         {
-            var doctor =  await _doctorService.GetAsync(id);
+            var doctor =  await _unitOfWork.doctorRepository.GetAsync(d=>d.IsDeleted==false && d.Id==id);
             DoctorInfoVM doctorInfoVM = new DoctorInfoVM
             {
                 Id = doctor.Id,
@@ -55,17 +55,17 @@ namespace MediWellHospital.Controllers
                 Image = doctor.Image
             };
 
-            HomeVM homeVM = new HomeVM
-            {
-                Welcome = await _unitOfWork.welcomeRepository.GetAsync(W => W.IsDeleted == false),
-                Cards = await _unitOfWork.cardRepository.Take(4, c => c.IsDeleted == false),
-                Departaments = await _unitOfWork.departmentRepository.Take(8, d => d.IsDeleted == false),
-                Doctors = await _doctorService.GetAllAsync(),
-                Setting = _unitOfWork.settingRepository.GetSetting(),
-                DoctorInfoVM  = doctorInfoVM
+            //HomeVM homeVM = new HomeVM
+            //{
+            //    Welcome = await _unitOfWork.welcomeRepository.GetAsync(W => W.IsDeleted == false),
+            //    Cards = await _unitOfWork.cardRepository.Take(4, c => c.IsDeleted == false),
+            //    Departaments = await _unitOfWork.departmentRepository.Take(8, d => d.IsDeleted == false),
+            //    Doctors = await _doctorService.GetAllAsync(),
+            //    Setting = _unitOfWork.settingRepository.GetSetting(),
+            //    DoctorInfoVM  = doctorInfoVM
 
-            };
-            return View(homeVM);
+            //};
+            return View(doctorInfoVM);
         }
     }
 }

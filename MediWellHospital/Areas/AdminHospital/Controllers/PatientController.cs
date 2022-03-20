@@ -61,15 +61,10 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         }
 
-        //public async Task<IActionResult> Create()
-        //{
-        //    var departaments = await _unitOfWork.departmentRepository.GetAllAsync();
-        //    PatientCreateIdentityVM createDto = new PatientCreateIdentityVM
-        //    {
-        //        Departaments = departaments
-        //    };
-        //    return View(createDto);
-        //}
+        public IActionResult Create()
+        {
+            return View();
+        }
 
 
 
@@ -78,6 +73,8 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
 
         public async Task<IActionResult> Create(PatientCreateIdentityVM patientCreateIdentityVM)
         {
+            if (!ModelState.IsValid) return View(patientCreateIdentityVM);
+
             if (!patientCreateIdentityVM.Photo.CheckContent("image/"))
             {
                 ModelState.AddModelError("Photo", "Fayl şəkil formatında olmalıdır");
@@ -90,13 +87,10 @@ namespace MediWellHospital.Areas.AdminHospital.Controllers
                 return View();
             }
 
-            if (!ModelState.IsValid) return View(patientCreateIdentityVM);
-
             User user = new User()
             {
                 UserName = patientCreateIdentityVM.Username,
                 Email = patientCreateIdentityVM.Email
-
             };
 
             User userEmail = await _userManager.FindByEmailAsync(user.Email);

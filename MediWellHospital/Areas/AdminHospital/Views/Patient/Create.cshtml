@@ -83,7 +83,7 @@
                     <span class="text-danger" asp-validation-for="Address"></span>
                 </div>
                 <div class="form-group">
-                    <input asp-for="BirthDate" class="form-control" placeholder="Maaş">
+                    <input type="text" id="BirthDate" name="BirthDate" class="datepicker form-control" placeholder="Doğum İli">
                     <span class="text-danger" asp-validation-for="BirthDate"></span>
                 </div>
                 <div class="form-group">
@@ -100,3 +100,13 @@
     </div>
 </div>
 
+@section Scripts{
+    <script>
+        $(function () {
+            $('.datepicker').datepicker(
+                {
+                    dateFormat: 'dd-MM-yyyy'
+                });
+        });
+    </script>
+}

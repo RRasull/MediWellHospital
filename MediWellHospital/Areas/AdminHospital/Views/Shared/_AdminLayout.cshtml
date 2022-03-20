@@ -22,9 +22,11 @@
     <link rel="stylesheet" href="~/assets/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="~/assets/admin/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" type="text/css" href="~/assets/admin/js/select.dataTables.min.css">
+
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="~/assets/admin/css/vertical-layout-light/style.css">
+    @*<link href="~/assets/lib/jquery-ui-1.13.1.custom/jquery-ui.min.css" rel="stylesheet" />*@
     <!-- endinject -->
     @*<link rel="shortcut icon" href="images/favicon.png" />*@
 
@@ -347,20 +349,11 @@
     <script src="~/assets/admin/js/dashboard.js"></script>
     <script src="~/assets/admin/js/Chart.roundedBarCharts.js"></script>
     <!-- End custom js for this page-->
-    @RenderSection("Scripts", false)
+    @*<script src="~/assets/lib/jquery-ui-1.13.1.custom/jquery-ui.min.js"></script>*@
+    <script src="~/assets/lib/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" defer></script>
+    @await RenderSectionAsync("Scripts", false)
 </body>
 
 
 </html>
-
-
-<script>
-    $('.User-avtar').click(function () {
-        if ($(".User-Dropdown").hasClass("U-open")) {
-            $('.User-Dropdown').removeClass("U-open");
-        }
-        else {
-            $('.User-Dropdown').addClass("U-open");
-        }
-    });
-</script>

@@ -16,7 +16,6 @@ namespace Data.Configuration
             builder.Property(p => p.BirthDate).IsRequired();
             builder.Property(p => p.Phone).IsRequired().HasMaxLength(50);
             builder.Property(p => p.EmailAddress).IsRequired().HasMaxLength(150);
-            builder.Property(p => p.Image).IsRequired();
 
             builder.Property(p => p.IsDeleted).IsRequired().HasDefaultValue(false);
 

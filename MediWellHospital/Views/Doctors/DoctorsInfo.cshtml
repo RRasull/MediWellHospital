@@ -1,14 +1,8 @@
-﻿@using Business.ViewModels
-@model HomeVM
+﻿@using Business.ViewModels.DoctorVM
+@model DoctorInfoVM
 @{
     ViewData["Title"] = "DoctorsInfo";
 }
-@*@{
-
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }*@
-
-<!-- ======= Main Section Start ======= -->
 
 <main>
     <section id="AllDoctors">
@@ -17,22 +11,22 @@
             <div class="doctor">
                 <div class="row">
                     <div class="col-lg-6">
-                        <img style="width: 500px; height: 500px;" src="./assets/images/Doctors/@Model.DoctorInfoVM.Image" alt="Doc1">
+                        <img style="width: 500px; height: 500px;" src="~/assets/images/Doctors/@Model.Image" alt="Doc1">
                     </div>
 
                     <div class="col-lg-6">
                         <div class="doctor-info">
                             <h1 class="my-3 doctor-profession">
-                                <span class="font-weight-light">@Model.DoctorInfoVM.Splztn</span>
+                                <span class="font-weight-light">@Model.Splztn</span>
                             </h1>
                             <h2 class="my-5 doctor-name">
-                                <span class="font-weight-bold">Ad:</span>  <span class="font-weight-light">@Model.DoctorInfoVM.Name @Model.DoctorInfoVM.Surname </span>
+                                <span class="font-weight-bold">Ad:</span>  <span class="font-weight-light">@Model.Name @Model.Surname </span>
                             </h2>
                             <h2 class="my-5 doctor-profession">
-                                <span class="font-weight-bold">Iş saatları:</span>  <span class="font-weight-light">hər gün saat @Model.DoctorInfoVM.WorkingHours</span>
+                                <span class="font-weight-bold">Iş saatları:</span>  <span class="font-weight-light">hər gün saat @Model.WorkingHours</span>
                             </h2>
                             <h2 class="my-5 doctor-profession">
-                                <span class="font-weight-bold">Email:</span>  <span class="font-weight-light">@Model.DoctorInfoVM.EmailAdress</span>
+                                <span class="font-weight-bold">Email:</span>  <span class="font-weight-light">@Model.EmailAdress</span>
                             </h2>
 
                         </div>
@@ -46,7 +40,7 @@
                                 <span class="font-weight-bold">Təhsil: </span>
 
                             </h3>
-                            <p>@Model.DoctorInfoVM.Education</p>
+                            <p>@Model.Education</p>
 
                           
 
@@ -57,7 +51,7 @@
                             <ul>
                                 <li>
                                     <i class="fa-solid fa-check mx-3"></i>
-                                    @Model.DoctorInfoVM.Description
+                                    @Model.Description
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-check mx-3"></i>
